@@ -10,3 +10,28 @@ Este repositorio contiene la memoria del **Trabajo de Fin de Grado (TFG)** titul
 > [!IMPORTANT]  
 > En entornos de **Windows** es necesario instalar [`Strawberry Perl`](https://strawberryperl.com/).
 
+### Compilación
+
+- Con `latexmk`: `latexmk -pdf main.tex`
+- VSCode: Al guardar se compila solo.
+
+### Limpieza de archivos temporales
+
+```bash
+latexmk -c
+```
+
+### Estructura
+
+```bash
+/
+├── config/               # Archivos de configuración
+│   ├── ifcommands.sty    # Paquete personalizado
+│   └── macros.tex        # Definición de macros
+├── content/              # Capítulos y contenido del documento
+│   ├── chapters/         # Capítulos individuales
+│   └── cover/            # Portada
+├── figures/              # Imágenes y gráficos
+├── main.tex              # Archivo principal LaTeX
+└── referencias.bib       # Archivo de bibliografía
+```
