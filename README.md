@@ -12,14 +12,13 @@ Este repositorio contiene la memoria del **Trabajo de Fin de Grado (TFG)** titul
 
 ### Compilación
 
-- Con `latexmk`: `latexmk -pdf main.tex`
-- VSCode: Al guardar se compila solo.
+- **Manual**: `latexmk -pdf main.tex`
+- **VSCode**: `Ctrl + S`.
 
 ### Limpieza de archivos temporales
 
-```bash
-latexmk -c
-```
+- **Manual**: `latexmk -c`
+- **VSCode**: `Ctrl + Alt + C`
 
 ### Estructura
 
@@ -28,7 +27,7 @@ latexmk -c
 ├── config/               # Archivos de configuración
 │   ├── ifcommands.sty    # Paquete personalizado
 │   └── macros.tex        # Definición de macros
-├── content/              # Capítulos y contenido del documento
+├── content/              # Contenido del documento
 │   ├── chapters/         # Capítulos individuales
 │   └── cover/            # Portada
 ├── figures/              # Imágenes y gráficos
