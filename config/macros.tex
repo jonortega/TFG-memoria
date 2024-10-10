@@ -1,0 +1,94 @@
+%% CODIFICACION %%
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+
+%% FUENTES %%
+\usepackage{libertine}
+\usepackage{inconsolata}
+
+%% HYPERREFERENCES %%
+\usepackage[hyperindex,bookmarks,colorlinks=true,citecolor=blue,urlcolor=blue,linkcolor=blue,pagebackref]{hyperref}
+\renewcommand*{\backref}[1]{}
+\renewcommand\backreftwosep{, }
+\renewcommand\backrefsep{, }
+
+%% MISC. %%
+\usepackage{appendix}
+\usepackage{placeins}
+\usepackage[figuresright]{rotating}
+\usepackage{graphicx}
+\usepackage{subfig}
+\usepackage{float}
+%\floatstyle{boxed}
+\restylefloat{figure}
+\usepackage{xcolor, graphicx}
+\usepackage{multirow}
+\usepackage{pdfpages}
+\usepackage{xspace}
+\usepackage{microtype}
+\usepackage{longtable}
+\setsecnumdepth{subsubsection}
+\maxtocdepth {subsection}
+\setlength{\parskip}{5pt}
+\usepackage{enumerate}
+\makeatletter
+\renewcommand{\counterwithin}{\@ifstar{\@csinstar}{\@csin}}
+\makeatother
+\usepackage{doi}
+\usepackage{amsmath, amssymb, mathrsfs, mathtools}
+\usepackage[capitalise]{cleveref}
+
+\showtrimsoff
+
+\ifdefined\castellano
+	\newcommand{\upvehu}{Universidad del País Vasco UPV/EHU}
+	\newcommand{\gapizenburua}{Trabajo de Fin de Grado}
+	\newcommand{\malizenburua}{Tesis de Máster}
+	\newcommand{\thesisizenburua}{Tesis Doctoral}
+	\newcommand{\informatikafakultatea}{Facultad de Informática}
+	\renewcommand{\abstract}{Resumen}
+	\newcommand{\zuzendariaktestua}{Dirección}
+	\newcommand{\phdtext}{Dissertation submitted to the \saila of the University of the Basque Country (UPV/EHU) as partial fulfillment of the requirements for the Ph.D. degree in \phdarloa}
+\fi
+
+\usepackage[font=small,labelfont=bf]{caption}
+
+\ifdefined\castellano
+	\usepackage[spanish]{babel}
+	\addto\captionsspanish{
+		\renewcommand{\contentsname}{Índice de contenidos}
+		\renewcommand{\listfigurename}{Índice de figuras}
+		\renewcommand{\listtablename}{Índice de tablas}
+		\renewcommand{\appendixname}{Apéndice}%
+		\renewcommand{\appendixpagename}{Apéndices}
+		\renewcommand{\appendixtocname}{Apéndices}
+		\renewcommand{\bibname}{Bibliografía}
+		\renewcommand{\tablename}{Tabla}
+		\renewcommand{\figurename}{Figura}
+	}
+	\renewcommand*{\backrefalt}[4]{%
+		\ifcase #1%
+		\or Ver página #2.%
+		\else Ver páginas #2.%
+		\fi%
+	}
+\fi
+
+\let\theoldbibliography\thebibliography
+\renewcommand\thebibliography[1]{
+	\theoldbibliography{#1}
+	\setlength{\parskip}{0pt}
+	\setlength{\itemsep}{4pt plus 0.3ex}
+	\small
+}
+
+\ifdefined\croppedsize
+	\showtrimson
+	\trimLmarks
+	\settrimmedsize{240mm}{170mm}{*}
+	\settrims{28mm}{20mm}
+	\setlrmarginsandblock{30mm}{25mm}{*}
+	\setulmarginsandblock{30mm}{20mm}{*}
+
+	\checkandfixthelayout
+\fi

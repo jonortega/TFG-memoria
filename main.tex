@@ -1,0 +1,124 @@
+\documentclass[a4paper, 11pt, showtrims]{memoir}
+\semiisopage
+
+%\chapterstyle{default}
+%\chapterstyle{bianchi}
+%\chapterstyle{bringhurst}
+%\chapterstyle{brotherton}
+%\chapterstyle{chappell}
+%\chapterstyle{crosshead}
+%\chapterstyle{culver}
+%\chapterstyle{dash}
+%\chapterstyle{demo2}
+%\chapterstyle{demo3}
+%\chapterstyle{dowding}
+%\chapterstyle{ell}
+%\chapterstyle{ger}
+%\chapterstyle{komalike}
+%\chapterstyle{lyhne}
+%\chapterstyle{madsen}
+%\chapterstyle{ntglike}
+%\chapterstyle{pedersen}
+%\chapterstyle{southall}
+%\chapterstyle{tandh}
+%\chapterstyle{thatcher}
+\chapterstyle{veelo}
+%\chapterstyle{verville}
+%\chapterstyle{wilsondob}
+
+\pdfobjcompresslevel 0
+
+\usepackage[es]{config/ifcommands}
+
+%% INFORMACIÓN %%
+\newcommand{\egilea}{Jon Ortega Goikoetxea}
+\newcommand{\zuzendariak}{Miren Bermejo Llopis}
+\newcommand{\izenburua}{Título del trabajo}
+\newcommand{\data}{\today}
+\newcommand{\ikasketak}{Grado en Ingeniería Informática}
+\newcommand{\espezialitatea}{Ingeniería de Software}
+
+\newcommand{\castellano}
+
+\input config/macros
+
+\title{\izenburua}
+\author{\egilea}
+\date{\data}
+
+\begin{document}
+
+%%%%%%%%%%%
+% PORTADA %
+%%%%%%%%%%%
+
+%% SI HAY UNA PORTADA ESPECIAL (EN PDF), DESCOMENTAR%%
+% \includepdf[pages={1-}]{content/cover/cover.pdf}
+% \cleardoublepage
+%% EN CASO DE NO TENER UNA PORTADA ESPECIAL, DESCOMENTAR %%
+\input content/cover/cover_informatika
+
+\cleardoublepage
+\frontmatter
+
+%%%%%%%%%%%%%%%%%%%
+% AGRADECIMIENTOS %
+%%%%%%%%%%%%%%%%%%%
+
+\chapter*{Agradecimientos}
+\input content/chapters/agradecimientos
+\cleardoublepage
+
+%%%%%%%%%%%
+% RESUMEN %
+%%%%%%%%%%%
+
+\chapter*{Resumen}
+\input content/chapters/resumen
+\cleardoublepage
+
+%%%%%%%%%%%
+% ÍNDICES %
+%%%%%%%%%%%
+
+\tableofcontents
+\clearpage
+\listoffigures
+\clearpage
+\listoftables
+\clearpage
+\listofalgorithms
+\addcontentsline{toc}{chapter}{Índice de algoritmos}
+
+%%%%%%%%%%%%%
+% CONTENIDO %
+%%%%%%%%%%%%%
+
+\cleardoublepage
+\mainmatter
+\pagestyle{ruled}
+
+\chapter{Uso de la plantilla} \label{ch:plantilla}
+\input content/chapters/chap1
+\cleardoublepage
+
+%%%%%%%%%%%%%
+% APÉNDICES %
+%%%%%%%%%%%%%
+
+\backmatter
+\appendix
+
+\chapter{Apéndice} \label{ch:apendice}
+\input content/chapters/appendix
+
+%%%%%%%%%%%%%%%%
+% BIBLIOGRAFIA %
+%%%%%%%%%%%%%%%%
+
+\bibliographystyle{unsrt}
+\bibliography{referencias}
+%% ALDATU HEMEN EDUKIEN ZERRENDAN AGERTUKO DENA 
+\addcontentsline{tof}{chapter}{\bibname}
+
+\end{document}
