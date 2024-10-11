@@ -1,36 +1,27 @@
 \documentclass[a4paper, 11pt, showtrims]{memoir}
 \semiisopage
+\usepackage[es]{config/ifcommands}
 
-%\chapterstyle{default}
-%\chapterstyle{bianchi}
-%\chapterstyle{bringhurst}
-%\chapterstyle{brotherton}
-%\chapterstyle{chappell}
-%\chapterstyle{crosshead}
-%\chapterstyle{culver}
-%\chapterstyle{dash}
-%\chapterstyle{demo2}
-%\chapterstyle{demo3}
-%\chapterstyle{dowding}
-%\chapterstyle{ell}
-%\chapterstyle{ger}
-%\chapterstyle{komalike}
-%\chapterstyle{lyhne}
-%\chapterstyle{madsen}
-%\chapterstyle{ntglike}
-%\chapterstyle{pedersen}
-%\chapterstyle{southall}
-%\chapterstyle{tandh}
-%\chapterstyle{thatcher}
-\chapterstyle{veelo}
-%\chapterstyle{verville}
-%\chapterstyle{wilsondob}
+%%%%%%%%%%
+% ESTILO %
+%%%%%%%%%%
+
+%=========================================================================================================%
+% default, bianchi, bringhurst, brotherton, chappell, crosshead, culver, dash, demo2, demo3, dowding, ell,%
+% ger, komalike, lyhne, madsen, ntglike, pedersen, southall, tandh, thatcher, veelo, verville, wilsondob  %
+%=========================================================================================================%
+
+% \chapterstyle{ger} -> Entre lineas todo
+\chapterstyle{madsen}
+% \chapterstyle{veelo} -> El que venía, chulo
+% \chapterstyle{verville} -> Simple, centrado
 
 \pdfobjcompresslevel 0
 
-\usepackage[es]{config/ifcommands}
+%%%%%%%%%%%%%%%
+% INTOFMACIÓN %
+%%%%%%%%%%%%%%%
 
-%% INFORMACIÓN %%
 \newcommand{\egilea}{Jon Ortega Goikoetxea}
 \newcommand{\zuzendariak}{Miren Bermejo Llopis}
 \newcommand{\izenburua}{Título del trabajo}
@@ -45,6 +36,8 @@
 \title{\izenburua}
 \author{\egilea}
 \date{\data}
+
+%=====================================================================%
 
 \begin{document}
 
