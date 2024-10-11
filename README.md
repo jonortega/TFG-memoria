@@ -34,3 +34,24 @@ Este repositorio contiene la memoria del **Trabajo de Fin de Grado (TFG)** titul
 ├── main.tex              # Archivo principal LaTeX
 └── referencias.bib       # Archivo de bibliografía
 ```
+
+### Tipografía de EHU
+
+Para poder usar la tipografía oficial de EHU:
+  1. Añadir las fuentes `.otf` en una carpeta `fonts/` en la raíz.
+  2. Añadir el siguente código en `main,tex`:
+    ```tex
+    \usepackage{fontspec}
+    % ...
+    % \begin{document}
+    \setmainfont{EHUSans}[
+        Path = {./fonts/},
+        Extension = .otf,
+        UprightFont    = *-Regular,
+        BoldFont       = *-Bold,
+        ItalicFont     = *-Italic,
+        BoldItalicFont = *-BoldItalic
+    ]
+    ```
+ 3. Subir el proyecto entero a **Overleaf** en un `.zip`.
+ 4. Cambiar el motor de `pdfLaTeX` -> `XeLaTeX`
