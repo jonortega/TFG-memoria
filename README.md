@@ -37,21 +37,26 @@ Este repositorio contiene la memoria del **Trabajo de Fin de Grado (TFG)** titul
 
 ### Tipografía de EHU
 
-Para poder usar la tipografía oficial de EHU:
+Para poder usar la [tipografía oficial de EHU](https://www.ehu.eus/es/web/gizartea/ehu-tipografia):
   1. Añadir las fuentes `.otf` en una carpeta `fonts/` en la raíz.
-  2. Añadir el siguente código en `main,tex`:  
-  ```tex
-  \usepackage{fontspec}
-    % ...
-    % \begin{document}
-    \setmainfont{EHUSans}[
-    Path = {./fonts/},
-    Extension = .otf,
-    UprightFont    = *-Regular,
-    BoldFont       = *-Bold,
-    ItalicFont     = *-Italic,
-    BoldItalicFont = *-BoldItalic
-  ]
-  ```
+  2. Añadir el siguente código en `main,tex`:
+      ```tex
+      \usepackage{fontspec}
+        % ...
+        % \begin{document}
+        \setmainfont{EHUSans}[
+        Path = {./fonts/},
+        Extension = .otf,
+        UprightFont    = *-Regular,
+        BoldFont       = *-Bold,
+        ItalicFont     = *-Italic,
+        BoldItalicFont = *-BoldItalic
+      ]
+      ```
  3. Subir el proyecto entero a **Overleaf** en un `.zip`.
  4. Cambiar el motor de `pdfLaTeX` -> `XeLaTeX`
+
+> [!NOTE]  
+> Segun los **citerios de uso** de la normativa oficial:
+> - Textos en **euskera**: uso de la versión `EHU Serif`.
+> - Textos en **castellano** y en **otros idiomas**: uso de la versión `EHU Sans`.
