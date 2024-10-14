@@ -19,22 +19,21 @@ La posibilidad de crear un proyecto que me interese de principio a fin, y que yo
 
 \section{Objetivos}
 
+Para empezar a caracterizar el proyecto de manera concreta, en este apartado se define el propósito principal del desarrollo de la plataforma, así como los objetivos específicos que desglosan de manera más detallada las acciones necesarias para cumplir dicho objetivo general. Además, también se relaciona este proyecto con los Objetivos de Desarrollo Sostenible (ODS) de las Naciones Unidas, tomando como marco de referencia la \textit{EHUagenda 2030} de la UPV/EHU.
+
 \subsection{Objetivos del Proyecto}
 
-El objetivo general de este proyecto es desarrollar una plataforma web interactiva que permita a los usuarios de Spotify visualizar y analizar sus estadísticas musicales personales de forma continua y detallada, aprovechando la integración con la API de Spotify.
+El \textbf{objetivo general} de este proyecto es desarrollar una plataforma web interactiva que permita a los usuarios de \textit{Spotify} acceder a las visualizaciones y análisis de sus datos musicales personales cuando lo desee. Para alcanzar este objetivo general, se plantean los siguientes \textbf{objetivos específicos}:
 
-Para alcanzar este objetivo general, se plantean los siguientes objetivos específicos:
-
-\begin{enumerate}
-    \item \textbf{Implementar la autenticación de usuarios mediante OAuth 2.0} para acceder de forma segura a los datos personales de Spotify.
-    \item \textbf{Desarrollar un \textit{dashboard} interactivo} que presente estadísticas personalizadas a través de gráficos dinámicos y atractivos.
-    \item \textbf{Integrar la Web API de Spotify} para obtener y procesar datos relevantes sobre el comportamiento musical del usuario, incluyendo información no disponible en funciones como Spotify Wrapped.
-    \item \textbf{Aplicar tecnologías modernas como Next.js y TypeScript} para asegurar un desarrollo eficiente y proporcionar una experiencia de usuario óptima.
-    \item \textbf{Implementar prácticas de integración y despliegue continuo (CI/CD)} utilizando plataformas como Vercel, garantizando que la aplicación esté siempre actualizada y accesible.
-    \item \textbf{Realizar pruebas automatizadas con herramientas como Jest y GitHub Actions} para asegurar la calidad y funcionalidad del software.
-    \item \textbf{Diseñar una interfaz de usuario intuitiva y adaptable a diferentes dispositivos}, mejorando la experiencia de navegación y facilitando la interacción con las estadísticas.
-    \item \textbf{Documentar todo el proceso de desarrollo}, incluyendo análisis, diseño, implementación y pruebas, para proporcionar una guía completa y detallada del proyecto.
-\end{enumerate}
+\begin{itemize}
+    \item Analizar la API de \textit{Spotify} para obtener los datos necesarios.
+    \item Desarrollar la lógica necesaria para filtrar, organizar y transformar los datos obtenidos, preparándolos para su representación gráfica y asegurando que las estadísticas sean relevantes y significativas.
+    \item Diseñar una interfaz de usuario intuitiva, interactiva y adaptable a diferentes dispositivos.
+    \item Adoptar tecnologías modernas como \textit{Next.js} y \textit{TypeScript} para beneficiarse de las ventajas que ofrecen.
+    \item Implementar prácticas de integración y despliegue continuo (CI/CD) usando la plataforma de \textit{Vercel}.
+    \item Implementar políticas de seguridad con respecto a los datos de usuarios establecidas por \textit{Spotify} para desarrolladores.
+    \item Documentar el proceso de desarrollo.
+\end{itemize}
 
 \subsection{Objetivos de Desarrollo Sostenible}
 
@@ -49,10 +48,24 @@ En este proyecto se alinean varios Objetivos de Desarrollo Sostenible (ODS) de l
 
 
 \begin{itemize}
-    \item \textbf{ODS 3: Salud y Bienestar}. La música juega un papel importante en el bienestar emocional y mental. La capacidad que ofrece esta aplicación de mejorar la experiencia musical y permitir a los usuarios conectar más profundamente con su música, contibuye positivamente a su bienestar general.
+    \item \textbf{ODS 3: Salud y Bienestar}. La música juega un papel importante en el bienestar emocional y mental. La capacidad que ofrece esta aplicación de mejorar la experiencia musical y permitir a los usuarios conectar más profundamente con su música contibuye positivamente a su bienestar general.
     \item \textbf{ODS 9: Industria, Innovación e Infraestructura}. Como este proyecto implica el desarrollo utilizando tecnologías modernas como React, Next.js y Vercel, se fomenta la innovación tecnológica y se contribuye al desarrollo de infraestructuras digitales eficientes.
-    \item \textbf{ODS 18 (17+1): Garantizar la diversidad lingüística y cultural}. Al permitir que los usuarios exploren y aprecien música de diferentes culturas y en diversos idiomas, se facilita la exposición a otras culturas y lenguas, fomentando así el entendimiento y la apreciación cultural.
+    \item \textbf{ODS 18 (17+1): Garantizar la diversidad lingüística y cultural}. Al permitir que los usuarios exploren y aprecien música de diferentes culturas y en diversos idiomas, se facilita la exposición a estas, fomentando así el entendimiento y la apreciación cultural.
 \end{itemize}
 
 \section{Estructura de la Memoria}
+
+La estructura de esta memoria refleja las diferentes etapas por las que atraviesa un proyecto de desarrollo software. Cada capítulo aborda aspectos clave que contribuyen al logro de los objetivos propuestos.
+
+En la \nameref{ch:introduccion} se ha establecido el contexto del proyecto, la motivación que impulsa su realización y los objetivos tanto del proyecto como los relacionados con los ODS. A continuación, en la \nameref{ch:planificacion}, se define el alcance del proyecto y se aborda lodo lo relacionado con la gestión de tareas, riesgos y calidad del proyecto. Además, se presentan las tecologías que se han utilizado durante todo el desarrollo.
+
+El \nameref{ch:analisis} se centra en el estudio de la API de \textit{Spotify}, el cual es \textbf{fundamental para el desarrollo del proyecto}. Se especifican los requisitos y se presentan los casos de uso que guiarán el desarrollo de la aplicación. En conjunto con el capítulo anterior, en el \nameref{ch:diseño} se describe la arquitectura del sistema y la estructura de la interfaz de usuario (UI), tanto a nivel técnico como visual. Además, se abordan aspectos de seguridad y se planifica el diseño de las pruebas.
+
+La \nameref{ch:implementacion} detalla el proceso de desarrollo de la aplicación, incluyendo las decisiones tomadas durante esta fase. Se describen los retos enfrentados y cómo se han resuelto. Seguido, en el capítulo de las \nameref{ch:pruebas} se exponen las pruebas realizadas y se analizan los resultados obtenidos. Como consecuencia lógica, en \nameref{ch:despliegue} se explica el proceso de puesta en producción de la aplicación y las estrategias de Integración Continua y Despliegue Continuo (CI/CD) implementadas.
+
+Finalmente, en \nameref{ch:conclusiones} se hace una reflexión sobre los resultados alcanzados, evaluando el cumplimiento de los objetivos iniciales, el seguimiento en comparación a la planificación inicial y se discuten las lecciones aprendidas y se proponen líneas futuras de trabajo.
+
+Siguiendo este flujo, se espera que el público lector no tenga problemas para seguir la línea de pensamiento que se ha llevado a cabo y que cada apartado quede aclarado o, en menor medida, justificado por los capítulos anteriores.
+
+
 \cite{Shahbaba2011}
