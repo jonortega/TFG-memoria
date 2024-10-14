@@ -2,34 +2,55 @@
 
 El uso de datos personalizados es un componente esencial en el desarrollo de aplicaciones y servicios digitales actuales. Las plataformas buscan ofrecer experiencias ajustadas a las preferencias de los usuarios, utilizando grandes volúmenes de datos para generar contenido adaptado. En este contexto, \textit{Spotify} se ha consolidado como una de las plataformas más destacadas de \textit{streaming} musical, no solo por su extenso catálogo, sino también por su capacidad de ofrecer recomendaciones y estadísticas de uso personalizadas.
 
-Una de las características más valoradas por los usuarios de Spotify es la posibilidad de acceder a estadísticas personalizadas que les permiten comprender mejor sus hábitos de escucha. En 2016, como producto de una campaña de márketing viral, \textit{Spotify} lanzó \textit{Spotify Wrapped}, un resumen anual personalizado que generó un gran interés y participación en las redes sociales. Sin embargo, el acceso a estas estadísticas solo está disponible en el mes de diciembre, lo que genera una oportunidad para desarrollar herramientas complementarias que ofrezcan este tipo de análisis de manera más accesible y frecuente.
+Una de las características más valoradas por los usuarios de Spotify es la posibilidad de acceder a estadísticas personales que les permiten comprender mejor sus hábitos de escucha. En 2016, como producto de una campaña de márketing viral, \textit{Spotify} lanzó \textit{Spotify Wrapped}, un resumen anual de cada usuario, que generó un gran interés y participación en las redes sociales. Sin embargo, el acceso a estas estadísticas solo está disponible en el mes de diciembre, lo que genera una oportunidad para desarrollar herramientas complementarias que ofrezcan este tipo de análisis de manera más accesible y frecuente.
 
-El acceso a estos datos es posible gracias a la \textit{Web API} pública que \textit{Spotify} pone a disposición de los desarrolladores. Gracias a ello, es posible obtener una amplia gama de datos sobre el comportamiento del usuario, como sus canciones más escuchadas, artistas favoritos y playlists. Además, la API ofrece acceso a muchos datos adicionales que no son utilizados en \textit{Spotify Wrapped}, pero realizando diferentes combinaciones, se pueden crear nuevas formas enriquecidas de análisis que presenten la información de manera más profunda y personalizada.
+El acceso a estos datos es posible gracias a la \textit{Web API} pública que \textit{Spotify} pone a disposición de los desarrolladores. De esta manera, es posible obtener una amplia gama de datos sobre el comportamiento del usuario, como sus canciones más escuchadas, artistas favoritos y playlists. Además, la API ofrece acceso a muchos datos adicionales que no son utilizados en \textit{Spotify Wrapped}, pero realizando diferentes combinaciones, se pueden crear nuevas formas enriquecidas de análisis que presenten la información de manera más profunda y personalizada.
 
 También es necesario mencionar, que el crecimiento de las aplicaciones web interactivas ha sido posible gracias a tecnologías y frameworks modernos, que permiten crear interfaces rápidas y eficientes, optimizando el
 rendimiento y la experiencia de usuario y simplificando el desarrollo. Además, los sistemas de integración y despliegue continuo (CD/CI) facilitan la entrega de aplicaciones de manera automatizada y escalable, garantizando que estén siempre actualizadas y accesibles para los usuarios.
 
 \section{Motivación}
 
-La elección de este Trabajo de Fin de Grado surge de un interés personal que he tenido desde el inicio de mi carrera universitaria. Desde el primer año, he tenido la idea base para implementar un servicio en torno a la \textit{Web API} de \textit{Spotify}. Sin embargo, en ese momento no contaba con los conocimientos necesarios para llevarlo a cabo. Ahora, tras completar la carrera, me siento con las capacidades encesarias para poder realizar dicho proyecto y materializar esta idea.
+La elección de este Trabajo de Fin de Grado surge de un interés personal que he tenido desde el inicio de mi carrera universitaria. Desde el primer año, he tenido la idea base para implementar un servicio en torno a la \textit{Web API} de \textit{Spotify}. Sin embargo, en ese momento no contaba con los conocimientos necesarios para llevarlo a cabo. Ahora, tras completar la carrera, me siento con las capacidades necesarias para poder realizar dicho proyecto y materializar esta idea.
 
-Como usuario habitual de \textit{Spotify}, siempre me ha fascinado la función de \textit{Spotify Wrapped}. No obstante, me resulta limitante que esta información solo esté disponible durante un breve periodo del año. Existen otras herramientas y páginas web que analizan datos de \textit{Spotify}, pero suelen ofrecer estadísticas genéricas y demasiado básicas que carecen de profundidad. Estoy convencido de que es posible obtener estadísticas mucho más interesantes y, conversando con compañeros y otros usuarios, existe un interés general por acceder a las estadísticas personales en cualquier momento, no solo una vez al año. La música que cada individuo escucha es algo personal y, a menudo, forma parte de su identidad. Por ello, considero que este proyecto no solo es interesante y motivador para mí, sino que también puede aportar valor a otros usuarios que comparten esta misma idea.
+Como usuario habitual de \textit{Spotify}, siempre me ha fascinado la función de \textit{Spotify Wrapped}. No obstante, me resulta limitante que esta información solo esté disponible durante un breve periodo del año. Existen otras herramientas y páginas web que analizan datos de \textit{Spotify}, pero suelen ofrecer estadísticas genéricas y demasiado básicas que carecen de profundidad. Estoy convencido de que es posible obtener estadísticas mucho más interesantes y, conversando con compañeros y otros usuarios, existe un interés general por acceder a estas estadísticas en cualquier momento, no solo una vez al año. La música que cada individuo escucha es algo personal y, a menudo, forma parte de su identidad. Por ello, considero que este proyecto no solo es interesante y motivador para mí, sino que también puede aportar valor a otros usuarios que comparten esta misma idea.
 
 La posibilidad de crear un proyecto que me interese de principio a fin, y que yo mismo desearía utilizar, es una gran motivación. Además, la selección de tecnologías que he decidido emplear, como se detallará más adelante, no solo son ampliamente demandadas en el mercado actual, sino que también contribuyen a mi crecimiento profesional y enriquecen mis conocimientos.
 
-\section{Objetivos del Proyecto}
+\section{Objetivos}
 
-\subsection{Objetivo General}
+\subsection{Objetivos del Proyecto}
 
-\subsection{Objetivos Específicos}
+El objetivo general de este proyecto es desarrollar una plataforma web interactiva que permita a los usuarios de Spotify visualizar y analizar sus estadísticas musicales personales de forma continua y detallada, aprovechando la integración con la API de Spotify.
 
-\subsection{Objetivos de Desarrollo Sostenible (ODS)}
+Para alcanzar este objetivo general, se plantean los siguientes objetivos específicos:
+
+\begin{enumerate}
+    \item \textbf{Implementar la autenticación de usuarios mediante OAuth 2.0} para acceder de forma segura a los datos personales de Spotify.
+    \item \textbf{Desarrollar un \textit{dashboard} interactivo} que presente estadísticas personalizadas a través de gráficos dinámicos y atractivos.
+    \item \textbf{Integrar la Web API de Spotify} para obtener y procesar datos relevantes sobre el comportamiento musical del usuario, incluyendo información no disponible en funciones como Spotify Wrapped.
+    \item \textbf{Aplicar tecnologías modernas como Next.js y TypeScript} para asegurar un desarrollo eficiente y proporcionar una experiencia de usuario óptima.
+    \item \textbf{Implementar prácticas de integración y despliegue continuo (CI/CD)} utilizando plataformas como Vercel, garantizando que la aplicación esté siempre actualizada y accesible.
+    \item \textbf{Realizar pruebas automatizadas con herramientas como Jest y GitHub Actions} para asegurar la calidad y funcionalidad del software.
+    \item \textbf{Diseñar una interfaz de usuario intuitiva y adaptable a diferentes dispositivos}, mejorando la experiencia de navegación y facilitando la interacción con las estadísticas.
+    \item \textbf{Documentar todo el proceso de desarrollo}, incluyendo análisis, diseño, implementación y pruebas, para proporcionar una guía completa y detallada del proyecto.
+\end{enumerate}
+
+\subsection{Objetivos de Desarrollo Sostenible}
 
 En este proyecto se alinean varios Objetivos de Desarrollo Sostenible (ODS) de las Naciones Unidas. A continuación, se detallan los objetivos específicos relacionados:
 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/tres_ods_relacionadas.png}
+    \caption{Los ODS alineados con este trabajo.}
+    \label{fig:tres_ods}
+\end{figure}
+
+
 \begin{itemize}
-    \item \textbf{ODS 3: Salud y Bienestar}. La música juega un papel importante en el bienestar emocional y mental. La capacidad que ofrece esta aplicación de mejorar la experiencia musical y permitir a los usuarios conectar más profundamente con su música, contibuye positivamente al su bienestar general.
-    \item \textbf{ODS 9: Industria, Innovación e Infraestructura}. Como este proyecto implica el desarrollo utilizando tecnologías modernas como React, Next.js y Vercel, se fomenta la innovación tecnológica y se contribuye al desarrollo de infraestructuras digitales eficientes y sostenibles.
+    \item \textbf{ODS 3: Salud y Bienestar}. La música juega un papel importante en el bienestar emocional y mental. La capacidad que ofrece esta aplicación de mejorar la experiencia musical y permitir a los usuarios conectar más profundamente con su música, contibuye positivamente a su bienestar general.
+    \item \textbf{ODS 9: Industria, Innovación e Infraestructura}. Como este proyecto implica el desarrollo utilizando tecnologías modernas como React, Next.js y Vercel, se fomenta la innovación tecnológica y se contribuye al desarrollo de infraestructuras digitales eficientes.
     \item \textbf{ODS 18 (17+1): Garantizar la diversidad lingüística y cultural}. Al permitir que los usuarios exploren y aprecien música de diferentes culturas y en diversos idiomas, se facilita la exposición a otras culturas y lenguas, fomentando así el entendimiento y la apreciación cultural.
 \end{itemize}
 
