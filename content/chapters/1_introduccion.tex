@@ -2,12 +2,12 @@
 
 El uso de datos personalizados es un componente esencial en el desarrollo de aplicaciones y servicios digitales actuales. Las plataformas buscan ofrecer experiencias ajustadas a las preferencias de los usuarios, utilizando grandes volúmenes de datos para generar contenido adaptado. En este contexto, \textit{Spotify} se ha consolidado como una de las plataformas más destacadas de \textit{streaming} musical, no solo por su extenso catálogo, sino también por su capacidad de ofrecer recomendaciones y estadísticas de uso personalizadas.
 
-Una de las características más valoradas por los usuarios de Spotify es la posibilidad de acceder a estadísticas personales que les permiten comprender mejor sus hábitos de escucha. En 2016, como producto de una campaña de márketing viral, \textit{Spotify} lanzó \textit{Spotify Wrapped}, un resumen anual de cada usuario, que generó un gran interés y participación en las redes sociales. Sin embargo, el acceso a estas estadísticas solo está disponible en el mes de diciembre, lo que genera una oportunidad para desarrollar herramientas complementarias que ofrezcan este tipo de análisis de manera más accesible y frecuente.
+Una de las características más valoradas por los usuarios de \textit{Spotify} es la posibilidad de acceder a estadísticas personales que les permiten comprender mejor sus hábitos de escucha. En 2016, como producto de una campaña de márketing viral, \textit{Spotify} lanzó \textit{Spotify Wrapped}, un resumen anual de cada usuario, que generó un gran interés y participación en las redes sociales. Sin embargo, el acceso a estas estadísticas solo está disponible en el mes de diciembre, lo que genera una oportunidad para desarrollar herramientas complementarias que ofrezcan este tipo de análisis de manera más accesible y frecuente.
 
 El acceso a estos datos es posible gracias a la \textit{Web API} pública que \textit{Spotify} pone a disposición de los desarrolladores. De esta manera, es posible obtener una amplia gama de datos sobre el comportamiento del usuario, como sus canciones más escuchadas, artistas favoritos y playlists. Además, la API ofrece acceso a muchos datos adicionales que no son utilizados en \textit{Spotify Wrapped}, pero realizando diferentes combinaciones, se pueden crear nuevas formas enriquecidas de análisis que presenten la información de manera más profunda y personalizada.
 
 También es necesario mencionar, que el crecimiento de las aplicaciones web interactivas ha sido posible gracias a tecnologías y frameworks modernos, que permiten crear interfaces rápidas y eficientes, optimizando el
-rendimiento y la experiencia de usuario y simplificando el desarrollo. Además, los sistemas de integración y despliegue continuo (CD/CI) facilitan la entrega de aplicaciones de manera automatizada y escalable, garantizando que estén siempre actualizadas y accesibles para los usuarios.
+rendimiento y la experiencia de usuario y simplificando el desarrollo. Además, los sistemas de integración y despliegue continuo (CI/CD) facilitan la entrega de aplicaciones de manera automatizada y escalable, garantizando que estén siempre actualizadas y accesibles para los usuarios.
 
 \section{Motivación}
 
@@ -23,21 +23,21 @@ Para empezar a caracterizar el proyecto de manera concreta, en este apartado se 
 
 \subsection{Objetivos del Proyecto}
 
-El \textbf{objetivo general} de este proyecto es desarrollar una plataforma web interactiva que permita a los usuarios de \textit{Spotify} acceder a las visualizaciones y análisis de sus datos musicales personales cuando lo desee. Para alcanzar este objetivo general, se plantean los siguientes \textbf{objetivos específicos}:
+El \textbf{objetivo general} de este proyecto es desarrollar una plataforma web interactiva que permita a los usuarios de \textit{Spotify} acceder a las visualizaciones y análisis de sus datos musicales personales cuando lo deseen. Para alcanzar este objetivo general, se plantean los siguientes \textbf{objetivos específicos}:
 
 \begin{itemize}
     \item Analizar la API de \textit{Spotify} para obtener los datos necesarios.
     \item Desarrollar la lógica necesaria para filtrar, organizar y transformar los datos obtenidos, preparándolos para su representación gráfica y asegurando que las estadísticas sean relevantes y significativas.
     \item Diseñar una interfaz de usuario intuitiva, interactiva y adaptable a diferentes dispositivos.
     \item Adoptar tecnologías modernas como \textit{Next.js} y \textit{TypeScript} para beneficiarse de las ventajas que ofrecen.
-    \item Implementar prácticas de integración y despliegue continuo (CI/CD) usando la plataforma de \textit{Vercel}.
+    \item Implementar prácticas de CI/CD usando la plataforma de \textit{Vercel}.
     \item Implementar políticas de seguridad con respecto a los datos de usuarios establecidas por \textit{Spotify} para desarrolladores.
     \item Documentar el proceso de desarrollo.
 \end{itemize}
 
 \subsection{Objetivos de Desarrollo Sostenible}
 
-En este proyecto se alinean varios Objetivos de Desarrollo Sostenible (ODS) de las Naciones Unidas. A continuación, se detallan los objetivos específicos relacionados:
+En este proyecto se alinean varios Objetivos de Desarrollo Sostenible (ODS). Como ya se ha mencionado anteriormente, se toma el marco de referencia de la \textit{EHUagenda 2030} de la UPV/EHU. Esta agenda, ``recoge la contribución de la UPV/EHU a 12 de los 17 ODS de la Agenda 2030, al que ha sumado el su compromiso con la diversidad lingüística y cultural a través del ODS 17+1'' \cite{ehuagenda2030}. A continuación, se detallan los objetivos específicos relacionados:
 
 \begin{figure}[h]
     \centering
@@ -61,11 +61,9 @@ En la \nameref{ch:introduccion} se ha establecido el contexto del proyecto, la m
 
 El \nameref{ch:analisis} se centra en el estudio de la API de \textit{Spotify}, el cual es \textbf{fundamental para el desarrollo del proyecto}. Se especifican los requisitos y se presentan los casos de uso que guiarán el desarrollo de la aplicación. En conjunto con el capítulo anterior, en el \nameref{ch:diseño} se describe la arquitectura del sistema y la estructura de la interfaz de usuario (UI), tanto a nivel técnico como visual. Además, se abordan aspectos de seguridad y se planifica el diseño de las pruebas.
 
-La \nameref{ch:implementacion} detalla el proceso de desarrollo de la aplicación, incluyendo las decisiones tomadas durante esta fase. Se describen los retos enfrentados y cómo se han resuelto. Seguido, en el capítulo de las \nameref{ch:pruebas} se exponen las pruebas realizadas y se analizan los resultados obtenidos. Como consecuencia lógica, en \nameref{ch:despliegue} se explica el proceso de puesta en producción de la aplicación y las estrategias de Integración Continua y Despliegue Continuo (CI/CD) implementadas.
+La \nameref{ch:implementacion} detalla el proceso de desarrollo de la aplicación, incluyendo las decisiones tomadas durante esta fase. Se describen los retos enfrentados y cómo se han resuelto. Seguido, en el capítulo de las \nameref{ch:pruebas} se exponen las pruebas realizadas y se analizan los resultados obtenidos. Como consecuencia lógica, en \nameref{ch:despliegue} se explica el proceso de puesta en producción de la aplicación y las estrategias de CI/CD implementadas.
 
 Finalmente, en \nameref{ch:conclusiones} se hace una reflexión sobre los resultados alcanzados, evaluando el cumplimiento de los objetivos iniciales, el seguimiento en comparación a la planificación inicial y se discuten las lecciones aprendidas y se proponen líneas futuras de trabajo.
 
-Siguiendo este flujo, se espera que el público lector no tenga problemas para seguir la línea de pensamiento que se ha llevado a cabo y que cada apartado quede aclarado o, en menor medida, justificado por los capítulos anteriores.
+Mediante este flujo, se espera que el público lector no tenga problemas para seguir la línea de pensamiento que se ha llevado a cabo y que cada apartado quede aclarado o, en menor medida, justificado por los capítulos anteriores.
 
-
-\cite{Shahbaba2011}
