@@ -1,7 +1,57 @@
 \section{Alcance}
+
+Definir con precisión el alcance es fundamental para asegurar que el desarrollo se ajuste a los objetivos propuestos y se realice dentro de los recursos y tiempos establecidos. Para ello, en esta sección se delimitarán las funcionalidades, exclusiones y limitaciones que se esperan en este proyecto.
+
 \subsection{Funcionalidades Incluidas}
+
+En la plataforma web se ofrecen las siguientes funcionalidades principales:
+
+\begin{itemize}
+    \item \underline{Autenticación segura} mediante las credenciales de \textit{Spotify}.
+    \item \underline{\textit{Home} o Panel Inicial} donde se muestran la información básica de la cuenta.
+    \item Análisis detallado y visualizaciones \underline{gráficas avanzadas, interactivas y actualizadas} de sus datos musicales.
+    \item Interfaz \underline{adaptativa, intuitiva y responsiva}.
+    \item \underline{Cierre de sesión seguro}.
+\end{itemize}
+
 \subsection{Exclusiones}
+
+Para establecer expectativas claras sobre el alcance del proyecto, se detallan a continuación las funcionalidades que \textbf{no} serán incluidas en la plataforma web:
+
+\begin{itemize}
+    \item No se desarrollarán \underline{aplicaciones nativas de otras plataformas} como móvil, PC, Mac o Linux; el acceso será exclusivamente a través de la web.
+
+    \item Aunque se seguirá un diseño intuitivo, no se implementarán funcionalidades específicas de \underline{accesibilidad avanzadas} como compatibilidad con lectores de pantalla o navegación por teclado.
+
+    \item La plataforma se enfoca exclusivamente en la integración con \textit{Spotify}; se excluyen todos los \underline{otros servicios de streaming} como \textit{Apple Music}, \textit{Deezer}, etc.
+
+    \item No se \underline{almacenarán de forma persistente datos personales} del usuario en servidores propios más allá de lo necesario para la sesión actual; todos los datos se obtendrán directamente de la API de \textit{Spotify} y se manejarán en tiempo real.
+
+    \item Se excluye el desarrollo de funcionalidades relacionadas con la \underline{interacción social} (envío de mensajes, compartir estadísticas, rankings entre usuarios, etc.) dentro o a través de la plataforma, ya que superarían el alcance recogido dentro de un TFG.
+
+          % * COMPROBAR SI SE HAN IMPLEMENTADO O NO ESTAS FUNCIONALIDADES * %
+
+          % * \item \textbf{Integración con Redes Sociales}: No se implementarán opciones para compartir estadísticas o visualizaciones directamente en redes sociales como Facebook, Twitter o Instagram.
+
+          % * \item \textbf{Exportación de Datos o Estadísticas}: No se incluirá la opción de exportar los datos o estadísticas a formatos externos como PDF, CSV o imágenes descargables.
+
+          % * \item \textbf{Soporte Multilenguaje}: La interfaz de usuario estará disponible únicamente en español y no se ofrecerá soporte para otros idiomas.
+
+\end{itemize}
+
 \subsection{Limitaciones}
+
+Durante el desarrollo del proyecto, se han identificado las siguientes limitaciones que han podido afectar al alcance y a las funcionalidades de la web:
+
+\begin{itemize}
+    \item Las políticas de seguridad de \textit{Spotify} impiden el \underline{almacenamiento persistente de datos} personales, limitando funcionalidades que requieran conservar información del usuario entre sesiones.
+
+    \item El procesamiento de los datos se ve limitada por los \underline{recursos computacionales} que la nube de \textit{Vercel} ofrece, descartando técnicas avanzadas como el aprendizaje automático.
+
+    \item El \underline{tiempo y los recursos disponibles} para el desarrollo del proyecto son finitos, lo que ha obligado a priorizar funcionalidades esenciales y descartar características adicionales.
+
+    \item Al hacer uso de una API de terceros, todas las funcionalidades necesitan una \underline{conexión} \underline{activa a Internet} para poder funcionar.
+\end{itemize}
 
 \section{Gestión de Tareas}
 \subsection{Descripción de Tareas}
@@ -11,6 +61,34 @@
 \subsection{Hitos}
 
 \section{Gestión de Riesgos}
+
+A continuación, se detallan los riesgos identificados que pueden afectar el desarrollo y el alcance del proyecto:
+
+\begin{itemize}
+    \item Dependencia de la API de \textit{Spotify}: La API de \textit{Spotify} podría cambiar, tener interrupciones o limitar el acceso a ciertos datos.
+
+    \item Limitaciones de la API de \textit{Spotify}: Restricciones en los tipos de datos accesibles, datos históricos limitados y permisos que los usuarios pueden no conceder.
+
+    \item Tasa de peticiones (\textit{rate limiting}) de la API de \textit{Spotify}: Exceder el número máximo de peticiones permitidas en un período de tiempo puede afectar la capacidad de actualización de datos en tiempo real.
+
+    \item Falta de almacenamiento persistente de datos del usuario: La imposibilidad de guardar datos entre sesiones limita ciertas funcionalidades como la personalización o el historial de preferencias del usuario.
+
+    \item Dependencia de servicios de terceros (\textit{Vercel}): Posibles interrupciones en los servicios de despliegue continuo o cambios en las políticas de \textit{Vercel}.
+
+    \item Tiempo limitado para el desarrollo: El tiempo y los recursos disponibles son finitos, lo que obliga a priorizar ciertas funcionalidades esenciales y descartar características adicionales.
+
+    \item Necesidad de conexión a Internet: La plataforma requiere una conexión a Internet activa para funcionar correctamente, lo que puede afectar a los usuarios en entornos con conectividad limitada.
+
+    \item Compatibilidad con navegadores y dispositivos antiguos: La plataforma puede no ser completamente funcional en navegadores o dispositivos más antiguos, lo que afecta a un porcentaje pequeño de usuarios.
+
+    \item Falta de experiencia con las tecnologías utilizadas: La curva de aprendizaje de tecnologías nuevas como \textit{Next.js} y \textit{TypeScript} podría ralentizar el desarrollo.
+
+    \item Rendimiento en dispositivos móviles o de gama baja: Las visualizaciones avanzadas pueden no funcionar de manera óptima en dispositivos con menor capacidad de procesamiento.
+
+    \item Seguridad y privacidad de los datos del usuario: El manejo incorrecto de los datos de los usuarios podría infringir las políticas de \textit{Spotify} o el RGPD, con consecuencias legales o de suspensión del servicio.
+
+\end{itemize}
+
 
 \section{Gestión de Calidad}
 \subsection{Línea Base}
