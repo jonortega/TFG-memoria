@@ -72,6 +72,14 @@
 \input content/chapters/resumen
 \cleardoublepage
 
+%%%%%%%
+% ODS %
+%%%%%%%
+
+% Insertar el pdf de los ODS
+\includepdf[pages={1-}]{ods.pdf}
+\cleardoublepage
+
 %%%%%%%%%%%
 % ÍNDICES %
 %%%%%%%%%%%
@@ -92,6 +100,11 @@
 \cleardoublepage
 \mainmatter
 \pagestyle{ruled}
+
+% Descomentar para generar la página de ODS
+% \chapter*{Objetivos de Desarrollo Sostenible}
+% \input content/chapters/objetivosDesarrollo
+% \cleardoublepage
 
 \chapter{Introducción} \label{ch:introduccion}
 \input content/chapters/1_introduccion
