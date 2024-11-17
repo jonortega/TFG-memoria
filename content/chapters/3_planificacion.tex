@@ -72,49 +72,114 @@ En este caso, el proyecto se organiza en cinco áreas principales, que abarcan t
 
 A continuación se detalla cada paquete de trabajo y las tareas correspondientes contenidas en cada una:
 
+\subsubsection{Adquisición de Competencias (AC):}
+
+Este paquete de trabajo incluye todas las tareas necesarias para adquirir el conocimiento sobre las tecnologías y herramientas clave para el desarrollo del proyecto.
 
 \begin{itemize}
-    \item \textbf{Adquisición de Competencias (AC):}
-          Este paquete de trabajo incluye todas las tareas necesarias para adquirir el conocimiento sobre las tecnologías y herramientas clave para el desarrollo del proyecto.
+    \item \textbf{AC.1:} Aprender \textit{TypeScript}, \textit{React.js} y \textit{Next.js} para el desarrollo de la aplicación web.
+    \item \textbf{AC.2:} Estudiar el uso de \textit{Vercel} para el hosting y despliegue de la aplicación.
+    \item \textbf{AC.3:} Hacer un reconocimiento inicial de la \textit{Web API} de \textit{Spotify}.
+\end{itemize}
+
+\subsubsection{Aplicación Web (AW):}
+
+En este paquete se engloban todas las fases de desarrollo de la aplicación web, desde la planificación inicial hasta el despliegue final.
+
+\begin{itemize}
+    \item \textbf{Análisis (A):}
           \begin{itemize}
-              \item \textbf{AC.1:} Aprender Next.js para el desarrollo de la aplicación web.
-              \item \textbf{AC.2:} Familiarizarse con React.js para la creación de interfaces de usuario interactivas.
-              \item \textbf{AC.3:} Estudiar el uso de Vercel para el hosting y despliegue continuo de la aplicación.
+              \item \textbf{AW.A.1:} Estudiar y analizar en profundidad la \textit{Web API} de \textit{Spotify} para determinar el alcance y sus limitaciones.
+              \item \textbf{AW.A.2:} Definir los requisitos funcionales y no funcionales del sistema.
+              \item \textbf{AW.A.3:} Desarrollar los principales casos de uso del sistema.
           \end{itemize}
 
-    \item \textbf{Aplicación Web (AW):}
-          En este paquete se engloban todas las fases de desarrollo de la aplicación web, desde la planificación inicial hasta el despliegue final.
+    \item \textbf{Diseño (D):}
           \begin{itemize}
-              \item \textbf{AW.1 - Análisis (A):} Definir los requisitos funcionales y no funcionales del sistema.
-              \item \textbf{AW.2 - Diseño (D):} Diseñar la arquitectura del sistema, el flujo de usuario y los elementos de la interfaz.
-              \item \textbf{AW.3 - Implementación (I):} Desarrollo de la funcionalidad principal de la aplicación, incluyendo autenticación, integración con la API de Spotify y creación de gráficos interactivos.
-              \item \textbf{AW.4 - Despliegue (DPL):} Configurar el despliegue en Vercel y realizar pruebas de integración y rendimiento.
+              \item \textbf{AW.D.1:} Diseñar la arquitectura del sistema.
+              \item \textbf{AW.D.2:} Crear un diagrama de componentes React para establecer la jerarquía y realizar un diseño general de la interfaz de usuario.
+              \item \textbf{AW.D.3:} Definir los diagramas de secuencia de los casos principales.
+              \item \textbf{AW.D.4:} Realizar una gestión de la seguridad y asegurar que se implementarán las medidas definidas por \textit{Spotify} para el uso de la API.
           \end{itemize}
 
-    \item \textbf{Pruebas (P):}
-          Este paquete agrupa las tareas relacionadas con la verificación y validación de la aplicación, garantizando su correcto funcionamiento y calidad.
+    \item \textbf{Implementación (I):}
           \begin{itemize}
-              \item \textbf{P.1 - Diseño de Pruebas (DP):} Planificar y diseñar pruebas unitarias, de integración y de carga para evaluar el rendimiento y la estabilidad de la aplicación.
-              \item \textbf{P.2 - Resultados (R):} Realizar las pruebas planificadas y documentar los resultados, identificando y solucionando errores.
+              \item \textbf{AW.I.1:} Implementar el login de la página web, usando el protocolo OAuth 2.0 implementado por \textit{Spotify}.
+              \item \textbf{AW.I.2:} Implementar el panel inicial (dashboard) de la web.
+              \item \textbf{AW.I.3:} Implementar la sección principal de estadísiticas.
+              \item \textbf{AW.I.4:} Implementar la funcionalidad de cerrar sesión.
+              \item \textbf{AW.I.5:} Realizar optimizaciones y correcciones en la implementación.
           \end{itemize}
 
-    \item \textbf{Gestión (G):}
-          Este paquete se enfoca en la planificación, seguimiento y control del proyecto.
+    \item \textbf{Despliegue (DPL):}
           \begin{itemize}
-              \item \textbf{G.1 - Planificación (PLN):} Crear un cronograma detallado con estimaciones de tiempos para cada tarea, incluyendo la planificación de recursos.
-              \item \textbf{G.2 - Seguimiento y Control (SyC):} Monitorizar el progreso del proyecto, realizar ajustes según el avance y documentar cambios en las funcionalidades.
-          \end{itemize}
-
-    \item \textbf{Documentación (DOC):}
-          Este paquete agrupa las tareas necesarias para la elaboración de la memoria y la preparación de la defensa del proyecto.
-          \begin{itemize}
-              \item \textbf{DOC.1 - Memoria (MEM):} Redactar la memoria del proyecto, documentando el desarrollo, pruebas y resultados obtenidos.
-              \item \textbf{DOC.2 - Preparar Defensa (DEF):} Crear la presentación y preparar el discurso para la defensa del proyecto.
+              \item \textbf{AW.DPL.1:} Configurar el despliegue en \textit{Vercel} para crear un proceso automático de despliegue.
+              \item \textbf{AW.DPL.2:} Monitorear el funcionamiento del despliegue y los logs.
           \end{itemize}
 \end{itemize}
 
+\subsubsection{Pruebas (P):}
+
+Este paquete agrupa las tareas relacionadas con la verificación y validación de la aplicación, garantizando su correcto funcionamiento y calidad.
+
+\begin{itemize}
+    \item \textbf{Diseño de Pruebas (DP):} Planificar y diseñar pruebas unitarias, de integración y de carga para evaluar el rendimiento y la estabilidad de la aplicación.
+    \item \textbf{Resultados (R):}
+          \begin{itemize}
+              \item \textbf{P.R.1:} Realizar las pruebas planificadas y documentar los errores encontrados.
+              \item \textbf{P.R.2:} Definir y, en caso de que sea posible, implementar las correcciones necesarias.
+          \end{itemize}
+\end{itemize}
+
+\subsubsection{Gestión (G):}
+
+\begin{itemize}
+    \item \textbf{Planificación (PLN):}
+          \begin{itemize}
+              \item \textbf{G.PLN.1:} Realizar una primera estimación de tiempos de las tareas generales.
+              \item \textbf{G.PLN.2:} Establecer el alcance inicial del proyecto según las características del producto seleccionadas.
+              \item \textbf{G.PLN.3:} Definir la planificación del proyecto.
+              \item \textbf{G.PLN.4:} Revisar y, si fuera necesario, modificar la planificación.
+          \end{itemize}
+    \item \textbf{Seguimiento y Control (SyC):}
+          \begin{itemize}
+              \item \textbf{G.SyC.1:} Conversaciones y comentarios de la tutora a lo largo del desarrollo.
+              \item \textbf{G.SyC.2:} Elaboración de un documento para registrar las actividades y dedicaciones realizadas a lo largo del proyecto.
+              \item \textbf{G.SyC.3:} Comparación de los datos del seguimiento con los de la placificación, identificación de las desviaciones y riesgos significativos.
+          \end{itemize}
+\end{itemize}
+
+\subsubsection{Documentación (DOC):}
+
+Este paquete agrupa las tareas necesarias para la elaboración de la memoria y la preparación de la defensa del proyecto.
+
+\begin{itemize}
+    \item \textbf{Memoria (MEM):}
+          \begin{itemize}
+              \item \textbf{DOC.MEM.1:} Preparar el entorno de trabajo en \LaTeX\ utilizando \textit{Visual Studio Code} y establecer la estructura básica de la memoria a partir de la plantilla proporcionada por la facultad.
+              \item \textbf{DOC.MEM.2:} Redactar la memoria.
+          \end{itemize}
+    \item \textbf{Defensa (DEF):}
+          \begin{itemize}
+              \item \textbf{DOC.DEF.1:} Identificar los puntos y conceptos clave que se presentarán en la defensa.
+              \item \textbf{DOC.DEF.2:} Crear los elementos visuales de apoyo para la defensa.
+              \item \textbf{DOC.DEF.3:} Preparar y ensayar la defensa.
+          \end{itemize}
+\end{itemize}
+
+\cleardoublepage
 
 \subsection{Dedicaciones}
+
+A continuación, en la tabla \ref{tab:estimaciones_tareas}, se presentan las horas estimadas para las tareas descritas en el apartado anterior. También se muestran las sumas de las dedicaciones por paquete de trabajo y la suma total de horas que se espera que lleve el desarrollo del proyecto completo.
+
+\begin{table}[H]
+    \centering
+    \includegraphics[width=0.55\textwidth]{figures/estimaciones_tareas.png}
+    \caption{Tabla con las estimaciones de tiempo por paquete de trabajo y tarea del proyecto.}
+    \label{tab:estimaciones_tareas}
+\end{table}
+
 \subsection{Dependencias entre Tareas}
 \subsection{Periodos de Desarrollo}
 \subsection{Hitos}
