@@ -208,82 +208,81 @@ En esta sección se presenta el diagrama Gantt del proyecto (figura \ref{fig:gan
 
 \section{Gestión de Riesgos}
 
-% A continuación, se detallan los riesgos identificados que pueden afectar el desarrollo y el alcance del proyecto:
+La gestión de riesgos desempeña un papel crucial en cualquier proyecto, ya que permite anticiparse a posibles inconvenientes, definiendo estrategias adecuadas para minimizar su impacto sobre el proyecto.
 
-% \begin{itemize}
-%     \item Dependencia de la API de \textit{Spotify}: La API de \textit{Spotify} podría cambiar, tener interrupciones o limitar el acceso a ciertos datos.
+A continuación, se presentan los riesgos identificados, especificando para cada uno de ellos la probabilidad de que se materialice, el impacto que podría ocasionar, las medidas implementadas para prevenirlos y las acciones que se llevarían a cabo en caso de que se acabe materializando alguno de ellos.
 
-%     \item Limitaciones de la API de \textit{Spotify}: Restricciones en los tipos de datos accesibles, datos históricos limitados y permisos que los usuarios pueden no conceder.
+\subsection{R01: Limitaciones con respecto a los datos disponibles de la API}
+Este riesgo se refiere a la posible falta de datos suficientes o adecuados para implementar ciertas funcionalidades previstas, como estadísticas o visualizaciones concretas.
 
-%     \item Tasa de peticiones (\textit{rate limiting}) de la API de \textit{Spotify}: Exceder el número máximo de peticiones permitidas en un período de tiempo puede afectar la capacidad de actualización de datos en tiempo real.
+\begin{itemize}
+    \item \textbf{Probabilidad}: Media.
+    \item \textbf{Impacto}: Medio.
+    \item \textbf{Prevención}: Analizar detenidamente los endpoints de la API antes de planificar funcionalidades dependientes de datos específicos.
+    \item \textbf{Plan de mitigación}: Proponer gráficos o funcionalidades alternativas que no dependan de esos datos.
+\end{itemize}
 
-%     \item Falta de almacenamiento persistente de datos del usuario: La imposibilidad de guardar datos entre sesiones limita ciertas funcionalidades como la personalización o el historial de preferencias del usuario.
+\subsection{R02: Cambios en la política de acceso a la API}
+Como \textit{Spotify} se reserva el derecho de modificar en cualquier momento las políticas de uso de su API, existe la posibilidad de que algunas funcionalidades del proyecto se vean afectadas o limitadas debido a cambios en los permisos o en la disponibilidad de ciertos endpoints.
 
-%     \item Dependencia de servicios de terceros (\textit{Vercel}): Posibles interrupciones en los servicios de despliegue continuo o cambios en las políticas de \textit{Vercel}.
+\begin{itemize}
+    \item \textbf{Probabilidad}: Baja.
+    \item \textbf{Impacto}: Alto.
+    \item \textbf{Prevención}: Revisar con frecuencia la documentación oficial y adaptar el proyecto a los permisos disponibles desde el inicio.
+    \item \textbf{Plan de mitigación}: Ajustar el alcance del proyecto para trabajar con los datos que sigan siendo accesibles y documentar los cambios en la memoria del TFG.
+\end{itemize}
 
-%     \item Tiempo limitado para el desarrollo: El tiempo y los recursos disponibles son finitos, lo que obliga a priorizar ciertas funcionalidades esenciales y descartar características adicionales.
+\subsection{R03: Interrupciones en la disponibilidad de servicios de terceros}
+Este riesgo engloba posibles problemas de disponibilidad en servicios externos críticos para el proyecto, como la API de \textit{Spotify} o el servicio de hosting de \textit{Vercel}.
 
-%     \item Necesidad de conexión a Internet: La plataforma requiere una conexión a Internet activa para funcionar correctamente, lo que puede afectar a los usuarios en entornos con conectividad limitada.
+\begin{itemize}
+    \item \textbf{Probabilidad}: Baja.
+    \item \textbf{Impacto}: Alto.
+    \item \textbf{Prevención}: Mantener una planificación que contemple margen suficiente para posibles retrasos causados por la indisponibilidad de estos servicios. Además, probar despliegues en un entorno local para avanzar en el desarrollo mientras el servicio de hosting se restablece.
+    \item \textbf{Plan de mitigación}: Continuar con el desarrollo de los aspectos que no dependan de estos servicios y retomar las tareas una vez se solucione la interrupción.
+\end{itemize}
 
-%     \item Compatibilidad con navegadores y dispositivos antiguos: La plataforma puede no ser completamente funcional en navegadores o dispositivos más antiguos, lo que afecta a un porcentaje pequeño de usuarios.
+\subsection{R04: Incompatibilidad de versiones de las tecnologías a utilizar}
+Este riesgo está relacionado con posibles problemas de compatibilidad entre \textit{TypeScript}, \textit{React}, \textit{Next.js} y las librerías utilizadas.
 
-%     \item Falta de experiencia con las tecnologías utilizadas: La curva de aprendizaje de tecnologías nuevas como \textit{Next.js} y \textit{TypeScript} podría ralentizar el desarrollo.
+\begin{itemize}
+    \item \textbf{Probabilidad}: Media.
+    \item \textbf{Impacto}: Alto.
+    \item \textbf{Prevención}: Investigar y verificar compatibilidades antes de seleccionar versiones específicas. Evitar usar, en la medida de lo posible, versiones muy recientes que puedan tener problemas de estabilidad y de soporte por parte de otras herramientas.
+    \item \textbf{Plan de mitigación}: Actualizar o cambiar las herramientas o librerías problemáticas por alternativas compatibles y realizar pruebas exhaustivas después de cada cambio.
+\end{itemize}
 
-%     \item Rendimiento en dispositivos móviles o de gama baja: Las visualizaciones avanzadas pueden no funcionar de manera óptima en dispositivos con menor capacidad de procesamiento.
+\subsection{R05: Dificultad en el aprendizaje de las herramientas a utilizar}
+Al trabajar con herramientas, frameworks y tecnologías con los que no se ha tenido un contacto previo, se pueden ocasionar retrasos por el proceso de aprendizaje.
 
-%     \item Seguridad y privacidad de los datos del usuario: El manejo incorrecto de los datos de los usuarios podría infringir las políticas de \textit{Spotify} o el RGPD, con consecuencias legales o de suspensión del servicio.
+\begin{itemize}
+    \item \textbf{Probabilidad}: Media.
+    \item \textbf{Impacto}: Medio.
+    \item \textbf{Prevención}: Reservar un tiempo de adquisición de conocimientos y realizar pruebas antes de comenzar con las implementaciones críticas.
+    \item \textbf{Plan de mitigación}: Consultar documentación oficial, foros o buscar ayuda en comunidades de desarrollo en línea para resolver dudas rápidamente. Si no es suficiente, se puede avanzar con otra tarea que no dependa de la resolución del problema actual, permitiendo ganar tiempo mientras se sigue investigando la solución al inconveniente técnico.
+\end{itemize}
 
-% \end{itemize}
+\subsection{R06: Planificación incorrecta}
+Como puede ocurrir en cualquier proyecto, este riesgo consiste en una planificación inicial que no contemple adecuadamente el tiempo o los recursos necesarios para el desarrollo del proyecto.
 
+\begin{itemize}
+    \item \textbf{Probabilidad}: Media.
+    \item \textbf{Impacto}: Alto.
+    \item \textbf{Prevención}: Elaborar una planificación con plazos amplios y flexibles que permita realizar ajustes sin comprometer la entrega final.
+    \item \textbf{Plan de mitigación}: Reorganizar tareas y replantear las prioridades para cumplir los objetivos principales y siempre minimizando el impacto.
+\end{itemize}
 
-% TODO -> Solo he pegado esto, pero hay que mirarlo todo
-\section{Gestión de Calidad}
+\subsection{R07: Dificultad para compaginar el proyecto con las obligaciones académicas}
+Este riesgo hace referencia a la posibilidad de tener problemas a la hora de gestionar el tiempo disponible para dedicar al proyecto, ya que se está cursando una asignatura en paralelo.
 
-% El objetivo de la gestión de calidad es garantizar que el proyecto cumpla con los requisitos funcionales y no funcionales, asegurando un producto robusto, eficiente y alineado con las expectativas de los usuarios.
+\begin{itemize}
+    \item \textbf{Probabilidad}: Media.
+    \item \textbf{Impacto}: Alto.
+    \item \textbf{Prevención}: Planificar un calendario detallado y realista que reserve horas específicas para trabajar en el proyecto, priorizando las tareas críticas.
+    \item \textbf{Plan de mitigación}: Ajustar la planificación redistribuyendo tareas menos prioritarias y minimizando así el impacto en el desarrollo del proyecto.
+\end{itemize}
 
-% \subsection{Línea Base}
-% Los estándares mínimos establecidos para asegurar la calidad del proyecto son:
-% \begin{itemize}
-%     \item Buenas prácticas de desarrollo, aseguradas mediante revisiones de código.
-%     \item Uso de metodologías ágiles para una planificación iterativa y control de calidad.
-%     \item Diseño de interfaz de usuario intuitiva y conforme a los estándares de accesibilidad.
-% \end{itemize}
+% * He decidido no hacer la Gestión de Calidad
+% \section{Gestión de Calidad}
 
-% \subsection{Criterios de Éxito y Aceptación}
-% Para asegurar que el producto cumple con las expectativas, los criterios de aceptación incluyen:
-% \begin{itemize}
-%     \item Cumplimiento de los requisitos funcionales y no funcionales.
-%     \item Ausencia de errores críticos que afecten la experiencia de usuario.
-%     \item Cumplimiento de los objetivos de rendimiento (tiempos de carga, capacidad de respuesta).
-%     \item Feedback positivo en las pruebas de usabilidad realizadas con usuarios finales.
-% \end{itemize}
-
-% \subsection{Plan de Calidad}
-% El plan de calidad incluye:
-% \begin{itemize}
-%     \item Pruebas automatizadas, incluyendo pruebas unitarias, de integración y de aceptación.
-%     \item Revisión de código por pares para asegurar la consistencia y calidad del código.
-%     \item Implementación de CI/CD usando Vercel para garantizar despliegues automáticos y controlados.
-%     \item Pruebas de usabilidad con usuarios reales para validar la experiencia del usuario.
-% \end{itemize}
-
-% \subsection{Herramientas y Tecnologías}
-% Para asegurar la calidad del proyecto, se utilizarán las siguientes herramientas:
-% \begin{itemize}
-%     \item \textbf{CI/CD}: Vercel y GitHub Actions para control de calidad durante el despliegue.
-%     \item \textbf{Testing}: Jest para pruebas unitarias y Cypress para pruebas de integración.
-%     \item \textbf{Control de calidad del código}: ESLint y Prettier para mantener estándares de código.
-%     \item \textbf{Monitoreo del rendimiento}: Lighthouse para verificar tiempos de carga y rendimiento.
-% \end{itemize}
-
-% \subsection{Indicadores de Calidad}
-% Los KPIs definidos para evaluar la calidad del proyecto son:
-% \begin{itemize}
-%     \item Número de bugs críticos detectados.
-%     \item Tiempos de carga y respuesta del sistema.
-%     \item Porcentaje de cobertura de pruebas.
-%     \item Satisfacción del usuario en pruebas de usabilidad.
-% \end{itemize}
-
-
-% \section{Tecnologías y Herramientas Utilizadas}
+\section{Herramientas y Tecnologías}
