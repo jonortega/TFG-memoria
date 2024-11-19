@@ -212,7 +212,7 @@ La gestión de riesgos desempeña un papel crucial en cualquier proyecto, ya que
 
 A continuación, se presentan los riesgos identificados, especificando para cada uno de ellos la probabilidad de que se materialice, el impacto que podría ocasionar, las medidas implementadas para prevenirlos y las acciones que se llevarían a cabo en caso de que se acabe materializando alguno de ellos.
 
-\subsection{R01: Limitaciones con respecto a los datos disponibles de la API}
+\subsection*{R01: Limitaciones con respecto a los datos disponibles de la API}
 Este riesgo se refiere a la posible falta de datos suficientes o adecuados para implementar ciertas funcionalidades previstas, como estadísticas o visualizaciones concretas.
 
 \begin{itemize}
@@ -222,7 +222,7 @@ Este riesgo se refiere a la posible falta de datos suficientes o adecuados para 
     \item \textbf{Plan de mitigación}: Proponer gráficos o funcionalidades alternativas que no dependan de esos datos.
 \end{itemize}
 
-\subsection{R02: Cambios en la política de acceso a la API}
+\subsection*{R02: Cambios en la política de acceso a la API}
 Como \textit{Spotify} se reserva el derecho de modificar en cualquier momento las políticas de uso de su API, existe la posibilidad de que algunas funcionalidades del proyecto se vean afectadas o limitadas debido a cambios en los permisos o en la disponibilidad de ciertos endpoints.
 
 \begin{itemize}
@@ -232,7 +232,7 @@ Como \textit{Spotify} se reserva el derecho de modificar en cualquier momento la
     \item \textbf{Plan de mitigación}: Ajustar el alcance del proyecto para trabajar con los datos que sigan siendo accesibles y documentar los cambios en la memoria del TFG.
 \end{itemize}
 
-\subsection{R03: Interrupciones en la disponibilidad de servicios de terceros}
+\subsection*{R03: Interrupciones en la disponibilidad de servicios de terceros}
 Este riesgo engloba posibles problemas de disponibilidad en servicios externos críticos para el proyecto, como la API de \textit{Spotify} o el servicio de hosting de \textit{Vercel}.
 
 \begin{itemize}
@@ -242,7 +242,7 @@ Este riesgo engloba posibles problemas de disponibilidad en servicios externos c
     \item \textbf{Plan de mitigación}: Continuar con el desarrollo de los aspectos que no dependan de estos servicios y retomar las tareas una vez se solucione la interrupción.
 \end{itemize}
 
-\subsection{R04: Incompatibilidad de versiones de las tecnologías a utilizar}
+\subsection*{R04: Incompatibilidad de versiones de las tecnologías a utilizar}
 Este riesgo está relacionado con posibles problemas de compatibilidad entre \textit{TypeScript}, \textit{React}, \textit{Next.js} y las librerías utilizadas.
 
 \begin{itemize}
@@ -252,7 +252,7 @@ Este riesgo está relacionado con posibles problemas de compatibilidad entre \te
     \item \textbf{Plan de mitigación}: Actualizar o cambiar las herramientas o librerías problemáticas por alternativas compatibles y realizar pruebas exhaustivas después de cada cambio.
 \end{itemize}
 
-\subsection{R05: Dificultad en el aprendizaje de las herramientas a utilizar}
+\subsection*{R05: Dificultad en el aprendizaje de las herramientas a utilizar}
 Al trabajar con herramientas, frameworks y tecnologías con los que no se ha tenido un contacto previo, se pueden ocasionar retrasos por el proceso de aprendizaje.
 
 \begin{itemize}
@@ -262,7 +262,7 @@ Al trabajar con herramientas, frameworks y tecnologías con los que no se ha ten
     \item \textbf{Plan de mitigación}: Consultar documentación oficial, foros o buscar ayuda en comunidades de desarrollo en línea para resolver dudas rápidamente. Si no es suficiente, se puede avanzar con otra tarea que no dependa de la resolución del problema actual, permitiendo ganar tiempo mientras se sigue investigando la solución al inconveniente técnico.
 \end{itemize}
 
-\subsection{R06: Planificación incorrecta}
+\subsection*{R06: Planificación incorrecta}
 Como puede ocurrir en cualquier proyecto, este riesgo consiste en una planificación inicial que no contemple adecuadamente el tiempo o los recursos necesarios para el desarrollo del proyecto.
 
 \begin{itemize}
@@ -272,7 +272,7 @@ Como puede ocurrir en cualquier proyecto, este riesgo consiste en una planificac
     \item \textbf{Plan de mitigación}: Reorganizar tareas y replantear las prioridades para cumplir los objetivos principales y siempre minimizando el impacto.
 \end{itemize}
 
-\subsection{R07: Dificultad para compaginar el proyecto con las obligaciones académicas}
+\subsection*{R07: Dificultad para compaginar el proyecto con las obligaciones académicas}
 Este riesgo hace referencia a la posibilidad de tener problemas a la hora de gestionar el tiempo disponible para dedicar al proyecto, ya que se está cursando una asignatura en paralelo.
 
 \begin{itemize}
@@ -286,3 +286,83 @@ Este riesgo hace referencia a la posibilidad de tener problemas a la hora de ges
 % \section{Gestión de Calidad}
 
 \section{Herramientas y Tecnologías}
+
+Durante el desarrollo del TFG se usarán diferentes herramientas, tanto para la implementacion de la aplicación web como en la planificación y redacción de la memoria. Cada una de ellas ha sido seleccionada por su idoneidad para la tarea en cuestión. A continuación se mencionan dichas herramientas y tecnologías, su funcion en el proyecto y una justificación de su selección.
+
+\addtocounter{tocdepth}{-1}
+
+\subsection{TypeScript}
+Lenguaje de programación que extiende JavaScript, añadiendo un sistema de tipos estáticos y funcionalidades adicionales que mejoran la robustez y mantenibilidad del código. Permite detectar errores durante el desarrollo, en lugar de en tiempo de ejecución, lo que reduce significativamente los problemas en aplicaciones grandes y complejas.
+
+En este proyecto, \textit{TypeScript} se utiliza como lenguaje principal para implementar la aplicación web, gracias a sus múltiples ventajas:
+\begin{itemize}
+    \item \textbf{Tipado estático}: Permite definir explícitamente los tipos de variables, funciones y componentes, evitando errores comunes como el mal uso de datos o la incompatibilidad entre módulos.
+    \item \textbf{Mejor autocompletado y documentación}: Herramientas como \textit{VSCode} ofrecen un autocompletado más preciso y una navegación clara del código, mejorando la productividad del desarrollo.
+    \item \textbf{Compatibilidad con JavaScript}: Al ser un superconjunto de JavaScript, es totalmente compatible con cualquier código JavaScript existente, facilitando la integración.
+    \item \textbf{Detección temprana de errores}: Como ya se ha mencionado, gracias a su compilador, los errores se detectan antes de ejecutar el código, garantizando una mayor calidad en las entregas.
+\end{itemize}
+
+\subsection{React.js}
+Biblioteca de JavaScript desarrollada por \textit{Facebook}, diseñada para la creación de interfaces de usuario modernas y dinámicas. Es ampliamente reconocida por su enfoque declarativo, que facilita la construcción de componentes reutilizables. En este proyecto, \textit{React.js} sirve como base para desarrollar la interfaz de usuario de la aplicación web, aprovechando su capacidad para gestionar de manera eficiente la interacción entre los componentes y el estado de la aplicación.
+
+\subsection{Next.js}
+Next.js es un framework de desarrollo web basado en \textit{React.js}, diseñado para facilitar la creación de aplicaciones modernas, escalables y de alto rendimiento. En este proyecto, se utiliza para implementar la página web principal, proporcionando funcionalidades avanzadas como el renderizado híbrido (estático y dinámico), rutas dinámicas y optimización automática de recursos.
+
+El framework emplea varias tecnologías clave para garantizar un entorno de desarrollo eficiente y una construcción optimizada de la aplicación:
+\begin{itemize}
+    \item \textbf{SWC}: Compilador de alto rendimiento escrito en \textit{Rust} utilizado durante el proceso de construcción.
+    \item \textbf{Turbopack}: Empaquetador moderno que reemplaza a \textit{Webpack}, ofreciendo tiempos de desarrollo significativamente más rápidos.
+    \item \textbf{ESLint}: Herramienta integrada para el análisis estático de código, que garantiza la detección de errores y el cumplimiento de buenas prácticas.
+    \item \textbf{Node.js}: Entorno de ejecución de JavaScript necesario tanto para el desarrollo como para la compilación y el despliegue de la aplicación.
+\end{itemize}
+
+\subsection{TailwindCSS}
+Framework de CSS de utilidad que permite crear interfaces de usuario de manera rápida mediante clases predefinidas. Su integración con \textit{Next.js} permite una optimización automática de los estilos, eliminando clases no utilizadas durante el proceso de compilación para reducir el tamaño final del archivo CSS.
+
+\subsection{Spotify Web API}
+Siendo el principal servicio utilizado en este proyecto, es una interfaz de programación que permite acceder a diversos datos de usuario y a información relacionada con el contenido disponible en la plataforma de \textit{Spotify}. Esta API ofrece múltiples endpoints que proporcionan acceso a los datos, los cuales gozan de una muy buena documentación en la página web oficial.
+
+\subsection{Git y GitHub}
+\textit{Git} es un sistema de control de versiones ampliamente utilizado en el desarrollo de software, que permite gestionar y realizar un seguimiento de los cambios en el código fuente del proyecto de manera eficiente. Por su parte, \textit{GitHub} es una plataforma basada en la nube que facilita el almacenamiento y la colaboración en proyectos gestionados con \textit{Git}. Juntas, estas herramientas forman una combinación esencial en cualquier proceso de desarrollo de software, proporcionando un entorno robusto para el control de versiones y el respaldo seguro del código.
+
+\subsection{Vercel}
+Plataforma de hosting y despliegue continuo, optimizada para aplicaciones web basadas en frameworks como \textit{Next.js}, \textit{React.js}, \textit{Vue.js} y otros. En este proyecto, \textit{Vercel} se utiliza para alojar y mantener la página web, asegurando un proceso de despliegue automatizado gracias a su integración nativa con \textit{GitHub}.
+
+Una de las principales ventajas de \textit{Vercel} es su integración directa con repositorios en \textit{GitHub}. Esto permite que cada vez que se realiza un cambio en el código fuente (como un \textit{push} en la rama principal), se active un flujo de trabajo automatizado para desplegar la versión más reciente de la aplicación. Aunque \textit{Vercel} cuenta con flujos de trabajo internos para automatizar los despliegues, también es posible personalizarlos utilizando \textit{GitHub Actions}, lo que ofrece un mayor control sobre el proceso de CI/CD.
+
+Además de la facilidad de despliegue, \textit{Vercel} proporciona funcionalidades avanzadas que resultan beneficiosas para este proyecto:
+\begin{itemize}
+    \item \textbf{Renderizado optimizado}: Soporte nativo para el renderizado estático (\textit{Static Site Generation}) y dinámico (\textit{Server-Side Rendering}), fundamentales para proyectos basados en \textit{Next.js}.
+    \item \textbf{Red global de distribución de contenido (CDN)}: Los recursos de la aplicación se sirven desde una red global de servidores, garantizando tiempos de carga rápidos para los usuarios en diferentes ubicaciones.
+    \item \textbf{Escalabilidad automática}: La plataforma ajusta automáticamente los recursos según la demanda, lo que elimina la necesidad de gestionar manualmente la infraestructura.
+\end{itemize}
+
+\subsection{Visual Studio Code (VSCode)}
+Editor de código empleado para el desarrollo del proyecto. Se trata de un editor de código abierto y gratuito, creado por Microsoft y diseñado para soportar una amplia variedad de lenguajes de programación y tecnologías. Para el beneficio del proyecto, cuenta con la integración nativa de \textit{TypeScript} y \textit{React.js}
+
+Además, también se emplea para la edición en local de la memoria del TFG escrita en \LaTeX, siendo una mejor alternativa a otros editores específicos del lenguaje y la preferencia personal a los editores locales en comparación con las herramientas online como \textit{Overleaf}. La posibilidad de gestionar tanto el código de la aplicación como la memoria en un mismo entorno mejora significativamente la organización y productividad durante el desarrollo.
+
+\subsection{\LaTeX\ (MikTeX)}
+Sistema de preparación de documentos ampliamente utilizado en entornos académicos y técnicos por su capacidad para generar documentos de alta calidad tipográfica. En este proyecto, \LaTeX\ se utiliza para la escritura y edición de la memoria del TFG.
+
+Para la compilación de los documentos, se emplea \textit{MikTeX}, una distribución de \LaTeX\ que incluye las herramientas necesarias para gestionar paquetes y generar archivos en formato PDF. Como ya se ha mencionado, esta distribución se combina con \textit{VSCode} para una agradable experiencia de edición.
+
+\subsection{Chart.js}
+Librería de gráficos sencilla y flexible que permite crear visualizaciones interactivas. Se utiliza para representar datos de usuario en la sección de estadísticas de la aplicación web, incluyendo gráficos de barras, líneas y áreas, entre otros. Su facilidad de uso y su integración con \textit{React.js} hacen de esta librería una opción ideal.
+
+\subsection{Jest}
+Framework de testing desarrollado por \textit{Facebook}, diseñado para realizar pruebas unitarias y de integración en aplicaciones basadas en JavaScript y \textit{TypeScript}. Es una herramienta clave para identificar y resolver errores antes del despliegue y poder garantizar una buena calidad del producto final.
+
+\subsection{K6}
+Herramienta de pruebas de carga (\textit{load testing}) que permite evaluar el rendimiento de aplicaciones web simulando diferentes niveles de tráfico. Sirve para analizar cómo responde la aplicación bajo diferentes condiciones, identificando posibles cuellos de botella y asegurando un rendimiento óptimo incluso en escenarios de alta demanda. Aunque no se espera que la página reciba un tráfico elevado en un principio, realizar pruebas de carga es una buena práctica que contribuye a garantizar la calidad del producto.
+
+\subsection{Google Drive}
+Servicio de almacenamiento gratuito en la nube utilizado para guardar y respaldar de manera segura documentos relacionados con el TFG. Es una herramienta muy popular y fácil de usar, perfecta para garantiza que la información esté siempre accesible evitando pérdidas de datos.
+
+\subsection{Microsoft Excel}
+Herramienta muy popular para la edición de hojas de cálculo, ampliamente utilizada en diferentes ámbitos debido a su versatilidad y funcionalidades avanzadas. Gracias a su capacidad para generar tablas claras y visuales, se ha empleado para crear las tablas que se incluyen en la memoria del TFG, las cuales se exportan y adaptan fácilmente para su posterior integración en el documento de \LaTeX, complementando el contenido técnico con representaciones más visuales.
+
+\subsection{Draw.io}
+Herramienta web utilizada para la creación de diagramas incluidos en la memoria del TFG. Su interfaz intuitiva permite elaborar diagramas técnicos con facilidad. Estos diagramas ayudan a ilustrar conceptos del proyecto, facilitando la comprensión de los aspectos técnicos por parte del lector.
+
+\addtocounter{tocdepth}{1}
