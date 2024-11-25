@@ -31,22 +31,14 @@ Una vez que la aplicación obtiene la autorización, Spotify permite el acceso a
 
 \subsubsection*{Scopes: Controlando el Acceso a los Recursos}
 
-Los scopes (alcances) permiten a los usuarios tener la tranquilidad de que únicamente compartirán la información que han autorizado explícitamente. Cuando un programador configura el flujo de autorización, debe especificar los scopes necesarios para que la aplicación pueda acceder a los recursos protegidos. En función de los scopes solicitados, Spotify mostrará al usuario una pantalla indicando qué permisos específicos se están requiriendo (figura \ref{fig:auth_popup}). El usuario puede entonces aceptar o rechazar estos permisos.
+Los scopes (alcances) permiten a los usuarios tener la tranquilidad de que únicamente compartirán la información que han autorizado explícitamente. Cuando un programador configura el flujo de autorización, debe especificar los scopes necesarios (de un total de 24) para que la aplicación pueda acceder a los recursos protegidos. En función de los scopes solicitados, Spotify mostrará al usuario una pantalla indicando qué permisos específicos se están requiriendo (figura \ref{fig:auth_popup}). El usuario puede entonces aceptar o rechazar estos permisos.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.4\textwidth]{./figures/auth_popup.png}
+    \includegraphics[width=0.3\textwidth]{./figures/auth_popup.png}
     \caption{Pantalla de autorización de scopes en Spotify.}
     \label{fig:auth_popup}
 \end{figure}
-
-Existen 24 scopes diferentes, algunos de los más comunes siendo:
-\begin{itemize}
-    \setlength{\itemsep}{0pt}
-    \item \texttt{user-top-read}: Acceso a las canciones y artistas más escuchados.
-    \item \texttt{playlist-read-private}: Lectura de playlists privadas del usuario.
-    \item \texttt{user-library-read}: Lectura de la biblioteca musical guardada.
-\end{itemize}
 
 Una vez que la aplicación obtiene la autorización, el siguiente paso es conseguir el \texttt{access\_token}, necesario para acceder a los recursos autorizados. Un concepto clave para entender cómo se realiza este proceso es el \textbf{authorization flow}, que define las interacciones entre la aplicación, el usuario y Spotify.
 
@@ -79,96 +71,147 @@ De los cuatro flujos de autorización implementados por Spotify, este proyecto u
 
 \subsection{Principales Endpoints Relevantes para el Proyecto}
 
-Para facilitar la comprensión de los endpoints utilizados en este proyecto, se ha diseñado un sistema visual que permite resumir la información básica de cada uno. Este enfoque busca evitar la sobrecarga de texto y ofrecer una representación gráfica que permita al lector identificar rápidamente los elementos esenciales.
+Para facilitar la comprensión de los endpoints utilizados en este proyecto, se ha diseñado un sistema visual que resume la información clave de cada uno, evitando la sobrecarga de texto y permitiendo al lector identificar rápidamente los elementos esenciales.
 
-En este sistema, cada endpoint se presenta como la interacción de las dos partes. En el lado izquierdo se encuentra la \textit{request} hecha; mostrando el método HTTP (\texttt{GET}, \texttt{POST}, \texttt{PUT}, \texttt{DELETE}) usado, la URL a la que se hace la petición y los datos necesarios a enviar, tanto como en la misma URL (método \texttt{GET}) o en el \textit{body} (demás métodos). A la derecha se encuentra la \textit{response} que se recibiría por parte de la API de Spotify en el caso en el que no ocurra ningún error, mostrando los campos que se encontrarán dentro del JSON recibido.
+Cada endpoint se presenta como una interacción entre la solicitud (\textit{request}) y la respuesta (\textit{response}). A la izquierda, la \textit{request} incluye el método HTTP (\texttt{GET}, \texttt{POST}, \texttt{PUT}, \texttt{DELETE}), la URL de la petición y los parámetros requeridos, que pueden estar en la URL (para métodos \texttt{GET}) o en el cuerpo de la solicitud (\textit{body}, para métodos como \texttt{POST} o \texttt{PUT}). Si existen parámetros en los \textit{headers}, se mostrarán sobre los parámetros del \textit{body}/URL. A la derecha se encuentra la \textit{response}, con los campos principales que estarán presentes en el JSON devuelto por la API de Spotify, si la solicitud se procesa correctamente
 
-En la siguiente figura \ref{fig:plantilla_endpoints} se muestra una plantilla genérica que sirve como referencia para entender este sistema visual. En las siguientes secciones, esta plantilla se rellenará con la información específica de cada uno de los endpoints.
+En la figura \ref{fig:plantilla_endpoints} se muestra una plantilla genérica que sirve como referencia para entender este sistema visual, que se rellenará con la información específica de cada endpoint en las siguientes secciones.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{figures/plantilla_endpoints.png}
+    \includegraphics[width=0.95\textwidth]{figures/endpoints/plantilla_endpoints.png}
     \caption{Plantilla visual para representar los endpoints.}
     \label{fig:plantilla_endpoints}
 \end{figure}
 
+\subsubsection{Endpoints de Autenticación}
 
-La interacción con Spotify comienza con un endpoint dedicado al proceso de autorización. Este endpoint (figura \ref{fig:req_usr_auth}) genera la pantalla de autorización que se le muestra al usuario y, en el caso de que acepte, se le redirige a la \texttt{redirect\_uri} indicada en la \textit{request}. En esta URI siempre se suele implementar la llamada al segundo endpoint (figura \ref{fig:req_access_token}) necesario para finalizar el proceso de autorización, el cual permite intercambiar el \texttt{code} obtenido en el paso anterior por un \texttt{access\_token}. Este token es necesario para realizar cualquier otra solicitud posterior a la API.
+La interacción con Spotify comienza con un endpoint dedicado al proceso de autorización: \textbf{Request User Authorization} (figura \ref{fig:req_usr_auth}). Este endpoint genera la pantalla de autorización que se le muestra al usuario y, en el caso de que acepte, se le redirige a la \texttt{redirect\_uri} indicada en la \textit{request}. En esta URI siempre se suele implementar la llamada al segundo endpoint llamado \textbf{Request Access Token} (figura \ref{fig:req_access_token}), necesario para finalizar el proceso de autorización. Este permite intercambiar el \texttt{code} obtenido en el paso anterior por un \texttt{access\_token}, el cual es requerido para realizar cualquier otra solicitud posterior a la API.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{figures/request_user_auth.png}
+    \includegraphics[width=\textwidth]{figures/endpoints/request_user_auth.png}
     \caption{Endpoint de \textit{Request User Authorization}.}
     \label{fig:req_usr_auth}
 \end{figure}
 
+\begin{itemize}
+    \item \textbf{Parámetros del Request}
+          \begin{itemize}
+              \item \texttt{client\_id}: El ID de cliente generado al registrar la aplicación.
+              \item \texttt{response\_type}: Se establece en \texttt{``code''}, indicando que se solicita un código de autorización.
+              \item \texttt{redirect\_uri}: URI a la que se redirige al usuario después de aceptar o rechazar los permisos. Debe coincidir exactamente con uno de los valores configurados al registrar la aplicación.
+              \item \texttt{state}: Parámetro utilizado para proteger contra ataques como \textit{cross-site request forgery} (CSRF). Su valor debe ser validado al recibir la respuesta.
+              \item \texttt{scope}: Lista de scopes separados por espacios, indicando los permisos requeridos por la aplicación. Si no se especifican, solo se concederá acceso a información pública.
+              \item \texttt{show\_dialog}: Determina si se fuerza al usuario a aprobar nuevamente la aplicación, incluso si ya lo hizo previamente. Si se establece en \texttt{true}, el usuario verá el diálogo de autorización; de lo contrario, será redirigido automáticamente.
+          \end{itemize}
+    \item \textbf{Parámetros del Response}
+          \begin{itemize}
+              \item \texttt{code}: Código de autorización que puede intercambiarse posteriormente por un \texttt{access\_token}.
+              \item \texttt{state}: El valor del parámetro \texttt{state} enviado originalmente en la solicitud. Su valor debe ser comparado para garantizar la validez de la respuesta.
+          \end{itemize}
+\end{itemize}
+
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{figures/request_access_token.png}
+    \includegraphics[width=\textwidth]{figures/endpoints/request_access_token.png}
     \caption{Endpoint de \textit{Request Access Token}.}
     \label{fig:req_access_token}
 \end{figure}
 
-
-% * Escribir después de cada imagen de arriba la explicación de cada parámetro
-% * Seguir con los endpoints que por ahora sé que voy a usar
-% * /tracks, /top/tracks, /player/recently-played, /search
-
-
 \begin{itemize}
-    \item \textbf{URL}: \url{https://accounts.spotify.com/authorize}
-    \item \textbf{Método}: \texttt{GET}
-    \item \textbf{Parámetros requeridos}:
+    \item \textbf{Parámetros del Request}
           \begin{itemize}
-              \item \texttt{client\_id}: El ID de cliente generado tras registrar tu aplicación.
-              \item \texttt{response\_type}: Fijado a \texttt{code}.
-              \item \texttt{redirect\_uri}: URI a la que se redirige al usuario después de aceptar o rechazar los permisos. Debe coincidir exactamente con uno de los valores configurados en la lista de URIs permitidas al registrar la aplicación.
+              \item \textbf{Body}
+                    \begin{itemize}
+                        \item \texttt{grant\_type}: Este campo debe contener el valor \texttt{``authorization\_code''}.
+                        \item \texttt{code}: El código de autorización devuelto de la solicitud previa.
+                        \item \texttt{redirect\_uri}: Este parámetro se utiliza únicamente para validación (no se realiza una redirección real). El valor debe coincidir exactamente con el valor de \texttt{redirect\_uri} utilizado al solicitar el código de autorización.
+                    \end{itemize}
+              \item \textbf{Headers}
+                    \begin{itemize}
+                        \item \texttt{Authorization}: Cadena codificada en Base64 con el siguiente formato: \texttt{Basic <base64 encoded client\_id:client\_secret>}.
+                        \item \texttt{Content-Type}: Establecido en \texttt{``application/x-www-form-urlencoded''}.
+                    \end{itemize}
           \end{itemize}
-    \item \textbf{Parámetros opcionales}:
+    \item \textbf{Parámetros del Response}
           \begin{itemize}
-              \item \texttt{state}: Se recomienda fuertemente incluir este parámetro para proteger contra ataques como CSRF. Su valor se debe validar al recibir la respuesta.
-              \item \texttt{scope}: Lista de \textbf{scopes} separados por espacios. Si no se especifica, solo se concederá acceso a información pública.
-              \item \texttt{show\_dialog}: Determina si se fuerza al usuario a aprobar la aplicación nuevamente. Si se establece en \texttt{true}, el usuario deberá aprobar el acceso incluso si ya lo hizo previamente.
-          \end{itemize}
-    \item \textbf{Respuesta esperada}:
-          \begin{itemize}
-              \item \texttt{error}: Razón del fallo en la autorización, por ejemplo, \texttt{"access\_denied"}.
-              \item \texttt{state}: El valor del parámetro \texttt{state} enviado originalmente.
+              \item \texttt{access\_token}: Token de acceso que permite hacer las posteriores llamadas a la API.
+              \item \texttt{token\_type}: Indica cómo se puede usar el token de acceso; siempre tiene el valor \texttt{``Bearer''}.
+              \item \texttt{scope}: Lista de copes separados por espacios que han sido concedidos para este \texttt{access\_token}.
+              \item \texttt{expires\_in}: Periodo de tiempo (en segundos) durante el cual el token de acceso es válido. Siempre es de 1 hora.
+              \item \texttt{refresh\_token}: Token utilizado para renovar el \texttt{access\_token} cuando este expira.
           \end{itemize}
 \end{itemize}
 
-Una vez completado el proceso de autorización y obtenido el \texttt{access\_token}, la aplicación puede interactuar con los \textbf{endpoints de datos} proporcionados por Spotify. Estos endpoints son la clave para acceder a información relevante del usuario, como sus playlists, canciones favoritas y estadísticas de escucha. En esta sección, se describen los endpoints más importantes utilizados en el proyecto, explicando sus características principales y cómo contribuyen a las funcionalidades de la aplicación.
+\subsubsection{Endpoints de Datos}
 
-Para facilitar la lectura, cada endpoint se presenta con la siguiente estructura:
-\begin{itemize}
-    \item \textbf{Descripción}: Breve explicación de su función.
-    \item \textbf{URL}: La dirección del endpoint.
-    \item \textbf{Método}: \texttt{GET}, \texttt{POST}, etc.
-    \item \textbf{Parámetros requeridos}: Detalle de los parámetros que deben enviarse.
-    \item \textbf{Ejemplo de respuesta}: Una muestra del formato JSON recibido.
-\end{itemize}
+Una vez completado el proceso de autorización y obtenido el \texttt{access\_token}, la aplicación puede interactuar con los endpoints de datos proporcionados por Spotify. Hay un total de 88 endpoints agrupados en 14 grupos.
 
-\paragraph{Obtener las playlists del usuario}
-\begin{itemize}
-    \item \textbf{Descripción}: Recupera las playlists del usuario actual, incluyendo playlists privadas si se tiene el scope adecuado.
-    \item \textbf{URL}: \url{https://api.spotify.com/v1/me/playlists}
-    \item \textbf{Método}: \texttt{GET}
-    \item \textbf{Parámetros requeridos}: Ninguno.
-    \item \textbf{Ejemplo de respuesta} (formato JSON):
-          \begin{verbatim}
-    {
-        "items": [
-            {
-                "name": "Mi playlist favorita",
-                "id": "12345",
-                "tracks": {
-                    "total": 50
-                }
-            }
-        ]
-    }
-    \end{verbatim}
-\end{itemize}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\textwidth]{figures/selected_groups.png}
+    \caption{Grupos de endpoints ofrecidos y cuáles se van a usar.}
+    \label{fig:selected_groups}
+\end{figure}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figures/endpoints/get_users_saved_tracks.png}
+    \caption{Endpoint de \textit{Get User's Saved Tracks}.}
+    \label{fig:get_usr_saved_tracks}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figures/endpoints/search_for_item.png}
+    \caption{Endpoint de \textit{Search for Item}.}
+    \label{fig:search_item}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figures/endpoints/get_recently_played_tracks.png}
+    \caption{Endpoint de \textit{Get Recently Played Tracks}.}
+    \label{fig:get_recently_played_tracks}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figures/endpoints/get_users_top_items.png}
+    \caption{Endpoint de \textit{Get User's Top Items (Tracks)}.}
+    \label{fig:get_usr_top_items_tracks}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figures/endpoints/get_current_users_profile.png}
+    \caption{Endpoint de \textit{Get Current User's Profile}.}
+    \label{fig:get_current_usr_profile}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figures/endpoints/create_playlist.png}
+    \caption{Endpoint de \textit{Create Playlist}.}
+    \label{fig:create_playlist}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figures/endpoints/add_items_to_playlist.png}
+    \caption{Endpoint de \textit{Add Items to Playlist}.}
+    \label{fig:add_items_playlist}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figures/endpoints/add_custom_playlist_cover_image.png}
+    \caption{Endpoint de \textit{Add Custom Playlist Cover Image}.}
+    \label{fig:add_custom_playlist_cover_img}
+\end{figure}
+
 
 
 
