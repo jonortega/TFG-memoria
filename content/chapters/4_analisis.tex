@@ -67,13 +67,13 @@ Cada uno de estos flujos está diseñado para un escenario específico de uso, p
     \item \textbf{Implicit Grant Flow}: \underline{En desuso debido a limitaciones de seguridad}. Fue diseñado para aplicaciones cliente que no tienen un backend, pero carece de soporte para \texttt{refresh\_tokens} y expone el \texttt{access\_token} en la URL, lo que lo hace menos seguro.
 \end{itemize}
 
-De los cuatro flujos de autorización implementados por Spotify, este proyecto utilizará el \textbf{Authorization Code Flow} (sin PKCE). Esta elección se debe a que la aplicación cuenta con un backend seguro implementado con API Routes de Next.js, lo que permite almacenar de forma segura el \texttt{client\_secret}. Además, este flujo proporciona tanto un \texttt{access\_token} como un \texttt{refresh\_token}, lo que asegura un acceso continuo a los datos del usuario sin necesidad de repetir el proceso de autenticación. Dado que es el flujo recomendado por Spotify para aplicaciones web que necesitan acceder a datos específicos del usuario, garantiza un balance óptimo entre seguridad, funcionalidad y cumplimiento de estándares.
+De los cuatro flujos de autorización implementados por Spotify, este proyecto utilizará el \textbf{Authorization Code Flow} (sin PKCE). Esta elección se debe a que la aplicación cuenta con un backend seguro implementado con \textit{Route Handlers} de Next.js, lo que permite almacenar de forma segura el \texttt{client\_secret}. Además, este flujo proporciona tanto un \texttt{access\_token} como un \texttt{refresh\_token}, lo que asegura un acceso continuo a los datos del usuario sin necesidad de repetir el proceso de autenticación. Dado que es el flujo recomendado por Spotify para aplicaciones web que necesitan acceder a datos específicos del usuario, garantiza un balance óptimo entre seguridad, funcionalidad y cumplimiento de estándares.
 
 \subsection{Principales Endpoints Relevantes para el Proyecto}
 
 Para facilitar la comprensión de los endpoints utilizados en este proyecto, se ha diseñado un sistema visual que resume la información clave de cada uno, evitando la sobrecarga de texto y permitiendo al lector identificar rápidamente los elementos esenciales.
 
-Cada endpoint se presenta como una interacción entre la solicitud (\textit{request}) y la respuesta (\textit{response}). A la izquierda, la \textit{request} incluye el método HTTP (\texttt{GET}, \texttt{POST}, \texttt{PUT}, \texttt{DELETE}), la URL de la petición y los parámetros requeridos, que pueden estar en la URL (para métodos \texttt{GET}) o en el cuerpo de la solicitud (\textit{body}, para métodos como \texttt{POST} o \texttt{PUT}). Si existen parámetros en los \textit{headers}, se mostrarán sobre los parámetros del \textit{body}/URL. A la derecha se encuentra la \textit{response}, con los campos principales que estarán presentes en el JSON devuelto por la API de Spotify, si la solicitud se procesa correctamente
+Cada endpoint se presenta como una interacción entre la solicitud (\textit{request}) y la respuesta (\textit{response}). A la izquierda, la \textit{request} incluye el método HTTP (\texttt{GET}, \texttt{POST}, \texttt{PUT}, \texttt{DELETE}), la URL de la petición y los parámetros requeridos, que pueden estar en la URL (para métodos \texttt{GET}) o en el cuerpo de la solicitud (\textit{body}, para métodos como \texttt{POST} o \texttt{PUT}). Si existen parámetros en los \textit{headers}, se mostrarán sobre los parámetros del \textit{body}/URL. A la derecha se encuentra la \textit{response}, con los campos principales que estarán presentes en el JSON devuelto por la API de Spotify, si la solicitud se procesa correctamente.
 
 En la figura \ref{fig:plantilla_endpoints} se muestra una plantilla genérica que sirve como referencia para entender este sistema visual, que se rellenará con la información específica de cada endpoint en las siguientes secciones.
 
@@ -155,6 +155,7 @@ Una vez completado el proceso de autorización y obtenido el \texttt{access\_tok
     \label{fig:selected_groups}
 \end{figure}
 
+% TODO: Poner que las funcionalidades de la app se basan en los endpoints disponibles de la API, no al revés
 
 \begin{figure}[H]
     \centering
@@ -165,18 +166,12 @@ Una vez completado el proceso de autorización y obtenido el \texttt{access\_tok
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{figures/endpoints/search_for_item.png}
-    \caption{Endpoint de \textit{Search for Item}.}
-    \label{fig:search_item}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
     \includegraphics[width=\textwidth]{figures/endpoints/get_recently_played_tracks.png}
     \caption{Endpoint de \textit{Get Recently Played Tracks}.}
     \label{fig:get_recently_played_tracks}
 \end{figure}
 
+% TODO: Copiar el nuevo con (tracks) en el nombre y añadir otro con (artists)
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{figures/endpoints/get_users_top_items.png}
@@ -191,32 +186,40 @@ Una vez completado el proceso de autorización y obtenido el \texttt{access\_tok
     \label{fig:get_current_usr_profile}
 \end{figure}
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{figures/endpoints/create_playlist.png}
-    \caption{Endpoint de \textit{Create Playlist}.}
-    \label{fig:create_playlist}
-\end{figure}
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=\textwidth]{figures/endpoints/search_for_item.png}
+%     \caption{Endpoint de \textit{Search for Item}.}
+%     \label{fig:search_item}
+% \end{figure}
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{figures/endpoints/add_items_to_playlist.png}
-    \caption{Endpoint de \textit{Add Items to Playlist}.}
-    \label{fig:add_items_playlist}
-\end{figure}
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=\textwidth]{figures/endpoints/create_playlist.png}
+%     \caption{Endpoint de \textit{Create Playlist}.}
+%     \label{fig:create_playlist}
+% \end{figure}
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{figures/endpoints/add_custom_playlist_cover_image.png}
-    \caption{Endpoint de \textit{Add Custom Playlist Cover Image}.}
-    \label{fig:add_custom_playlist_cover_img}
-\end{figure}
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=\textwidth]{figures/endpoints/add_items_to_playlist.png}
+%     \caption{Endpoint de \textit{Add Items to Playlist}.}
+%     \label{fig:add_items_playlist}
+% \end{figure}
+
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=\textwidth]{figures/endpoints/add_custom_playlist_cover_image.png}
+%     \caption{Endpoint de \textit{Add Custom Playlist Cover Image}.}
+%     \label{fig:add_custom_playlist_cover_img}
+% \end{figure}
 
 
 
 
 
-
+% TODO: Poner que no me deja coger el historial de escucha de más de 50 tracks
+% TODO: y que en vez de eso he decidido usar como proxy el endpoint de user's saved tracks
 \subsection{Limitaciones de la API}
 \begin{itemize}
     \item \textbf{Restricciones técnicas}:
@@ -230,34 +233,6 @@ Una vez completado el proceso de autorización y obtenido el \texttt{access\_tok
               \item Posibles soluciones, como procesar datos existentes para obtener métricas derivadas.
           \end{itemize}
     \item \textbf{Problemas de autenticación}: P.e., el tiempo limitado de vida del \texttt{access\_token}.
-\end{itemize}
-
-\subsection{Análisis de la Documentación Oficial}
-\begin{itemize}
-    \item Evaluaría la calidad de la documentación oficial, mencionando aspectos positivos y negativos:
-          \begin{itemize}
-              \item ¿Es fácil de entender?
-              \item ¿Incluye ejemplos útiles?
-              \item ¿Proporciona herramientas adicionales (como Spotify Console para probar peticiones)?
-          \end{itemize}
-    \item Relación con el soporte: ¿Existen foros, GitHub o recursos para resolver dudas?
-\end{itemize}
-
-\subsection{Ejemplos Prácticos y Flujo de Datos}
-\begin{itemize}
-    \item \textbf{Caso práctico 1}: Obtener las canciones más escuchadas y generar un gráfico.
-          \begin{itemize}
-              \item Explicaría cómo interactúan mi aplicación y la API:
-                    \begin{itemize}
-                        \item Envío del \texttt{access\_token}.
-                        \item Recuperación de datos del endpoint \texttt{Get User's Top Tracks}.
-                        \item Transformación de los datos en el frontend para visualizarlos.
-                    \end{itemize}
-          \end{itemize}
-    \item \textbf{Caso práctico 2}: Usar el endpoint \texttt{Get Audio Features} para analizar las propiedades musicales de una canción.
-          \begin{itemize}
-              \item Incluiría un ejemplo de cómo combino diferentes endpoints para lograr una funcionalidad.
-          \end{itemize}
 \end{itemize}
 
 \subsection{Soluciones Técnicas y Decisiones}
@@ -274,13 +249,6 @@ Una vez completado el proceso de autorización y obtenido el \texttt{access\_tok
               \item Límite de peticiones alcanzado (\texttt{429 Too Many Requests}).
               \item Respuestas vacías.
           \end{itemize}
-\end{itemize}
-
-\subsection{Comparación con las Necesidades del Proyecto}
-\begin{itemize}
-    \item ¿Qué datos y funcionalidades cubre bien la API?
-    \item ¿Qué datos tendré que procesar o calcular por mi cuenta?
-    \item Justificación de las decisiones técnicas basadas en este análisis.
 \end{itemize}
 
 \subsection{Conclusión del Análisis}
