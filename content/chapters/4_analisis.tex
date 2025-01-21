@@ -105,7 +105,7 @@ La interacción con Spotify comienza con un endpoint dedicado al proceso de auto
               \item \texttt{scope}: Lista de scopes separados por espacios, indicando los permisos requeridos por la aplicación. Si no se especifican, solo se concederá acceso a información pública.
               \item \texttt{show\_dialog}: Determina si se fuerza al usuario a aprobar nuevamente la aplicación, incluso si ya lo hizo previamente. Si se establece en \texttt{true}, el usuario verá el diálogo de autorización; de lo contrario, será redirigido automáticamente.
           \end{itemize}
-    \item \textbf{Parámetros del Response}
+    \item \textbf{Campos del Response}
           \begin{itemize}
               \item \texttt{code}: Código de autorización que puede intercambiarse posteriormente por un \texttt{access\_token}.
               \item \texttt{state}: El valor del parámetro \texttt{state} enviado originalmente en la solicitud. Su valor debe ser comparado para garantizar la validez de la respuesta.
@@ -134,7 +134,7 @@ La interacción con Spotify comienza con un endpoint dedicado al proceso de auto
                         \item \texttt{Content-Type}: Establecido en \texttt{``application/x-www-form-urlencoded''}.
                     \end{itemize}
           \end{itemize}
-    \item \textbf{Parámetros del Response}
+    \item \textbf{Campos del Response}
           \begin{itemize}
               \item \texttt{access\_token}: Token de acceso que permite hacer las posteriores llamadas a la API.
               \item \texttt{token\_type}: Indica cómo se puede usar el token de acceso; siempre tiene el valor \texttt{``Bearer''}.
@@ -146,7 +146,7 @@ La interacción con Spotify comienza con un endpoint dedicado al proceso de auto
 
 \subsubsection{Endpoints de Datos}
 
-Una vez completado el proceso de autorización y obtenido el \texttt{access\_token}, la aplicación puede interactuar con los endpoints de datos proporcionados por Spotify. Hay un total de 88 endpoints agrupados en 14 grupos.
+Una vez completado el proceso de autorización y obtenido el \texttt{access\_token}, la aplicación puede interactuar con los endpoints de datos proporcionados por Spotify. Hay un total de 88 endpoints agrupados en 14 grupos. En la figura \ref{fig:selected_groups} se indican los grupos cuyos endpoints se van a utilizar en este proyecto.
 
 \begin{figure}[H]
     \centering
@@ -155,36 +155,227 @@ Una vez completado el proceso de autorización y obtenido el \texttt{access\_tok
     \label{fig:selected_groups}
 \end{figure}
 
+Por razones prácticas, solo se van a mencionar los campos más relevantes en los \textit{request} y \textit{response} de los endpoints, ya que los objetos devueltos por la API suelen ser extensos y contener una gran cantidad de información, además de redundante en algunos casos. También se omite el campo de \texttt{Authorization}, que contine el \texttt{access\_token} en el \textit{header} del \textit{request}, ya que es necesario incluirlo en todas las peticiones.
+
 % TODO: Poner que las funcionalidades de la app se basan en los endpoints disponibles de la API, no al revés
+\section*{Users}
+
+En el grupo \textbf{Users} se encuentran los endpoints relacionados con la información de la cuenta del usuario. Usaremos el endpoint de \textbf{Get Current User's Profile} (figura \ref{fig:get_current_usr_profile}) para obtener datos como el nombre, correo electrónico y la imagen de perfil de la cuenta. Por otro lado, el endpoint de \textbf{Get User's Top Items} permite obtener los ``elementos'' más escuchados por el usuario, que en este caso podemos elegir entre \textit{tracks} (figura \ref{fig:get_usr_top_items_tracks}) o \textit{artists} (figura \ref{fig:get_usr_top_items_artists}).
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{figures/endpoints/get_users_saved_tracks.png}
-    \caption{Endpoint de \textit{Get User's Saved Tracks}.}
-    \label{fig:get_usr_saved_tracks}
+    \includegraphics[width=0.75\textwidth]{figures/endpoints/get_current_users_profile.png}
+    \caption{Endpoint de \textit{Get Current User's Profile}.}
+    \label{fig:get_current_usr_profile}
 \end{figure}
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{figures/endpoints/get_recently_played_tracks.png}
-    \caption{Endpoint de \textit{Get Recently Played Tracks}.}
-    \label{fig:get_recently_played_tracks}
-\end{figure}
+\begin{itemize}
+    \item \textbf{Parámetros del Request}
+          \begin{itemize}
+              \item No requiere parámetros adicionales.
+          \end{itemize}
+    \item \textbf{Campos del Response}
+          \begin{itemize}
+              \item \texttt{country}: El país del usuario, en formato ISO.
+              \item \texttt{display\_name}: Nombre mostrado en el perfil del usuario.
+              \item \texttt{email}: Dirección de correo del usuario, ingresada al crear la cuenta.
+              \item \texttt{id}: ID del usuario en Spotify.
+              \item \texttt{images}: Array conteniendo las URLs de la imagen del perfil del usuarios en distintos tamaños.
+              \item \texttt{followers}: Objeto con la información sobre los seguidores del usuario.
+          \end{itemize}
+\end{itemize}
 
-% TODO: Copiar el nuevo con (tracks) en el nombre y añadir otro con (artists)
+
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{figures/endpoints/get_users_top_items.png}
+    \includegraphics[width=0.75\textwidth]{figures/endpoints/get_users_top_items_tracks.png}
     \caption{Endpoint de \textit{Get User's Top Items (Tracks)}.}
     \label{fig:get_usr_top_items_tracks}
 \end{figure}
 
+\begin{itemize}
+    \item \textbf{Parámetros del Request}
+          \begin{itemize}
+              \item \textbf{Body}
+                    \begin{itemize}
+                        \item \texttt{time\_range}: El marco temporal para calcular las afinidades (\texttt{"long\_term"}, \texttt{"medium\_term"} (por defecto), \texttt{"short\_term"}).
+                        \item \texttt{limit}: Máximo número de elementos a devolver. Rango: 1-50.
+                        \item \texttt{offset}: Índice del primer elemento a devolver.
+                    \end{itemize}
+          \end{itemize}
+    \item \textbf{Campos del Response}
+          \begin{itemize}
+              \item \texttt{next}: URL de la página siguiente de elementos. \texttt{null} si no hay más elementos.
+              \item \texttt{total}: Número total de elementos disponibles.
+              \item \texttt{items}: Array de objetos de los datos de cada track.
+                    \begin{itemize}
+                        \item \texttt{name}: Nombre del track.
+                        \item \texttt{popularity}: Su popularidad (0-100).
+                        \item \texttt{duration\_ms}: Su duración en milisegundos.
+                        \item \texttt{explicit}: Valor booleano indicando si el track contiene letras explícitas.
+                        \item \texttt{album}: Información sobre el álbum donde aparece.
+                              \begin{itemize}
+                                  \item \texttt{id}: ID del álbum en Spotify.
+                                  \item \texttt{images}: Array conteniendo las URLs de la imagen de la portada del álbum en distintos tamaños.
+                                  \item \texttt{name}: Nombre del álbum.
+                                  \item \texttt{release\_date}: Fecha de lanzamiento del álbum.
+                              \end{itemize}
+                        \item \texttt{artists}: Array con los objetos relacionados con los artistas que participaron en el track.
+                              \begin{itemize}
+                                  \item \texttt{name}: Nombre del artista.
+                                  \item \texttt{id}: ID del artista en Spotify.
+                              \end{itemize}
+                    \end{itemize}
+          \end{itemize}
+\end{itemize}
+
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{figures/endpoints/get_current_users_profile.png}
-    \caption{Endpoint de \textit{Get Current User's Profile}.}
-    \label{fig:get_current_usr_profile}
+    \includegraphics[width=0.75\textwidth]{figures/endpoints/get_users_top_items_artists.png}
+    \caption{Endpoint de \textit{Get User's Top Items (Artists)}.}
+    \label{fig:get_usr_top_items_artists}
 \end{figure}
+
+\begin{itemize}
+    \item \textbf{Parámetros del Request}
+          \begin{itemize}
+              \item Los mismos que en el endpoint de \textit{Get User's Top Items (Tracks)}.
+          \end{itemize}
+
+    \item \textbf{Campos del Response}
+          \begin{itemize}
+              \item \texttt{id} (string): ID del artista en Spotify.
+              \item \texttt{name}: Nombre del artista.
+              \item \texttt{popularity}: Su popularidad (0-100).
+              \item \texttt{followers}: Objeto con la información sobre los seguidores del artista.
+              \item \texttt{genres}: Lista de géneros asociados al artista. Si el artista aún no está clasificado, el array estará vacío.
+              \item \texttt{images}: Array conteniendo las URLs de la imágene del artista en distintos tamaños.
+          \end{itemize}
+
+\end{itemize}
+
+\section*{Player}
+
+En el grupo \textbf{Player} podemos encontrar endpoints para controlar y obtener el estado de reproducción de la cuenta. Además de poder iniciar, pausar, adelantar o controlar el volumen de la reproducción, también podemos saber las últimas canciones escuchadas por el usuario mediante el endpoint de \textbf{Get Recently Played Tracks} (figura \ref{fig:get_recently_played_tracks}).
+
+Cabe destacar que este endpoint tiene una limitación muy considerable: \textbf{solo permite obtener las últimas 50 canciones escuchadas por el usuario}. Es decir, no es posible obtener un historial de escucha en base a un periodo de tiempo establecido, ya que esas 50 canciones pueden haber sido escuchadas en un periodo largo o en un solo día, según los hábitos de escucha del usuario. Esta limitación ha afectado en el diseño de algunas estadísticas de la aplicación, en concreto aquellas que requieren conocer los gustos musicales del usuario a lo largo del tiempo.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{figures/endpoints/get_recently_played_tracks.png}
+    \caption{Endpoint de \textit{Get Recently Played Tracks}.}
+    \label{fig:get_recently_played_tracks}
+\end{figure}
+
+\begin{itemize}
+    \item \textbf{Parámetros del Request}
+          \begin{itemize}
+              \item \textbf{Body}
+                    \begin{itemize}
+                        \item \texttt{limit}: Número máximo de elementos a devolver. Rango: 1-50.
+                        \item \texttt{after}: Marca de tiempo Unix en milisegundos. Devuelve todos los elementos posteriores (excluyendo el indicado). Si se especifica \texttt{after}, no se debe especificar \texttt{before}.
+                        \item \texttt{before}: Marca de tiempo Unix en milisegundos. Devuelve todos los elementos anteriores (excluyendo el indicado). Si se especifica \texttt{before}, no se debe especificar \texttt{after}.
+                    \end{itemize}
+          \end{itemize}
+    \item \textbf{Campos del Response}
+          \begin{itemize}
+              \item \texttt{next}: URL a la página siguiente de elementos. \texttt{null} si no hay más elementos.
+              \item \texttt{total}: Número total de elementos disponibles.
+              \item \texttt{items}: Objetos conteniendo la información sobre los tracks del historial de reproducción.
+                    \begin{itemize}
+                        \item \texttt{name}: Nombre del track.
+                        \item \texttt{duration\_ms}: Duración en milisegundos.
+                        \item \texttt{played\_at}: Fecha y hora en la que se reprodujo el track.
+                        \item \texttt{explicit} (boolean): Indica si el track contiene contenido explícito.
+                        \item \texttt{popularity} (integer): Popularidad del track (0-100).
+                        \item \texttt{album}: Información sobre el álbum en el que se encuentra.
+                              \begin{itemize}
+                                  \item \texttt{name}: Nombre del álbum.
+                                  \item \texttt{release\_date}: Fecha de lanzamiento.
+                                  \item \texttt{images}: Las URLs de la portada del álbum en varios tamaños.
+                              \end{itemize}
+                        \item \texttt{artists}: Información sobre los artistas que participaron.
+                              \begin{itemize}
+                                  \item \texttt{name}: Nombre del artista.
+                                  \item \texttt{id}: ID del artista en Spotify.
+                              \end{itemize}
+                    \end{itemize}
+          \end{itemize}
+\end{itemize}
+
+\section*{Tracks}
+
+Mediante los endpoints del grupo \textbf{Tracks}, se pueden obtener datos sobre canciones específicas. El endpoint \textbf{Get User's Saved Tracks} (figura \ref{fig:get_usr_saved_tracks}) devuelve las canciones guardadas en la lista de favoritos del usuario.
+
+Este endpoint, además de permitir identificar las canciones favoritas del usuario, \textbf{proporciona una alternativa para analizar sus gustos musicales a lo largo del tiempo}. Aunque no se trata de un historial de escucha, ofrece una lista de canciones que el usuario ha decidido guardar junto con la fecha correspondiente, lo que puede servir como indicativo de sus preferencias. Esta alternativa ha sido la solución adoptada para suplir la limitación mencionada en el endpoint de \textbf{Get Recently Played Tracks}. Gracias al valor proporcionado en el campo \texttt{added\_at}, es posible considerar que el acto de añadir una canción a favoritos funciona como un proxy para representar los gustos musicales y las canciones escuchadas en torno a ese periodo de tiempo.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{figures/endpoints/get_users_saved_tracks.png}
+    \caption{Endpoint de \textit{Get User's Saved Tracks}.}
+    \label{fig:get_usr_saved_tracks}
+\end{figure}
+
+\begin{itemize}
+    \item \textbf{Parámetros del Request}
+          \begin{itemize}
+              \item \textbf{Body}
+                    \begin{itemize}
+                        \item \texttt{market}: Código de país para indicar el mercado, en formato ISO.
+                        \item \texttt{limit}: Número máximo de elementos a devolver. Rango: 1-50.
+                        \item \texttt{offset}: Índice del primer elemento a devolver.
+                    \end{itemize}
+          \end{itemize}
+    \item \textbf{Campos del Response}
+          \begin{itemize}
+              \item \texttt{next}: URL a la página siguiente de elementos. \texttt{null} si no hay más elementos.
+              \item \texttt{total}: Número total de elementos disponibles.
+              \item \texttt{items}: Array de objetos con la información del los tracks guardados.
+                    \begin{itemize}
+                        \item \texttt{added\_at}: Fecha y hora en la que se guardó el track en formato ISO.
+                        \item \texttt{track}: Objeto con la información sobre el track.
+                              \begin{itemize}
+                                  \item Contiene los mismos campos que en el endpoint de \textit{Get Recently Played Tracks}.
+                              \end{itemize}
+                    \end{itemize}
+          \end{itemize}
+\end{itemize}
+
+\section*{Artists}
+
+Al igual que el grupo anterior, en \textbf{Artists} se pueden consultar datos sobre artistas específicos. \textbf{Get Several Artists} (figura \ref{fig:get_several_artists}) permite obtener información sobre varios artistas a la vez, reduciendo el número de peticiones realizadas a la API.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{figures/endpoints/get_several_artists.png}
+    \caption{Endpoint de \textit{Get Several Artists}.}
+    \label{fig:get_several_artists}
+\end{figure}
+
+\begin{itemize}
+    \item \textbf{Parámetros del Request}
+          \begin{itemize}
+              \item \textbf{URL params}
+                    \begin{itemize}
+                        \item \texttt{ids}: Lista separada por comas de los IDs de Spotify de los artistas.
+                    \end{itemize}
+          \end{itemize}
+    \item \textbf{Campos del Response}
+          \begin{itemize}
+              \item \texttt{artists}: Lista de objetos con la información de los artistas.
+                    \begin{itemize}
+                        \item \texttt{name}: Nombre del artista.
+                        \item \texttt{id}: Su ID en Spotify.
+                        \item \texttt{popularity}: Su popularidad (0-100).
+                        \item \texttt{followers}: Información sobre sus seguidores.
+                        \item \texttt{genres}: Lista de géneros asociados al artista.
+                        \item \texttt{images}: Array de URLs de la imagen del artista en varios tamaños.
+                    \end{itemize}
+          \end{itemize}
+\end{itemize}
+
+
+
 
 % \begin{figure}[H]
 %     \centering
@@ -214,52 +405,7 @@ Una vez completado el proceso de autorización y obtenido el \texttt{access\_tok
 %     \label{fig:add_custom_playlist_cover_img}
 % \end{figure}
 
-
-
-
-
-% TODO: Poner que no me deja coger el historial de escucha de más de 50 tracks
-% TODO: y que en vez de eso he decidido usar como proxy el endpoint de user's saved tracks
-\subsection{Limitaciones de la API}
-\begin{itemize}
-    \item \textbf{Restricciones técnicas}:
-          \begin{itemize}
-              \item Límite de peticiones por segundo/minuto (rate limit).
-              \item Alcance limitado de datos (por ejemplo, máximo 50 resultados por llamada).
-          \end{itemize}
-    \item \textbf{Datos no disponibles}:
-          \begin{itemize}
-              \item Explicaría qué datos relevantes para mi proyecto no están accesibles (por ejemplo, datos de otros usuarios).
-              \item Posibles soluciones, como procesar datos existentes para obtener métricas derivadas.
-          \end{itemize}
-    \item \textbf{Problemas de autenticación}: P.e., el tiempo limitado de vida del \texttt{access\_token}.
-\end{itemize}
-
-\subsection{Soluciones Técnicas y Decisiones}
-\begin{itemize}
-    \item \textbf{Librerías usadas}: Si uso alguna librería para interactuar con la API (como Axios o Fetch en Next.js), lo mencionaría.
-    \item \textbf{Procesamiento de datos}:
-          \begin{itemize}
-              \item Cómo almaceno datos temporales en el frontend o backend.
-              \item Transformaciones realizadas en los datos antes de visualizarlos.
-          \end{itemize}
-    \item \textbf{Gestión de errores}: Cómo manejaré errores como:
-          \begin{itemize}
-              \item Token expirado (\texttt{401 Unauthorized}).
-              \item Límite de peticiones alcanzado (\texttt{429 Too Many Requests}).
-              \item Respuestas vacías.
-          \end{itemize}
-\end{itemize}
-
-\subsection{Conclusión del Análisis}
-\begin{itemize}
-    \item Resumiría las capacidades clave de la API para mi proyecto.
-    \item Identificaría los principales desafíos técnicos derivados de su uso.
-    \item Explicaría cómo este análisis influirá en el diseño y la implementación del proyecto.
-\end{itemize}
-
-
-
+Los datos proporcionados por estos endpoints serán utilizados para poblar de información la aplicación, procesándolos y adaptándolos cuando sea necesario para ofrecer una experiencia personalizada al usuario. Además, estos datos influirán directamente en el diseño de la aplicación, tanto en los componentes del frontend, como en la estructura del servidor y la comunicación entre ambos.
 
 \section{Requisitos Funcionales}
 
