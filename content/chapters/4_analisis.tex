@@ -29,7 +29,7 @@ Antes de avanzar, es importante entender que en este proceso hay dos conceptos c
 
 Una vez que la aplicación obtiene la autorización, Spotify permite el acceso a los datos solicitados de forma controlada. Un concepto fundamental en esta etapa son los \textbf{scopes}, que determinan exactamente qué datos y funcionalidades están disponibles para la aplicación.
 
-\subsubsection*{Scopes: Controlando el Acceso a los Recursos}
+\subsubsection*{Scopes: Controlando el Acceso a los Recursos} \label{subsubsec:scopes}
 
 Los scopes (alcances) permiten a los usuarios tener la tranquilidad de que únicamente compartirán la información que han autorizado explícitamente. Cuando un programador configura el flujo de autorización, debe especificar los scopes necesarios (de un total de 24) para que la aplicación pueda acceder a los recursos protegidos. En función de los scopes solicitados, Spotify mostrará al usuario una pantalla indicando qué permisos específicos se están requiriendo (figura \ref{fig:auth_popup}). El usuario puede entonces aceptar o rechazar estos permisos.
 
@@ -157,7 +157,6 @@ Una vez completado el proceso de autorización y obtenido el \texttt{access\_tok
 
 Por razones prácticas, solo se van a mencionar los campos más relevantes en los \textit{request} y \textit{response} de los endpoints, ya que los objetos devueltos por la API suelen ser extensos y contener una gran cantidad de información, además de redundante en algunos casos. También se omite el campo de \texttt{Authorization}, que contine el \texttt{access\_token} en el \textit{header} del \textit{request}, ya que es necesario incluirlo en todas las peticiones.
 
-% TODO: Poner que las funcionalidades de la app se basan en los endpoints disponibles de la API, no al revés
 \section*{Users}
 
 En el grupo \textbf{Users} se encuentran los endpoints relacionados con la información de la cuenta del usuario. Usaremos el endpoint de \textbf{Get Current User's Profile} (figura \ref{fig:get_current_usr_profile}) para obtener datos como el nombre, correo electrónico y la imagen de perfil de la cuenta. Por otro lado, el endpoint de \textbf{Get User's Top Items} permite obtener los ``elementos'' más escuchados por el usuario, que en este caso podemos elegir entre \textit{tracks} (figura \ref{fig:get_usr_top_items_tracks}) o \textit{artists} (figura \ref{fig:get_usr_top_items_artists}).
@@ -407,7 +406,50 @@ Al igual que el grupo anterior, en \textbf{Artists} se pueden consultar datos so
 
 Los datos proporcionados por estos endpoints serán utilizados para poblar de información la aplicación, procesándolos y adaptándolos cuando sea necesario para ofrecer una experiencia personalizada al usuario. Además, estos datos influirán directamente en el diseño de la aplicación, tanto en los componentes del frontend, como en la estructura del servidor y la comunicación entre ambos.
 
+\subsection{Scopes Necesarios}
+
+Como ya se ha mencionado en el apartado \ref{subsubsec:scopes}, para poder tratar los datos necesarios, el usuario deber autorizar el acceso a ciertos recursos de su cuenta. Para ello, es necesario indicar los scopes adecuados al solicitar la autorización. En este proyecto, se necesitarán los siguientes scopes:
+
+\setlength{\columnsep}{-1em} % Espacio entre columnas
+\begin{multicols}{2} % Especifica que quieres dos columnas
+    \begin{itemize}
+        \setlength{\itemsep}{0.3em} % Espacio entre elementos
+        \setlength{\topsep}{0.5em}  % Espacio al inicio de la lista
+        \setlength{\parsep}{0pt}    % Espacio entre párrafos dentro de un item
+        \setlength{\parskip}{0pt}   % Espacio entre párrafos
+        \item \texttt{user-top-read}
+        \item \texttt{user-read-private}
+        \item \texttt{user-read-email}
+        \item \texttt{user-read-recently-played}
+        \item \texttt{user-library-read}
+    \end{itemize}
+\end{multicols}
+
+\subsection{Limitaciones y Consideraciones}
+
+Además del límite de 50 canciones en el endpoint de \textbf{Get Recently Played Tracks} y otras limitaciones relacionadas con el acceso a datos concretos, la principal limitación impuesta por la API de \textit{Spotify} es la \textbf{tasa de peticiones} o  \textit{\textbf{rate limit}}. Esta limitación se establece para evitar la sobrecarga de los servidores y garantizar un funcionamiento estable del servicio. La tasa de peticiones de Spotify se calcula en una ventana de 30 segundos (figura \ref{fig:rate_limit}). Si la aplicación supera este límite en dicho periodo, recibirá una respuesta de error \texttt{429 Too Many Requests} y los recursos solicitados quedarán temporalmente inaccesibles.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figures/rate_limit.png}
+    \caption{Gráfica del funcionamiento de la tasa de peticiones, obtenida de la documentación oficial de Spotify.}
+    \label{fig:rate_limit}
+\end{figure}
+
+Para evitar alcanzar este límite, se pueden implementar técnicas para optimizar el número de peticiones. Algunas de las que se implementarán en este proyecto son:
+
+\begin{itemize}
+    \item Batch APIs: Utilizar endpoints que permiten obtener lotes de datos en una sola petición, como el endpoint \textbf{Get Several Artists}.
+    \item Lazy Loading: Retrasar las solicitudes de datos hasta que el usuario interactúe con un elemento específico, como al abrir una estadística.
+\end{itemize}
+
+
 \section{Requisitos Funcionales}
+
+
+
+
+
 
 \section{Requisitos No Funcionales}
 
