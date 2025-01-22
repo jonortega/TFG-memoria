@@ -444,12 +444,139 @@ Para evitar alcanzar este límite, se pueden implementar técnicas para optimiza
 \end{itemize}
 
 
+\subsection{Política y Términos de Uso de la API}
+
+El uso de la API de \textit{Spotify} está regulado por un marco legal detallado, compuesto por los \textit{\textbf{Spotify Developer Terms}} y la \textit{\textbf{Spotify Developer Policy}}. Estas normativas establecen las condiciones y restricciones bajo las cuales se puede acceder, procesar y utilizar los datos proporcionados por la API. A continuación, se analizan los aspectos que afectan el desarrollo del proyecto en el marco del TFG.
+
+\subsubsection{Restricciones y Obligaciones}
+
+Se subrayan dos principios básicos en sus términos: \textbf{la protección de los derechos de los usuarios} y \textbf{la garantía de que el contenido ofrecido en su plataforma está debidamente licenciado}. Esto implica que cualquier aplicación desarrollada debe respetar la privacidad de los usuarios y manejar los datos conforme a las preferencias que ellos definan. Además, está prohibido utilizar los datos o contenidos de \textit{Spotify} para fines no autorizados, como entrenar modelos de inteligencia artificial o crear bases de datos derivadas.
+
+El uso de la API está sujeto a restricciones específicas, que se berán de cumplir en este proyecto. Entre las más relevantes se destacan:
+
+\begin{itemize}
+    \item \textbf{Acceso y uso de datos:} Solo se pueden solicitar los datos necesarios para operar la aplicación y deben eliminarse si un usuario decide desconectar su cuenta de \textit{Spotify}.
+    \item \textbf{Prohibiciones explícitas:} Está prohibido transferir datos a terceros, crear funcionalidades que permitan \textit{stream ripping}, o desarrollar servicios destinados al uso empresarial o con contenido dirigido a menores de edad.
+    \item \textbf{Caché local:} Aunque se permite el almacenamiento temporal de ciertos datos para mejorar el rendimiento, no se debe almacenar contenido indefinidamente.
+    \item \textbf{Mecanismos de desconexión:} La aplicación debe ofrecer a los usuarios una forma accesible y funcional de desconectar su cuenta de \textit{Spotify} en cualquier momento.
+\end{itemize}
+
+\subsubsection{Protección de Datos y Seguridad}
+
+Los desarrolladores son responsables de implementar medidas de seguridad estándar para proteger los datos personales de los usuarios. Esto incluye:
+
+\begin{itemize}
+    \item Proporcionar una política de privacidad clara y accesible que explique cómo se recopilan, procesan y comparten los datos.
+    \item Asegurar la confidencialidad de los datos personales y notificarlos a \textit{Spotify} en caso de incidentes de seguridad que puedan comprometer esta información.
+    \item Respetar las solicitudes de los usuarios relacionadas con sus datos, como la rectificación o eliminación de la información.
+\end{itemize}
+
+\subsubsection{Implicaciones para el TFG}
+
+La implementación de la aplicación debe garantizar el cumplimiento de las políticas mencionadas, especialemente la correcta gestión de los datos personales de los usuarios y el uso correcto de los recursos. En este sentido, es importante solicitar únicamente los \textit{scopes} necesarios para las funcionalidades definidas, asegurando que cada autorización concedida por los usuarios esté justificada. También queda claro que el único uso válido del almacenamiento de los datos es el de la caché temporal en el servidor, con el propósito de optimizar el rendimiento. Además, en caso de que el usuario decida desconectar su cuenta de la aplicación, se debe implementar procesos claros y que aseguren la eliminación completa de sus datos.
+
+\textit{Spotify} se reserva el derecho de revisar las aplicaciones que acceden a su API para garantizar que cumplan con los términos establecidos. En caso de detectar alguna infracción, como el incumplimiento de la normativa descrita, pueden limitar el acceso, revocar permisos o incluso suspender completamente la funcionalidad de la aplicación. Por lo tanto, el diseño y desarrollo de la aplicación deben incorporar estas consideraciones desde el principio, para evitar cualquier tipo de conflicto con la política de \textit{Spotify}.
+
+% TODO: El contenido de esta sección es temporal, hay que ir mirando uno a uno cada cosa.
 \section{Requisitos Funcionales}
 
+Los requisitos funcionales describen las funcionalidades esenciales que debe cumplir la aplicación para satisfacer las necesidades del usuario. En el caso de esta aplicación, todos los requisitos funcionales están orientados al cumplimiento del objetivo principal: permitir a los usuarios acceder al análisis de sus datos musicales cuando lo deseen. Estas funcionalidades están organizadas en diferentes categorías según su ámbito.
+
+\subsection{Autenticación y Sesión}
+\begin{itemize}
+    \item El usuario debe poder iniciar sesión utilizando su cuenta de \textit{Spotify} mediante OAuth 2.0.
+    \item El usuario debe poder cerrar sesión desde cualquier página.
+    \item El cierre de sesión debe eliminar cualquier dato asociado al usuario.
+    \item La aplicación debe obtener y gestionar adecuadamente e token de acceso para interactuar con la API de \textit{Spotify}.
+    \item La sesión del usuario debe permanecer activa mientras este interactúe con la aplicación web. En caso de que el tiempo de validez del token expire, el sistema debe renovar el token de forma transparente para el usuario.
+\end{itemize}
+
+\subsection{Navegación}
+\begin{itemize}
+    \item La aplicación debe tener una barra de navegación con acceso a las secciones:
+          \begin{itemize}
+              \item \textbf{Home:} Vista general de las estadísticas generales.
+              \item \textbf{Stats:} Estadísticas más avanzadas y originales.
+              \item \textbf{Panel de Usuario:} Panel desplegable con la opción de cerrar sesión. % y botón de ajustes
+          \end{itemize}
+\end{itemize}
+
+\subsection{Estadísiticas Generales (Home)}
+\begin{itemize}
+    \item El usuario debe ver una página inicial con estadísticas generales relacionadas con su cuenta, siendo las siguientes:
+          \begin{itemize}
+              \item \textbf{Top Tracks:} Muestra los top 5 canciones del usuario.
+              \item \textbf{Top Artists:} Muestra los top 5 artistas del usuario.
+              \item \textbf{Top Genres:} Muestra los top 5 géneros del usuario,
+              \item \textbf{Recently Played:} Muestra una lista reducida de las últimas 10 canciones escuchadas, en orden cronológico. Si el usuario quiere, podrá ver la lista completa de las 50 canciones pulsando un botón.
+          \end{itemize}
+    \item El usuario podrá cambiar el periodo de tiempo en el que se basan los datos de los tres tops mediante un menú desplegable.
+\end{itemize}
+
+\subsection{Estadísticas Avanzadas (Stats)}
+
+En esta página, el usuario podrá explorar una gama de seis estadísticas más avanzadas. Cada estadística ofrece funcionalidades específicas, descritas a continuación:
+
+\subsubsection*{Hall Of Fame}
+
+\begin{itemize}
+    \item La estadística mostrará las \textbf{top 16 canciones} del usuario en formato de cuadrícula (4x4), utilizando las portadas de los álbumes de cada canción como elemento visual.
+    \item Al pasar el ratón por encima de cada una de las portadas, se mostrará el nombre de la canción y el artista.
+    \item El usuario, mediante un botón, podrá crear una playlist de manera automática en su cuenta:
+          \begin{itemize}
+              \item Se generará una nueva playlist.
+              \item Se añadirán las canciones del top 16.
+              \item Se actualizará la imagen de la playlist con la representación visual de la cuadrícula de portadas generada para esta estadística.
+          \end{itemize}
+\end{itemize}
+
+\subsubsection*{Huella Del Día}
+
+% TODO: Un poco justillo la interactividad en esta estadística.
+\begin{itemize}
+    \item El usuario verá un gráfico de líneas, donde el eje horizontal representa las horas del día y el eje vertical los minutos de música escuchados (correspondientes a 1 hora).
+    \item Al pasar el ratón por encima de un nodo de la gráfica, se mostrará la cantidad exacta de minutos escuchados en esa hora.
+    \item Se indicando la hora del día con más minutos de escucha.
+\end{itemize}
+
+\subsubsection*{Estaciones Musicales}
+
+\begin{itemize}
+    \item Se mostrará un gráfico en forma de anillo dividido en cuatro segmentos, cada uno representando una estación del año: invierno, primavera, verano y otoño.
+    \item Al pasar el ratón por encima de un segmento del gráfico, se abrirá un panel que mostrará, basado en la actividad del usuario, el artista y el género musical destacados durante ese periodo.
+    \item La información en el panel se actualiza dinámicamente mientras el usuario pasa el ratón por las distintas secciones del gráfico.
+\end{itemize}
+
+\subsubsection*{Tus Décadas}
+
+\begin{itemize}
+    \item Se presentará un histograma que muestra el número de álbumes correspondientes a cada año, agrupados por décadas. La cantidad de álbumes se muestra de manera visual, mediante imágenes de portadas apiladas en columnas. Los álbumes están asociados a las canciones favoritas del usuario, mostrando una única repetición de cada álbum, independientemente de la cantidad de canciones guardadas de ese álbum.
+    \item El gráfico es explorable, permitiendo al usuario desplazarse horizontal y verticalmente.
+    \item El usuario podrá hacer \textit{zoom in} y \textit{zoom out} para ajustar el nivel de detalle, permitiéndole observar las portadas de los álbumes con mayor claridad.
+\end{itemize}
+
+\subsubsection*{La Bitácora}
+
+El usuario podrá explorar detalladamente el historial completo de sus canciones guardadas en favoritos, organizadas por fechas. Se estructura de la siguiente manera:
+\begin{itemize}
+    \item Se mostrará la visualización principal; un gráfico de barras con el número total de canciones guardadas, agrupadas por años, desde la creación de la cuenta hasta la fecha actual.
+    \item Al hacer clic en una barra que represente un año, se profundizará en el gráfico para mostrar la distribución de canciones guardadas por meses dentro de ese año.
+    \item De forma similar, al hacer clic en una barra que represente un mes, se desglosará la información para mostrar las canciones guardadas por días dentro de ese mes específico.
+    \item El usuario podrá navegar libremente entre los niveles (años, meses y días), pudiendo retroceder hacia niveles superiores en cualquier momento.
+    \item Al pasar el ratón por encima de cualquier barra, se mostrará el número de canciones guardadas para ese período.
+    \item En el nivel de días, al pasar el ratón sobre una barra, se mostrarán además los nombres y artistas de las canciones guardadas en esa fecha específica.
+\end{itemize}
 
 
+\subsubsection*{Índice de Resonancia}
 
-
+Se presentará al usuario, de forma visual, dos métricas relacionadas con sus preferencias musicales: la popularidad media de sus canciones guardadas en favoritos y la popularidad media de las últimas 50 canciones escuchadas. Estas métricas se implementarán a través de las siguientes funcionalidades:
+\begin{itemize}
+    \item Cada valor estará asociado a una onda sinusoidal animada, cuya frecuencia se ajustará proporcionalmente al valor numérico correspondiente.
+    \item El usuario podrá pulsar un botón que generará una nueva onda. Esta nueva onda se calcula mediante la suma matemática de las frecuencias de las dos ondas originales, mostrando la interferencia entre las dos. Además, junto a esta nueva onda, se mostrará la diferencia numérica entre los dos valores originales.
+    \item El usuario podrá pasar el ratón sobre la tarjeta de cualquiera de los valores para resaltar visualmente la onda correspondiente, facilitando la identidicación.
+    \item Los cálculos y la generación de datos necesarios para esta estadística se realizarán principalmente en el servidor.
+\end{itemize}
 
 \section{Requisitos No Funcionales}
 
