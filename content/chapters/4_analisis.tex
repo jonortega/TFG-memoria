@@ -536,7 +536,7 @@ En esta página, el usuario podrá explorar una gama de seis estadísticas más 
 \begin{itemize}
     \item El usuario verá un gráfico de líneas, donde el eje horizontal representa las horas del día y el eje vertical los minutos de música escuchados (correspondientes a 1 hora).
     \item Al pasar el ratón por encima de un nodo de la gráfica, se mostrará la cantidad exacta de minutos escuchados en esa hora.
-    \item Se indicando la hora del día con más minutos de escucha.
+    \item Se indica la hora del día con más minutos de escucha.
 \end{itemize}
 
 \subsubsection*{Estaciones Musicales}
@@ -601,4 +601,28 @@ La aplicación debe ser intuitiva y fácil de usar para el público general. Tod
 
 \section{Casos de Uso}
 
-% TODO: Poner los casos de uso y terminar el Análisis corrigiendo detalles.
+En esta sección se describen los principales casos de uso de la aplicación, relacionados con los requisitos funcionales mencionados. Cada caso de uso se enfoca en un objetivo específico que un usuario puede alcanzar utilizando las funcionalidades del sistema.
+
+\subsection{Actores}
+
+En este sistema, interactúan tres actores diferentes con la aplicación: el usuario anónimo, el usuario autenticado y la API de \textit{Spotify}. A continuación, se describen los roles de cada uno:
+
+\begin{itemize}
+    \item \textbf{Usuario Anónimo:} Este actor representa a los usuarios que no han iniciado sesión en la aplicación. Su única interacción con el sistema es el de inicio de sesión.
+    \item \textbf{Usuario Autenticado:} Este actor es el usuario que ha iniciado sesión correctamente en la aplicación. Tiene acceso a todas las funcionalidades. Es considerado como el actor principal.
+    \item \textbf{Web API de Spotify:} Este actor es el servicio de \textit{Spotify} que proporciona un sistema de autenticación y los datos necesarios para generar las estadísticas. Interactúa principalmente con el backend de la aplicación.
+\end{itemize}
+
+
+\subsection{Modelo de Casos de Uso}
+
+En el modelo presentado en la figura XX, se destacan las funcionalidades principales de la aplicación y su relación con los actores: \textbf{Usuario Anónimo} y \textbf{Usuario Autenticado}, que interactúan directamente con el sistema, y la \textbf{API de Spotify}, que actúa como proveedor de datos.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figures/modelo_casos_uso.png}
+    \caption{Modelo de casos de uso del sistema.}
+    \label{fig:modelo_casos_uso}
+\end{figure}
+
+% TODO: Ir describiendo el flujo de cada caso de uso.
