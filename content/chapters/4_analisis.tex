@@ -625,4 +625,214 @@ En el modelo presentado en la figura XX, se destacan las funcionalidades princip
     \label{fig:modelo_casos_uso}
 \end{figure}
 
-% TODO: Ir describiendo el flujo de cada caso de uso.
+% TODO: Decir dónde estarán los diagramas de secuencia.
+
+\subsubsection*{Iniciar Sesión}
+
+Permite al usuario anónimo iniciar sesión en la aplicación utilizando sus credenciales de \textit{Spotify} a través del sistema de autenticación OAuth 2.0.
+
+\begin{itemize}
+    \item Flujo principal (Inicio de Sesión):
+          \begin{enumerate}
+              \item El usuario anónimo selecciona la opción de ``Iniciar Sesión'' en la pantalla principal.
+              \item El sistema redirige al usuario a la página de inicio de sesión de \textit{Spotify}.
+              \item El usuario introduce sus credenciales de \textit{Spotify} en el formulario proporcionado por \textit{Spotify}.
+              \item \textit{Spotify} verifica las credenciales y, si son correctas, muestra la pantalla de solicitud de autorización.
+              \item El usuario autoriza a la aplicación a acceder a sus datos de \textit{Spotify} indicados.
+              \item \textit{Spotify} genera un token de acceso y redirige al usuario de vuelta a la aplicación.
+              \item El sistema recibe el token de acceso y lo almacena de forma segura.
+              \item El sistema redirige al usuario autenticado a la pantalla principal de la aplicación (\textit{Home}).
+          \end{enumerate}
+    \item Flujo alternativo (Error de Autenticación):
+          \begin{enumerate}
+              \item El usuario introduce credenciales incorrectas en la página de inicio de sesión de \textit{Spotify}.
+              \item \textit{Spotify} rechaza las credenciales y muestra un mensaje de error al usuario.
+              \item El sistema redirige al usuario de vuelta a la pantalla principal, donde podrá volver a intentar iniciar sesión.
+          \end{enumerate}
+    \item Flujo alternativo (Denegación de Autorización):
+          \begin{enumerate}
+              \item \textit{Spotify} verifica las credenciales del usuario y muestra la pantalla de solicitud de autorización.
+              \item El usuario decide no conceder la autorización y selecciona la opción de ``Cancelar''.
+              \item \textit{Spotify} informa al sistema de que la autorización ha sido rechazada.
+              \item El sistema redirige al usuario de vuelta a la pantalla principal.
+          \end{enumerate}
+\end{itemize}
+
+\subsubsection*{Acceder a Home}
+
+Permite al usuario autenticado visualizar la pantalla principal de la aplicación, donde se muestran las estadísticas básicas de \textit{Top Tracks}, \textit{Top Artists}, \textit{Top Genres} y \textit{Recently Played}.
+
+\begin{itemize}
+    \item Flujo principal (Visualización de Home):
+          \begin{enumerate}
+              \item El usuario autenticado accede a la aplicación tras iniciar sesión correctamente.
+              \item El sistema solicita los datos relevantes de la API de \textit{Spotify} para generar las estadísticas.
+              \item La API de \textit{Spotify} responde con los datos necesarios para cada estadística.
+              \item El sistema procesa y organiza los datos para presentarlos en el frontend.
+              \item El sistema muestra al usuario las siguientes secciones en la pantalla principal:
+                    \begin{itemize}
+                        \item \textit{Top Tracks}: Canciones más escuchadas por el usuario.
+                        \item \textit{Top Artists}: Artistas más escuchados.
+                        \item \textit{Top Genres}: Géneros favoritos.
+                        \item \textit{Recently Played}: Lista de reproducción reciente.
+                    \end{itemize}
+              \item El usuario puede cambiar el periodo de tiempo de las estadísticas de los tres \textit{Tops} seleccionando entre los últimos 30 días, 6 meses o 1 año.
+              \item El usuario puede expandir la lista de \textit{Recently Played} para ver hasta 50 canciones en lugar de las 10 iniciales, pulsando un botón de "Ver más".
+              \item El usuario puede contraer nuevamente la lista de \textit{Recently Played} para reducirla a 10 canciones, pulsando un botón de "Ver menos".
+          \end{enumerate}
+    \item Flujo alternativo (Error al obtener datos de la API):
+          \begin{enumerate}
+              \item El sistema solicita datos a la API de \textit{Spotify}, pero ocurre un error en la comunicación.
+              \item El sistema muestra un mensaje de error al usuario, indicando que no se pudieron cargar algunas estadísticas.
+              \item El usuario puede intentar recargar la página o esperar a que el sistema reintente la solicitud.
+          \end{enumerate}
+\end{itemize}
+
+\subsubsection*{Cerrar Sesión}
+
+Permite al usuario autenticado cerrar su sesión en la aplicación, eliminando cualquier dato relacionado con su sesión activa.
+
+\begin{itemize}
+    \item Flujo principal (Cerrar Sesión):
+          \begin{enumerate}
+              \item El usuario autenticado selecciona la opción de ``Cerrar Sesión'' en la interfaz de la aplicación.
+              \item El sistema elimina todas las cookies relacionadas con la sesión, incluido el \textit{access\_token} del usuario.
+              \item El sistema borra cualquier dato del usuario almacenado temporalmente en caché.
+              \item El sistema redirige al usuario a la página de inicio de sesión.
+          \end{enumerate}
+\end{itemize}
+
+\subsubsection*{Acceder a Stats}
+
+Permite al usuario autenticado acceder a la sección de estadísticas avanzadas de la aplicación, donde puede interactuar con diferentes visualizaciones de sus datos musicales.
+
+\begin{itemize}
+    \item Flujo principal (Acceso a Stats):
+          \begin{enumerate}
+              \item El usuario autenticado selecciona la opción de ``Stats'' en la barra de navegación.
+              \item El sistema muestra una pantalla con las opciones de estadísticas disponibles:
+                    \begin{itemize}
+                        \item \textbf{Hall of Fame.}
+                        \item \textbf{Huella del Día.}
+                        \item \textbf{Estaciones Musicales.}
+                        \item \textbf{Tus Décadas.}
+                        \item \textbf{La Bitácora.}
+                        \item \textbf{Índice de Interferencia.}
+                    \end{itemize}
+              \item El usuario selecciona una estadística específica para interactuar con ella.
+              \item El sistema carga la visualización correspondiente.
+          \end{enumerate}
+\end{itemize}
+
+Para todas las siguientes estadísticas avanzadas, se sigue un flujo alternativo cuando ocurre algún error en la carga. Para evitar repetir la misma descripción, a continuación se mencionará el flujo alternativo. En cada estadística, solo se describirá el flujo principal.
+
+Flujo alternativo (Error en la carga de datos de una estadística avanzada):
+\begin{enumerate}
+    \item El sistema solicita a la API de \textit{Spotify} las 16 canciones más destacadas del usuario.
+    \item La API responde con un error, ya sea por una conexión fallida, un token de acceso inválido o una respuesta incompleta.
+    \item El sistema muestra un mensaje de error en la pantalla, indicando que no se pudo cargar la estadística.
+\end{enumerate}
+
+
+
+\subsubsection*{Ver Estadística: Hall of Fame}
+
+Permite al usuario visualizar las 16 canciones más destacadas según su actividad, representadas en forma de cuadrícula con las portadas de los álbumes correspondientes.
+
+\begin{itemize}
+    \item Flujo principal (Visualización de Hall of Fame):
+          \begin{enumerate}
+              \item El usuario selecciona la opción ``Hall of Fame'' en la pantalla de \textit{Stats}.
+              \item El sistema solicita a la API de \textit{Spotify} las 16 canciones más destacadas del usuario.
+              \item La API responde con los datos necesarios, incluyendo nombres, artistas y portadas de los álbumes.
+              \item El sistema genera una cuadrícula con las portadas de los álbumes correspondientes.
+              \item El usuario puede pasar el ratón sobre una portada para visualizar el nombre de la canción y el artista.
+              \item Si el usuario pulsar el botón ``Crear Playlist'', se envía la portada generada y los datos de las canciones a la API de \textit{Spotify} para crear una nueva playlist.
+          \end{enumerate}
+\end{itemize}
+
+\subsubsection*{Ver Estadística: Huella del Día}
+
+Permite al usuario visualizar un gráfico de línea que representa los minutos escuchados por cada hora del día, mostrando las horas de mayor actividad musical.
+
+\begin{itemize}
+    \item Flujo principal (Visualización de Huella del Día):
+          \begin{enumerate}
+              \item El usuario selecciona la opción ``Huella del Día'' en la pantalla de \textit{Stats}.
+              \item El sistema solicita a la API de \textit{Spotify} los datos de escucha del usuario necesarios para calcular los minutos por hora.
+              \item La API responde con los datos correspondientes.
+              \item El sistema genera el gráfico de línea.
+              \item El usuario puede pasar el ratón sobre los puntos de la línea para ver los minutos escuchados en una hora específica.
+              \item El sistema destaca visualmente la hora con más minutos escuchados.
+          \end{enumerate}
+\end{itemize}
+
+\subsubsection*{Ver Estadística: Estaciones Musicales}
+
+Permite al usuario visualizar, de forma gráfica, el artista y género más representativo de cada estación del año según su actividad musical.
+
+\begin{itemize}
+    \item Flujo principal (Visualización de Estaciones Musicales):
+          \begin{enumerate}
+              \item El usuario selecciona la opción ``Estaciones Musicales'' en la pantalla de \textit{Stats}.
+              \item El sistema solicita a la API de \textit{Spotify} los datos necesarios para calcular el artista y género destacados de cada estación.
+              \item La API responde con los datos correspondientes.
+              \item El sistema calcula los datos y los agrupa por estaciones.
+              \item El sistema genera un gráfico de tipo anillo dividido en cuatro segmentos, representando cada estación del año.
+              \item El usuario puede pasar el ratón sobre uno de los segmentos del gráfico para que el sistema muestre, en un panel adicional, el artista y género destacados de la estación seleccionada.
+              \item El sistema actualiza el panel dinámicamente según el segmento que el usuario seleccione con el ratón.
+          \end{enumerate}
+\end{itemize}
+
+\subsubsection*{Ver Estadística: Tus Décadas}
+
+Permite al usuario visualizar en formato de histograma los álbumes de sus canciones favoritas organizados por décadas, destacando las épocas más representativas de su actividad musical.
+
+\begin{itemize}
+    \item Flujo principal (Visualización de Tus Décadas):
+          \begin{enumerate}
+              \item El usuario selecciona la opción ``Tus Décadas'' en la pantalla de \textit{Stats}.
+              \item El sistema solicita a la API de \textit{Spotify} los datos de las canciones guardadas por el usuario en su biblioteca.
+              \item La API responde con los datos, incluyendo las fechas de lanzamiento de los álbumes asociados a las canciones.
+              \item El sistema organiza los datos por décadas y genera el histograma correspondiente.
+              \item El usuario puede desplazarse sobre el gráfico y explorar con mayor detalle las portadas haciendo clic sobre el gráfico para ampliar o reducir el aumento.
+          \end{enumerate}
+\end{itemize}
+
+\subsubsection*{Ver Estadística: La Bitácora}
+
+Permite al usuario explorar el historial completo de sus canciones guardadas en favoritos, organizadas cronológicamente.
+
+\begin{itemize}
+    \item Flujo principal (Visualización de La Bitácora):
+          \begin{enumerate}
+              \item El usuario selecciona la opción ``La Bitácora'' en la pantalla de \textit{Stats}.
+              \item El sistema solicita a la API de \textit{Spotify} los datos de las canciones guardadas en favoritos, incluyendo la fecha en que fueron añadidas.
+              \item La API responde con los datos correspondientes.
+              \item El sistema genera un gráfico de barras que muestra, inicialmente, el número de canciones guardadas por año.
+              \item El usuario puede interactuar con el gráfico para explorar diferentes niveles de detalle:
+                    \begin{itemize}
+                        \item Al hacer clic en una barra que representa un año, el sistema actualiza el gráfico para mostrar los meses dentro de ese año.
+                        \item Al hacer clic en una barra que representa un mes, el sistema desglosa la información para mostrar los días dentro de ese mes.
+                    \end{itemize}
+              \item Al pasar el ratón sobre cualquier barra, el sistema muestra un tooltip con el número de canciones guardadas en ese periodo.
+              \item En el nivel de días, al pasar el ratón sobre una barra, el sistema muestra los nombres y artistas de las canciones guardadas en esa fecha específica.
+              \item El usuario puede navegar libremente entre los niveles (años, meses y días) y retroceder en cualquier momento para cambiar de periodo.
+          \end{enumerate}
+\end{itemize}
+
+\subsubsection*{Ver Estadística: Índice de Interferencia}
+
+Permite al usuario comparar el cambio en sus gustos sobre la popularidad de las canciones que escucha.
+
+\begin{itemize}
+    \item Flujo principal (Visualización de Índice de Interferencia):
+          \begin{enumerate}
+              \item El usuario selecciona la opción ``Índice de Interferencia'' en la pantalla de Stats.
+              \item El sistema solicita a la API de \textit{Spotify} los datos necesarios.
+              \item La API responde con los datos correspondientes.
+              \item El sistema hace el cálculo de las dos popularidades medias y los presenta visualmente en forma de ondas sinusoidales animadas.
+              \item Si el usuario pulsa un botón de ``Combinar Ondas'', el sistema genera una nueva onda, resultado de la suma matemática de las frecuencias de las dos ondas originales (interferencia).
+              \item El sistema muestra esta nueva onda junto a la diferencia numérica entre las dos popularidades.
+          \end{enumerate}
+\end{itemize}
