@@ -658,6 +658,8 @@ Permite al usuario anónimo iniciar sesión en la aplicación utilizando sus cre
           \end{enumerate}
 \end{itemize}
 
+\newpage
+
 \subsubsection*{Acceder a Home}
 
 Permite al usuario autenticado visualizar la pantalla principal de la aplicación, donde se muestran las estadísticas básicas de \textit{Top Tracks}, \textit{Top Artists}, \textit{Top Genres} y \textit{Recently Played}.
@@ -726,14 +728,14 @@ Permite al usuario autenticado acceder a la sección de estadísticas avanzadas 
 
 Para todas las siguientes estadísticas avanzadas, se sigue un flujo alternativo cuando ocurre algún error en la carga. Para evitar repetir la misma descripción, a continuación se mencionará el flujo alternativo. En cada estadística, solo se describirá el flujo principal.
 
-Flujo alternativo (Error en la carga de datos de una estadística avanzada):
-\begin{enumerate}
-    \item El sistema solicita a la API de \textit{Spotify} las 16 canciones más destacadas del usuario.
-    \item La API responde con un error, ya sea por una conexión fallida, un token de acceso inválido o una respuesta incompleta.
-    \item El sistema muestra un mensaje de error en la pantalla, indicando que no se pudo cargar la estadística.
-\end{enumerate}
-
-
+\begin{itemize}
+    \item Flujo alternativo (Error en la carga de datos de una estadística avanzada):
+          \begin{enumerate}
+              \item El sistema solicita a la API de \textit{Spotify} los datos necesarios para generar la estadística.
+              \item La API responde con un error, ya sea por una conexión fallida, un token de acceso inválido o una respuesta incompleta.
+              \item El sistema muestra un mensaje de error en la pantalla, indicando que no se pudo cargar la estadística.
+          \end{enumerate}
+\end{itemize}
 
 \subsubsection*{Ver Estadística: Hall of Fame}
 
