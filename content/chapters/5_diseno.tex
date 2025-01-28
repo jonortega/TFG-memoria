@@ -11,12 +11,7 @@ Otra caracterísitica muy útil de \textit{Next.js}, son los \textbf{Server Comp
     \label{fig:arquitectura_sistema}
 \end{figure}
 
-% TODO: Igual quitar esta subsection y que los subsubsection sean directamente en el apartado de arquitectura
-\subsection{Estructura de Rutas y Endpoints en Next.js}
-
-Como se ha mencionado anteriormente, la estructura de rutas y endpoints en \textit{Next.js} se basa en la organización de las carpetas y archivos dentro del proyecto. En los siguientes apartados se describirán cuáles son y cómo se organizan en este desarrollo.
-
-\subsubsection{Rutas del Frontend}
+\subsection{Rutas del Frontend}
 
 Usando el \textit{App Router}, las rutas del frontend se organizan en la carpeta \texttt{app/}, donde cada subcarpeta representa una ruta específica en la web. Dentro de cada carpeta se pueden encontrar archivos específicos que siguen una convención de nombres, y que definen su función. Las más importantes son:
 
@@ -40,11 +35,13 @@ En el caso de este proyecto, la jerarquía de carpetas que genera las páginas r
 
 La ruta \texttt{/} (raíz) es la página principal, en donde el usuario puede iniciar sesión. Las rutas \texttt{/home} y \texttt{/stats} representan las páginas de estadísticas básicas y estadísticas avanzadas, respectivamente. En cada caso, el archivo \texttt{page.tsx} define el contenido principal de la página y es posible añadir otros archivos como \texttt{layout.tsx}, \texttt{loading.tsx} o \texttt{error.tsx} para mejorar la experiencia del usuario.
 
-\subsubsection{Endpoints del Backend}
+\subsection{Endpoints del Backend}
 
 En el caso de la creación de endpoints mediante los \textit{Route Handlers}, la estructura de carpetas es similar a la de las rutas del frontend, pero con la diferencia de que cada subcarpeta dentro de \texttt{app/api/} contiene un archivo \texttt{route.ts} que define el comportamiento del endpoint asociado. \textbf{Para que un endpoint sea accesible, debe existir un archivo \texttt{route.ts} en la carpeta correspondiente}.
 
 La estructura de carpetas para los endpoints de este proyecto es la siguiente:
+
+\newpage
 
 \begin{verbatim}
     app/
@@ -74,29 +71,81 @@ Los endpoints en \texttt{/api/auth/} gestionan el incio de sesión del usuario, 
 
 Los componentes en \textit{React} son las piezas fundamentales para construir interfaces de usuario. Cada componente puede ser reutilizable, contener su propio estado y lógica, y ser combinado con otros para formar estructuras más complejas. Además, en \textit{React}, las interfaces se suelen diseñar en forma de jerarquías de componentes, en las que los componentes ``padre'' organizan y controlan el comportamiento y la presentación de los componentes ``hijo''. Esta organización jerárquica facilita el mantenimiento y la escalabilidad del código, ya que cada componente tiene una responsabilidad definida.
 
-En este proyecto, se ha creado una jerarquía de componentes (diagrama \ref{fig:componentes_react}) que refleja las diferentes funcionalidades de la aplicación. A la hora de construir la web, \textit{Next.js} se encarga de anidar los componentes necesarios y renderizarlos, o enviarlos al cliente, según sea necesario.
+En este proyecto, se ha creado una jerarquía de componentes (diagrama \ref{fig:componentes_react}) que refleja las diferentes funcionalidades de la aplicación. A la hora de construir la web, \textit{Next.js} y \textit{React} se encargan de anidar los componentes necesarios y renderizarlos, o enviarlos al cliente, según sea necesario.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{figures/componentes_react.png}
+    \includegraphics[width=\textwidth]{figures/componentes_react.png}
     \caption{Diagrama de la jerarquía de componentes de React creados en el proyecto.}
     \label{fig:componentes_react}
 \end{figure}
 
-La mayoría de los componentes están definidos de manera explícita y son renderizados cuando se llegue a una ruta en concreto, pero hay otros componentes que se cargan dinámicamente, es decir, el contenido que aparece en su lugar puede variar en función de las acciones del usuario o del contexto del componente. Se podría considerar que el componente hijo temporal, se ``transforma'' en otro componente que toma su lugar. En este proyecto, se han definido dos componentes que se comportan así:
+La mayoría de los componentes están definidos de manera explícita y son renderizados cuando se llegue a una ruta en concreto, pero hay otros componentes que se cargan dinámicamente, es decir, el contenido que aparece en su lugar puede variar en función de las acciones del usuario o del contexto del componente. Se podría considerar que el componente hijo temporal, se ``transforma'' en otro que toma su lugar. En este proyecto, se han definido dos componentes que se comportan así:
 
 \begin{itemize}
     \item \textbf{StatComponent}: Se utiliza para mostrar una de las seis estadísticas disponibles, cada una siendo un componente autocontenido. Dependiendo de la selección del usuario, se cargará uno de estos subcomponentes en el lugar correspondiente. También se puede inferir que solo se podrá mostrar una estadística a la vez.
     \item \textbf{IconComponent}: Está asociado con los iconos representativos de cada estadística, que se muestran en las tarjetas (\texttt{StatCard}) que el usuario puede clicar para verla. Utiliza el paquete \texttt{LucideIcon} para cargar diferentes iconos, ya que, en este paquete, cada icono es representado como un componente de \textit{React}.
 \end{itemize}
 
-% TODO: Seguir aquí para terminar este apartado
+Con este diseño, en especial con el componente \texttt{StatComponent}, se reduce la cantidad de código a renderizar y enviar al cliente, ya que solamente se cargará la estadística necesaria y cuando el usuario lo solicite. Además, en el desarrollo se puede encapsular toda la lógica necesaria para cada estadística en un único componente, facilitando la incorporación de nuevas estadísticas, si hace falta.
 
 
+
+
+% TODO: Quedan estas dos secciones por completar
 \section{Interfaz de Usuario}
 
 \section{Diagramas de Secuencia}
+% TODO: ----------------------------------------
+
+
+
 
 \section{Seguridad}
 
+Como esta aplicación maneja información privada de los usuarios, un aspecto crítico en el diseño y desarrollo de la misma es la seguridad. En esta sección se describen las medidas implementadas para proteger los datos de posibles ataques comunes y reducir las vulnerabilidades del sistema.
+
+\subsection{Gestión de Credenciales}
+
+La mala gestión de credenciales es un punto de vulnerabilidad común en aplicaciones web. En el caso del proyecto, se manejan varios credenciales sensibles, especialmente durante el flujo de inicio de sesión.
+
+\subsubsection*{Client ID y Client Secret}
+
+En la creación de una aplicación que hace uso de la API de \textit{Spotify}, se obtiene un \textbf{client\_id} y un \textbf{client\_secret} que son necesarios para la autenticación con la API. Estas credenciales pertenecen al desarrollador y deben ser protegidas adecuadamente para evitar su exposición a terceros no autorizados. Se almacenan exclusivamente en el servidor, en un archivo de variables de entorno (\texttt{.env.local}), que no se incluye en el control de versiones. En el momento del despliegue, estas variables se cargan en el entorno de producción, que han de ser anteriormente indicadas de manera manual a través de un panel de configuración de \textit{Vercel}. Se puede acceder a estas variables en el lógica del servidor mediante el obtejo \texttt{process.env}.
+
+\subsubsection*{Prevención de CSRF y Scopes}
+
+Para prevenir ataques de \textit{Cross-Site Request Forgery} (CSRF), cada solicitud de inicio de sesión incluye un valor de estado (\textbf{state}) generado de forma aleatoria. Este valor es único para cada sesión y se valida al recibir la respuesta del servidor de autenticación. Este mecanismo, recomendado explícitamente en la documentación de \textit{Spotify} [\textbf{REFERENCIA}], garantiza que las solicitudes sean legítimas y originadas únicamente desde el cliente autorizado, evitando que actores maliciosos puedan ejecutar acciones en nombre del usuario.
+
+Por otro lado, durante el paso de la autorización en el proceso de inicio de sesión, se respeta el principio de mínimos privilegios, donde solo se solicitan los permisos necesarios y ninguno más. Los usuarios son informados claramente sobre los \textbf{scopes} solicitados y su propósito antes de otorgar los permisos. De esta manera se consigue reducir el riesgo de exposición innecesaria de datos.
+
+\subsubsection*{Access Token y Refresh Token}
+
+Una vez que el usuario ha iniciado sesión y la aplicación ha obtenido un \textbf{access\_token} y un \textbf{refresh\_token}, estos se almacenan en una cookie correspondiente. La configuración de estas cookies es muy importante para protegerlas frente a ataques comunes como \textit{Cross-Site Scripting} (XSS) o \textit{Man-In-The-Middle} (MITM). Las siguientes marcas (\textit{flags}) permiten configurar la seguridad necesaria:
+
+\begin{itemize}
+    \item \textbf{\texttt{httpOnly}:} Indicando esta opción como ``\texttt{true}'', asegura que las cookies no puedan ser accedidas por código JavaScript en el navegador, protegiéndolas contra ataques de XSS.
+    \item \textbf{\texttt{secure}:} Indicando esta opción como ``\texttt{true}'', las cookies solo pueden ser transmitidas a través de conexiones HTTPS, protegiéndolas contra ataques de MITM. Esta opción solo es necesaria en un entorno de producción, durante el desarrollo se desactivar.
+    \item \textbf{\texttt{maxAge}} Estableciendo un tiempo de vida limitado, se garantiza que se las cookies eliminen automáticamente una vez cumplido el periodo concreto, minimizando el impacto de un posible compromiso.
+\end{itemize}
+
+\subsection{Routing y Conexiones Seguras}
+
+% TODO: Mirar si tiene sentido esto que he escrito
+
+Next.js proporciona un sistema de middleware que permite ejecutar procesos antes de que se manejen las solicitudes de las rutas. En este proyecto, se ha implementado un middleware que verifica la validez de las cookies de sesión antes de permitir el acceso a las rutas protegidas. Si no existe una cookie con un access token, el usuario es redirigido a la página de inicio de sesión. De esta manera, se garantiza que solo los usuarios autenticados puedan acceder a las estadísticas y los datos personales.
+
+Para la comunicación entre el cliente y la aplicación, al desplegatse en Vercel, éste proporciona automáticamente conexiones HTTPS para todas las solicitudes. Esto garantiza la confidencialidad de los datos transmitidos entre el cliente y el servidor, protegiendo contra ataques de intercepción como el MITM.
+
+\subsection{Protección contra Vulnerabilidades Conocidas}
+
+Para mantener la aplicación protegida frente a vulnerabilidades conocidas:
+\begin{itemize}
+    \item Se utilizan dependencias actualizadas y se revisan periódicamente los avisos de seguridad de las bibliotecas utilizadas.
+    \item Se aplican configuraciones de cabeceras HTTP como \texttt{Content-Security-Policy} (CSP), \texttt{X-Frame-Options} y \texttt{Strict-Transport-Security} (HSTS) para proteger contra ataques comunes como \textit{clickjacking} y MITM.
+\end{itemize}
+
+
+
+% TODO: Seguir aquí también
 \section{Diseño de Pruebas}
