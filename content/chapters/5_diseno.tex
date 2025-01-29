@@ -107,7 +107,7 @@ Como esta aplicación maneja información privada de los usuarios, un aspecto cr
 
 \subsection{Gestión de Credenciales}
 
-La mala gestión de credenciales es un punto de vulnerabilidad común en aplicaciones web. En el caso del proyecto, se manejan varios credenciales sensibles, especialmente durante el flujo de inicio de sesión.
+La mala gestión de credenciales es un punto de vulnerabilidad común en aplicaciones web. En el caso del proyecto, se manejan varias credenciales sensibles, especialmente durante el flujo de inicio de sesión. A continuación se detallan las medidas aplicadas a cada una.
 
 \subsubsection*{Client ID y Client Secret}
 
@@ -121,31 +121,35 @@ Por otro lado, durante el paso de la autorización en el proceso de inicio de se
 
 \subsubsection*{Access Token y Refresh Token}
 
-Una vez que el usuario ha iniciado sesión y la aplicación ha obtenido un \textbf{access\_token} y un \textbf{refresh\_token}, estos se almacenan en una cookie correspondiente. La configuración de estas cookies es muy importante para protegerlas frente a ataques comunes como \textit{Cross-Site Scripting} (XSS) o \textit{Man-In-The-Middle} (MITM). Las siguientes marcas (\textit{flags}) permiten configurar la seguridad necesaria:
+Una vez que el usuario ha iniciado sesión y la aplicación ha obtenido un \textbf{access\_token} y un \textbf{refresh\_token}, estos se almacenan en unas cookies correspondiente. La configuración de estas cookies es muy importante para protegerlas frente a ataques comunes como \textit{Cross-Site Scripting} (XSS) o \textit{Man-In-The-Middle} (MITM). Las siguientes marcas (\textit{flags}) permiten configurar la seguridad necesaria:
 
 \begin{itemize}
     \item \textbf{\texttt{httpOnly}:} Indicando esta opción como ``\texttt{true}'', asegura que las cookies no puedan ser accedidas por código JavaScript en el navegador, protegiéndolas contra ataques de XSS.
-    \item \textbf{\texttt{secure}:} Indicando esta opción como ``\texttt{true}'', las cookies solo pueden ser transmitidas a través de conexiones HTTPS, protegiéndolas contra ataques de MITM. Esta opción solo es necesaria en un entorno de producción, durante el desarrollo se desactivar.
-    \item \textbf{\texttt{maxAge}} Estableciendo un tiempo de vida limitado, se garantiza que se las cookies eliminen automáticamente una vez cumplido el periodo concreto, minimizando el impacto de un posible compromiso.
+    \item \textbf{\texttt{secure}:} Indicando esta opción como ``\texttt{true}'', las cookies solo pueden ser transmitidas a través de conexiones HTTPS, protegiéndolas contra ataques de MITM. Esta opción solo es necesaria en un entorno de producción, es posible desactivarlo durante el desarrollo.
+    \item \textbf{\texttt{maxAge}} Estableciendo un tiempo de vida limitado, se garantiza que se las cookies se eliminen automáticamente una vez cumplido el periodo concretado, minimizando el impacto de un posible compromiso.
 \end{itemize}
 
 \subsection{Routing y Conexiones Seguras}
 
 % TODO: Mirar si tiene sentido esto que he escrito
 
-Next.js proporciona un sistema de middleware que permite ejecutar procesos antes de que se manejen las solicitudes de las rutas. En este proyecto, se ha implementado un middleware que verifica la validez de las cookies de sesión antes de permitir el acceso a las rutas protegidas. Si no existe una cookie con un access token, el usuario es redirigido a la página de inicio de sesión. De esta manera, se garantiza que solo los usuarios autenticados puedan acceder a las estadísticas y los datos personales.
+Next.js proporciona un sistema de \textbf{middleware} que permite ejecutar procesos antes de que se manejen las solicitudes de las rutas. En este proyecto, se ha implementado un middleware que verifica la validez de las cookies de sesión antes de permitir el acceso a las rutas protegidas. Si no existe una cookie con un access token, el usuario es redirigido a la página de inicio de sesión, grantizando que solo los usuarios autenticados puedan acceder a las estadísticas y los datos personales.
 
-Para la comunicación entre el cliente y la aplicación, al desplegatse en Vercel, éste proporciona automáticamente conexiones HTTPS para todas las solicitudes. Esto garantiza la confidencialidad de los datos transmitidos entre el cliente y el servidor, protegiendo contra ataques de intercepción como el MITM.
+Para la comunicación entre el cliente y la aplicación, al desplegatse en \textit{Vercel}, éste proporciona automáticamente conexiones HTTPS para todas las solicitudes. Esto garantiza la confidencialidad de los datos transmitidos entre el cliente y el servidor, protegiendo contra ataques de intercepción como el MITM.
 
-\subsection{Protección contra Vulnerabilidades Conocidas}
+\subsection{Otras Medidas}
 
-Para mantener la aplicación protegida frente a vulnerabilidades conocidas:
+Del mismo modo que se han implementado mecanismos explícitos para prevenir ataques comunes, la seguridad de una aplicación no solo depende de configuraciones específicas, sino también del entorno de desarrollo y de las prácticas adoptadas a lo largo del ciclo de vida del software. La seguridad implícita, aquella que surge como resultado de buenas prácticas y herramientas adecuadas, desempeña un gran papel.
+
 \begin{itemize}
-    \item Se utilizan dependencias actualizadas y se revisan periódicamente los avisos de seguridad de las bibliotecas utilizadas.
-    \item Se aplican configuraciones de cabeceras HTTP como \texttt{Content-Security-Policy} (CSP), \texttt{X-Frame-Options} y \texttt{Strict-Transport-Security} (HSTS) para proteger contra ataques comunes como \textit{clickjacking} y MITM.
+    \item \textbf{Análisis estático del código con ESLint:} Un linter como \textit{ESLint} permite detectar errores, malas prácticas y patrones potencialmente inseguros en el código TypeScript antes de que lleguen a producción. Integrarlo en el flujo de desarrollo facilita la identificación temprana de vulnerabilidades y la posibilidad de corregirlos antes de que se conviertan en problemas de seguridad.
+
+    \item \textbf{Dependencias actualizadas:} La aplicación se construye sobre versiones recientes y estables de \textit{Next.js}, \textit{React} y \textit{Node.js LTS}, lo que permite beneficiarse de mejoras en seguridad y reducir la exposición a vulnerabilidades conocidas; un riesgo muy común derivado del uso de software obsoleto.
+
+    \item \textbf{Ejecución de pruebas:} Realizar pruebas sistemáticas permite identificar fallos inesperados, comportamientos anómalos o configuraciones incorrectas en la aplicación.
+
+    \item \textbf{Prácticas recomendadas:} Seguir las guías oficiales de seguridad, tanto de la API de \textit{Spotify} como de \textit{Next.js}, garantiza que se cumplen los estándares más recientes.
 \end{itemize}
-
-
 
 % TODO: Seguir aquí también
 \section{Diseño de Pruebas}
