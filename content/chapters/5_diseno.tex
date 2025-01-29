@@ -90,13 +90,97 @@ La mayoría de los componentes están definidos de manera explícita y son rende
 Con este diseño, en especial con el componente \texttt{StatComponent}, se reduce la cantidad de código a renderizar y enviar al cliente, ya que solamente se cargará la estadística necesaria y cuando el usuario lo solicite. Además, en el desarrollo se puede encapsular toda la lógica necesaria para cada estadística en un único componente, facilitando la incorporación de nuevas estadísticas, si hace falta.
 
 
-
-
-% TODO: Quedan estas dos secciones por completar
+% TODO: Queda esta sección por completar
 \section{Interfaz de Usuario}
+% TODO: --------------------------------
+
+
+
 
 \section{Diagramas de Secuencia}
-% TODO: ----------------------------------------
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figures/diagramas_secuencia/ds_iniciar_sesion.png}
+    \caption{Diagrama de secuencia: Iniciar Sesión.}
+    \label{fig:ds_iniciar_sesion}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{figures/diagramas_secuencia/ds_cerrar_sesion.png}
+    \caption{Diagrama de secuencia: Cerrar Sesión.}
+    \label{fig:ds_cerrar_sesion}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figures/diagramas_secuencia/ds_acceder_home.png}
+    \caption{Diagrama de secuencia: Acceder a \textit{Home}.}
+    \label{fig:ds_acceder_home}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figures/diagramas_secuencia/ds_acceder_stats.png}
+    \caption{Diagrama de secuencia: Acceder a \textit{Stats}.}
+    \label{fig:ds_acceder_stats}
+\end{figure}
+
+% TODO: Pensar si renta modificar el Acceder a Home poniendo los <<render>> en escalera
+% TODO: Seguir con los diagramas de cada estadística
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figures/diagramas_secuencia/ds_iniciar_sesion.png}
+    \caption{Diagrama de secuencia: Ver Hall Of Fame.}
+    \label{fig:ds_ver_hall_of_fame}
+\end{figure}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figures/diagramas_secuencia/ds_iniciar_sesion.png}
+    \caption{Diagrama de secuencia: Ver Huella Del Día.}
+    \label{fig:ds_ver_huella_del_dia}
+\end{figure}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figures/diagramas_secuencia/ds_iniciar_sesion.png}
+    \caption{Diagrama de secuencia: Ver Estaciones Musicales.}
+    \label{fig:ds_ver_estaciones_musicales}
+\end{figure}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figures/diagramas_secuencia/ds_iniciar_sesion.png}
+    \caption{Diagrama de secuencia: Ver Tus Décadas.}
+    \label{fig:ds_ver_tus_decadas}
+\end{figure}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figures/diagramas_secuencia/ds_iniciar_sesion.png}
+    \caption{Diagrama de secuencia: Ver La Bitácora.}
+    \label{fig:ds_ver_la_bitacora}
+\end{figure}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figures/diagramas_secuencia/ds_iniciar_sesion.png}
+    \caption{Diagrama de secuencia: Ver Índice De Interferencia.}
+    \label{fig:ds_ver_indice_de_interferencia}
+\end{figure}
+
+
+
+
+
 
 
 
@@ -131,11 +215,9 @@ Una vez que el usuario ha iniciado sesión y la aplicación ha obtenido un \text
 
 \subsection{Routing y Conexiones Seguras}
 
-% TODO: Mirar si tiene sentido esto que he escrito
-
 Next.js proporciona un sistema de \textbf{middleware} que permite ejecutar procesos antes de que se manejen las solicitudes de las rutas. En este proyecto, se ha implementado un middleware que verifica la validez de las cookies de sesión antes de permitir el acceso a las rutas protegidas. Si no existe una cookie con un access token, el usuario es redirigido a la página de inicio de sesión, grantizando que solo los usuarios autenticados puedan acceder a las estadísticas y los datos personales.
 
-Para la comunicación entre el cliente y la aplicación, al desplegatse en \textit{Vercel}, éste proporciona automáticamente conexiones HTTPS para todas las solicitudes. Esto garantiza la confidencialidad de los datos transmitidos entre el cliente y el servidor, protegiendo contra ataques de intercepción como el MITM.
+Para la comunicación entre el cliente y la aplicación, al desplegatse en \textit{Vercel}, éste proporciona automáticamente \textbf{conexiones HTTPS} para todas las solicitudes. Esto garantiza la confidencialidad de los datos transmitidos entre el cliente y el servidor, protegiendo contra ataques de intercepción como el MITM.
 
 \subsection{Otras Medidas}
 
