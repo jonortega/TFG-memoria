@@ -92,11 +92,32 @@ Con este diseño, en especial con el componente \texttt{StatComponent}, se reduc
 
 % TODO: Queda esta sección por completar
 \section{Interfaz de Usuario}
+
+\subsection{Principios de Diseño}
+Basado en el lenguaje de diseño de Spotify
+https://developer.spotify.com/documentation/design
+
+\subsection{Distribución de la Interfaz}
+Navegación
+distribución de contenido
+describir páginas principales
+organizacion de datos en la interfaz para que fuese comprensible
+
+\subsection{Responsividad}
+Responsivo: se ajusta a diferentes tamaños de pantalla mientras lo mueves
+(Adaptativo: se establece cómo se debería de ver en diferentes tamaños de pantalla. Hace un salto cuando cambia de tamaño)
+
+Tailwind
+
+\subsection{Gráficos y Visualización de Datos}
+Cómo se presentan?
+Qué tipos de gráficos?
+Cómo interactúa el usuario?
 % TODO: --------------------------------
 
 
 
-
+% TODO: Preguntar si dejar aquí o mover a anexo. Aquí no sé qué explicar.
 \section{Diagramas de Secuencia}
 
 \begin{figure}[H]
@@ -127,63 +148,47 @@ Con este diseño, en especial con el componente \texttt{StatComponent}, se reduc
     \label{fig:ds_acceder_stats}
 \end{figure}
 
-% TODO: Pensar si renta modificar el Acceder a Home poniendo los <<render>> en escalera
-% TODO: Seguir con los diagramas de cada estadística
-
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{figures/diagramas_secuencia/ds_iniciar_sesion.png}
+    \includegraphics[width=\textwidth]{figures/diagramas_secuencia/ds_ver_hall_of_fame.png}
     \caption{Diagrama de secuencia: Ver Hall Of Fame.}
     \label{fig:ds_ver_hall_of_fame}
 \end{figure}
 
-
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{figures/diagramas_secuencia/ds_iniciar_sesion.png}
+    \includegraphics[width=\textwidth]{figures/diagramas_secuencia/ds_ver_huella_del_dia.png}
     \caption{Diagrama de secuencia: Ver Huella Del Día.}
     \label{fig:ds_ver_huella_del_dia}
 \end{figure}
 
-
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{figures/diagramas_secuencia/ds_iniciar_sesion.png}
+    \includegraphics[width=\textwidth]{figures/diagramas_secuencia/ds_ver_estaciones_musicales.png}
     \caption{Diagrama de secuencia: Ver Estaciones Musicales.}
     \label{fig:ds_ver_estaciones_musicales}
 \end{figure}
 
-
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{figures/diagramas_secuencia/ds_iniciar_sesion.png}
+    \includegraphics[width=\textwidth]{figures/diagramas_secuencia/ds_ver_tus_decadas.png}
     \caption{Diagrama de secuencia: Ver Tus Décadas.}
     \label{fig:ds_ver_tus_decadas}
 \end{figure}
 
-
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{figures/diagramas_secuencia/ds_iniciar_sesion.png}
+    \includegraphics[width=\textwidth]{figures/diagramas_secuencia/ds_ver_la_bitacora.png}
     \caption{Diagrama de secuencia: Ver La Bitácora.}
     \label{fig:ds_ver_la_bitacora}
 \end{figure}
 
-
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{figures/diagramas_secuencia/ds_iniciar_sesion.png}
+    \includegraphics[width=\textwidth]{figures/diagramas_secuencia/ds_ver_indice_de_interferencia.png}
     \caption{Diagrama de secuencia: Ver Índice De Interferencia.}
     \label{fig:ds_ver_indice_de_interferencia}
 \end{figure}
-
-
-
-
-
-
-
-
 
 \section{Seguridad}
 
@@ -199,7 +204,7 @@ En la creación de una aplicación que hace uso de la API de \textit{Spotify}, s
 
 \subsubsection*{Prevención de CSRF y Scopes}
 
-Para prevenir ataques de \textit{Cross-Site Request Forgery} (CSRF), cada solicitud de inicio de sesión incluye un valor de estado (\textbf{state}) generado de forma aleatoria. Este valor es único para cada sesión y se valida al recibir la respuesta del servidor de autenticación. Este mecanismo, recomendado explícitamente en la documentación de \textit{Spotify} [\textbf{REFERENCIA}], garantiza que las solicitudes sean legítimas y originadas únicamente desde el cliente autorizado, evitando que actores maliciosos puedan ejecutar acciones en nombre del usuario.
+Para prevenir ataques de \textit{Cross-Site Request Forgery} (CSRF), cada solicitud de inicio de sesión incluye un valor de estado (\textbf{state}) generado de forma aleatoria. Este valor es único para cada sesión y se valida al recibir la respuesta del servidor de autenticación. Este mecanismo, recomendado explícitamente en la documentación de \textit{Spotify} \cite{spotifyAuthCodeFlow2025}, garantiza que las solicitudes sean legítimas y originadas únicamente desde el cliente autorizado, evitando que actores maliciosos puedan ejecutar acciones en nombre del usuario.
 
 Por otro lado, durante el paso de la autorización en el proceso de inicio de sesión, se respeta el principio de mínimos privilegios, donde solo se solicitan los permisos necesarios y ninguno más. Los usuarios son informados claramente sobre los \textbf{scopes} solicitados y su propósito antes de otorgar los permisos. De esta manera se consigue reducir el riesgo de exposición innecesaria de datos.
 
