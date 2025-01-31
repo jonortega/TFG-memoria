@@ -69,9 +69,9 @@ Los endpoints en \texttt{/api/auth/} gestionan el incio de sesión del usuario, 
 
 \section{Diagrama de Componentes de React}
 
-Los componentes en \textit{React} son las piezas fundamentales para construir interfaces de usuario. Cada componente puede ser reutilizable, contener su propio estado y lógica, y ser combinado con otros para formar estructuras más complejas. Además, en \textit{React}, las interfaces se suelen diseñar en forma de jerarquías de componentes, en las que los componentes ``padre'' organizan y controlan el comportamiento y la presentación de los componentes ``hijo''. Esta organización jerárquica facilita el mantenimiento y la escalabilidad del código, ya que cada componente tiene una responsabilidad definida.
+Los componentes en \textit{React} son las piezas fundamentales para construir interfaces de usuario. Cada componente puede ser reutilizable, contener su propio estado y lógica, y ser combinado con otros para formar estructuras más complejas. Para describir estas interfaces de manera declarativa, \textit{React} utiliza \textbf{JSX} (JavaScript XML), una extensión de sintaxis de JavaScript, que permite escribir el código de los componentes con una sintaxis similar a \textit{HTML}. Aunque no sea obligatorio, su uso es ampliamente adoptado en proyectos \textit{React}.
 
-En este proyecto, se ha creado una jerarquía de componentes (diagrama \ref{fig:componentes_react}) que refleja las diferentes funcionalidades de la aplicación. A la hora de construir la web, \textit{Next.js} y \textit{React} se encargan de anidar los componentes necesarios y renderizarlos, o enviarlos al cliente, según sea necesario.
+Las interfaces se suelen diseñar en forma de jerarquías de componentes, en las que los componentes ``padre'' organizan y controlan el comportamiento y la presentación de los componentes ``hijo''. Esta organización jerárquica facilita el mantenimiento y la escalabilidad del código, ya que cada componente tiene una responsabilidad definida. En este proyecto, se ha creado una jerarquía de componentes (diagrama \ref{fig:componentes_react}) que refleja las diferentes funcionalidades de la aplicación. A la hora de construir la web, \textit{Next.js} y \textit{React} se encargan de anidar los componentes necesarios y renderizarlos, o enviarlos al cliente, según sea necesario.
 
 \begin{figure}[H]
     \centering
@@ -89,32 +89,80 @@ La mayoría de los componentes están definidos de manera explícita y son rende
 
 Con este diseño, en especial con el componente \texttt{StatComponent}, se reduce la cantidad de código a renderizar y enviar al cliente, ya que solamente se cargará la estadística necesaria y cuando el usuario lo solicite. Además, en el desarrollo se puede encapsular toda la lógica necesaria para cada estadística en un único componente, facilitando la incorporación de nuevas estadísticas, si hace falta.
 
+\newpage
 
-% TODO: Queda esta sección por completar
 \section{Interfaz de Usuario}
 
+La interfaz de usuario es uno de los aspectos más flexibles dentro del desarrollo de software, ya que permite una gran libertad creativa y de implementación. En este proyecto, se plantearon varias opciones: utilizar una base de diseño preexistente, como guías visuales o sistemas de diseño consolidados, o desarrollar una interfaz completamente personalizada. Debido a que este trabajo pertenece al ámbito de la informática y no del diseño gráfico, muchas decisiones se orientaron hacia la practicidad, priorizando herramientas y enfoques que permiten simplificar el desarrollo, sin sacrificar la experiencia de usuario. A continuación, se describen las decisiones tomadas al respecto.
+
 \subsection{Principios de Diseño}
-Basado en el lenguaje de diseño de Spotify
-https://developer.spotify.com/documentation/design
 
-\subsection{Distribución de la Interfaz}
-Navegación
-distribución de contenido
-describir páginas principales
-organizacion de datos en la interfaz para que fuese comprensible
+Como \textit{Spotify} es una plataforma ampliamente conocida y tiene una identidad visual muy reconocible, se decidió inspirar la interfaz en su diseño. La plataforma propociona una guía para los desarrolladores que incluye recomendaciones muy útiles \cite{spotifyDesign2025}. De entre ellas, se han seleccionado aquellos elementos que resultan relevantes para el uso y alcance de esta aplicación, que se sintetizan en los siguientes puntos:
 
-\subsection{Responsividad}
-Responsivo: se ajusta a diferentes tamaños de pantalla mientras lo mueves
-(Adaptativo: se establece cómo se debería de ver en diferentes tamaños de pantalla. Hace un salto cuando cambia de tamaño)
+\subsubsection*{Colores}
 
-Tailwind
+El principal identificador visual de \textit{Spotify} es su color verde, llamado \textbf{Spotify Green}. Este color es el que se ha utilizado como el color primario para la página web. Además, se han incorporado el blanco y negro oficiales y también algunos colores complementarios, como el zul y el rojo, para aportar variedad en las situaciones en las que se necesite.
 
-\subsection{Gráficos y Visualización de Datos}
-Cómo se presentan?
-Qué tipos de gráficos?
-Cómo interactúa el usuario?
-% TODO: --------------------------------
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/colores_usados.png}
+    \caption{Colores seleccionados para la paleta de colores de la aplicación.}
+    \label{fig:colores_usados}
+\end{figure}
 
+Estas combinaciones respetan las recomendaciones de la plataforma, que desaconseja el uso de colores sobresaturados, y también se ha ajustado claridad de los colores en ciertas ocasiones para mejorar el contraste en la lectura de texto.
+
+\newpage
+
+\subsubsection*{Tipografía}
+
+Aunque \textit{Spotify} no proporciona acceso público a su tipografía ofical, sugieren usar fuentes sans-serif como \textit{Helvetica} o \textit{Arial}. En el caso de este proyecto, se ha optado por hacer uso de la tipografía \textbf{Inter} (figura \ref{fig:inter_fuente}), ya que se asemeja más a la original que las recomendadas. Podemos encontrarla en \textit{Google Fonts}, pero \textit{Next.js} nos evita la necesidad de tener que descargarla, ya que está incluida de forma predeterminada en el framework.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{figures/inter_fuente.png}
+    \caption{Muestra de caracteres de la tipografía \textit{Inter}.}
+    \label{fig:inter_fuente}
+\end{figure}
+
+\subsection{Tailwind CSS}
+
+Para el estilizado de los elementos de la interfaz se ha utilizado \textit{Tailwind CSS}, una librería de utilidades que permite desarrollar estilos de manera rápida y eficiente. En vez de crear un estilo agrupado que se asocie a cada elemento, el enfoque de \textit{Tailwind} se basa en agregar pequeñas clases utilitarias predefinidas a cada elemento mediante el atributo \texttt{className} en JSX (figura \ref{alg:ejemplo_tailwind}), aplicandole así el resultado de la combinación de todos esos estilos.
+
+% Ajustar espacios antes de este entorno
+\setlength{\intextsep}{15pt} % Espacio superior
+\setlength{\abovecaptionskip}{0pt} % Espacio antes del título
+\setlength{\belowcaptionskip}{0pt} % Espacio entre título y texto posterior
+
+\begin{ifalgorithm}[H]
+    \begin{lstlisting}
+    <main className="flex flex-col items-center justify-center">
+    <h1 className="text-2xl font-bold mb-4">Bienvenido</h1>
+    <a href="/api/auth/login"
+        className="px-4 py-2 bg-green-500 text-white rounded">
+    Sign In </a>
+    </main>
+    \end{lstlisting}
+    \caption{Ejemplo de aplicación de estilos a un componente JSX usando \textit{Tailwind CSS}.}
+    \label{alg:ejemplo_tailwind}
+\end{ifalgorithm}
+
+De esta manera se evita la necesidad de definir manualmente grandes cantidades de estilos en archivos CSS. Otra ventaja que aporta \textit{Tailwind} es el diseño responsivo, que viene integrado de serie en las clases definidas. Esto facilita la creación de interfaces adaptables a distintos tamaños de pantalla, sin necesidad de escribir reglas adicionales.
+
+Otra razón por la que se ha decidido utilizar este sistema, es su integración con \textit{React} y \textit{Next.js}. Es un stack de tecnologías frontend muy popular, por lo que existe mucha documentación al respecto y se garantiza una gran compatibilidad. Además, \textit{Tailwind} es muy flexible y permite personalizar los estilos de manera sencilla para ajustarlos a cualquier tipo de proyecto.
+
+% TODO: Escribir y sacar capturas de pantalla de la app.
+\subsection{Páginas y Gráficos}
+
+Por completar.
+
+% - Barra de navegación: Con logo simple, botones Home y Stat y perfil del usuario.
+
+% - Home: Estadísiticas simples, todas de una. Formato de tarjetas o componentes separados. Diferenciar pdos partes: los tops y la lista de recently played.
+
+% - Stats: Estadísticas avanzadas. Presentación de cuadrícua de tarjetas con cada nombre y descripción de la estística. Fácil de añadir e incorporar más. Al clicar, se muestra el gráfico en una "ventana flotante". Se emborrona el fondo para dar sensación de profundidad y hacer foco en la estadísitica.
+
+% - Gráficos: Explicar cada uno. Su interactividad. Cómo se cierran dando a la X.
 
 
 % TODO: Preguntar si dejar aquí o mover a anexo. Aquí no sé qué explicar.

@@ -4,6 +4,33 @@
 \usepackage{multicol}
 \usepackage{pmboxdraw}
 
+\usepackage{listings}
+\usepackage{xcolor}
+
+% Configuración personalizada para JSX
+\lstdefinestyle{customJSX}{
+  language=HTML,
+  basicstyle=\ttfamily\footnotesize,       % Fuente monoespaciada y tamaño pequeño
+  keywordstyle=\color{blue}\bfseries,      % Palabras clave en azul y negrita
+  stringstyle=\color{green!70!black},        % Cadenas de texto en rojo oscuro
+  commentstyle=\color{gray},               % Comentarios en gris
+  identifierstyle=\color{black},           % Identificadores en negro
+  backgroundcolor=\color{gray!10},         % Fondo gris claro
+  frame=single,                            % Marco alrededor del código
+  breaklines=true,                         % Saltos de línea automáticos
+  postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}, % Marca de continuación
+  showstringspaces=false,                  % No mostrar espacios en las cadenas
+  tabsize=2,                               % Tamaño de los tabuladores
+  numbers=left,                            % Números de línea a la izquierda
+  numberstyle=\tiny\color{gray},           % Estilo de los números de línea
+  stepnumber=1,                            % Cada línea numerada
+  xleftmargin=15pt,                        % Espaciado a la izquierda del marco
+  captionpos=b                             % Coloca el título debajo del bloque de código
+}
+
+% Activar estilo personalizado
+\lstset{style=customJSX}
+
 
 %%%%%%%%%%
 % ESTILO %
@@ -92,8 +119,8 @@
 \clearpage
 \listoftables
 \clearpage
-% \listofalgorithms
-% \addcontentsline{toc}{chapter}{Índice de algoritmos}
+\listofalgorithms
+\addcontentsline{toc}{chapter}{Índice de algoritmos}
 
 %%%%%%%%%%%%%
 % CONTENIDO %
