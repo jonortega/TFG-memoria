@@ -148,7 +148,7 @@ Una vez completado el proceso de autorización y obtenido el \texttt{access\_tok
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.4\textwidth]{figures/selected_groups.png}
+    \includegraphics[width=0.4\textwidth]{figures/all_groups.png}
     \caption{Grupos de endpoints ofrecidos y cuáles se van a usar.}
     \label{fig:selected_groups}
 \end{figure}
@@ -242,7 +242,7 @@ En el grupo \textbf{Users} se encuentran los endpoints relacionados con la infor
 
     \item \textbf{Campos del Response}
           \begin{itemize}
-              \item \texttt{id} (string): ID del artista en Spotify.
+              \item \texttt{id}: ID del artista en Spotify.
               \item \texttt{name}: Nombre del artista.
               \item \texttt{popularity}: Su popularidad (0-100).
               \item \texttt{followers}: Objeto con la información sobre los seguidores del artista.
@@ -284,8 +284,8 @@ Cabe destacar que este endpoint tiene una limitación muy considerable: \textbf{
                         \item \texttt{name}: Nombre del track.
                         \item \texttt{duration\_ms}: Duración en milisegundos.
                         \item \texttt{played\_at}: Fecha y hora en la que se reprodujo el track.
-                        \item \texttt{explicit} (boolean): Indica si el track contiene contenido explícito.
-                        \item \texttt{popularity} (integer): Popularidad del track (0-100).
+                        \item \texttt{explicit}: Indica si el track contiene contenido explícito.
+                        \item \texttt{popularity}: Popularidad del track (0-100).
                         \item \texttt{album}: Información sobre el álbum en el que se encuentra.
                               \begin{itemize}
                                   \item \texttt{name}: Nombre del álbum.
@@ -374,40 +374,101 @@ Al igual que el grupo anterior, en \textbf{Artists} se pueden consultar datos so
           \end{itemize}
 \end{itemize}
 
+\section*{Playlists}
 
+En \textbf{Playlists} se encuentran los endpoints que permiten trabajar con las listas de canciones del usuario. Con \textbf{Create Playlist} (figura \ref{fig:create_playlist}) podemos crear una nueva playlist, \textbf{Add Items To Playlist} (figura \ref{fig:add_items_playlist}) para añadir canciones y con \textbf{Add Custom Playlist Cover Image} (figura \ref{fig:add_custom_playlist_cover_img}) podemos cambiar la portada de la playlist por una imagen personalizada. Suele ser muy común trabajar con varios endpoints de este grupo en conjunto.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{figures/endpoints/create_playlist.png}
+    \caption{Endpoint de \textit{Create Playlist}.}
+    \label{fig:create_playlist}
+\end{figure}
 
-% \begin{figure}[H]
-%     \centering
-%     \includegraphics[width=\textwidth]{figures/endpoints/search_for_item.png}
-%     \caption{Endpoint de \textit{Search for Item}.}
-%     \label{fig:search_item}
-% \end{figure}
-
-% \begin{figure}[H]
-%     \centering
-%     \includegraphics[width=\textwidth]{figures/endpoints/create_playlist.png}
-%     \caption{Endpoint de \textit{Create Playlist}.}
-%     \label{fig:create_playlist}
-% \end{figure}
-
-% \begin{figure}[H]
-%     \centering
-%     \includegraphics[width=\textwidth]{figures/endpoints/add_items_to_playlist.png}
-%     \caption{Endpoint de \textit{Add Items to Playlist}.}
-%     \label{fig:add_items_playlist}
-% \end{figure}
-
-% \begin{figure}[H]
-%     \centering
-%     \includegraphics[width=\textwidth]{figures/endpoints/add_custom_playlist_cover_image.png}
-%     \caption{Endpoint de \textit{Add Custom Playlist Cover Image}.}
-%     \label{fig:add_custom_playlist_cover_img}
-% \end{figure}
-
-Los datos proporcionados por estos endpoints serán utilizados para poblar de información la aplicación, procesándolos y adaptándolos cuando sea necesario para ofrecer una experiencia personalizada al usuario. Además, estos datos influirán directamente en el diseño de la aplicación, tanto en los componentes del frontend, como en la estructura del servidor y la comunicación entre ambos.
+\begin{itemize}
+    \item \textbf{Parámetros del Request}
+          \begin{itemize}
+              \item \textbf{URL params}
+                    \begin{itemize}
+                        \item \texttt{user\_id}: ID del usuario de Spotify que creará la playlist.
+                    \end{itemize}
+              \item \textbf{Body}
+                    \begin{itemize}
+                        \item \texttt{name}: Nombre de la nueva playlist.
+                        \item \texttt{public}: Si la playlist será pública (\texttt{true}) o privada (\texttt{false}).
+                        \item \texttt{collaborative}: Si la playlist será colaborativa o no.
+                        \item \texttt{description}: Descripción de la playlist.
+                    \end{itemize}
+          \end{itemize}
+    \item \textbf{Campos del Response}
+          \begin{itemize}
+              \item \texttt{id}: ID de la playlist.
+              \item \texttt{name}: Nombre de la playlist.
+              \item \texttt{href}: Enlace al endpoint de la playlist en la API de Spotify.
+              \item \texttt{owner}: Objeto con información del usuario propietario de la playlist.
+                    \begin{itemize}
+                        \item \texttt{id}: ID del usuario.
+                        \item \texttt{display\_name}: Nombre del usuario.
+                    \end{itemize}
+              \item \texttt{snapshot\_id}: Identificador de la versión actual de la playlist.
+              \item \texttt{tracks}: Objeto con información sobre las pistas en la playlist.
+          \end{itemize}
+\end{itemize}
 
 \newpage
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{figures/endpoints/add_items_to_playlist.png}
+    \caption{Endpoint de \textit{Add Items to Playlist}.}
+    \label{fig:add_items_playlist}
+\end{figure}
+
+\begin{itemize}
+    \item \textbf{Parámetros del Request}
+          \begin{itemize}
+              \item \textbf{URL params}
+                    \begin{itemize}
+                        \item \texttt{playlist\_id}: ID de la playlist a la que se añadirán los elementos.
+                    \end{itemize}
+              \item \textbf{Body}
+                    \begin{itemize}
+                        \item \texttt{uris}: Array de URIs de Spotify de tracks o episodios a añadir.
+                        \item \texttt{position}: Índice donde se insertarán los elementos.
+                    \end{itemize}
+          \end{itemize}
+    \item \textbf{Campos del Response}
+          \begin{itemize}
+              \item \texttt{snapshot\_id}: Identificador de la nueva versión de la playlist tras la modificación.
+          \end{itemize}
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figures/endpoints/add_custom_playlist_cover_image.png}
+    \caption{Endpoint de \textit{Add Custom Playlist Cover Image}.}
+    \label{fig:add_custom_playlist_cover_img}
+\end{figure}
+
+\begin{itemize}
+    \item \textbf{Parámetros del Request}
+          \begin{itemize}
+              \item \textbf{URL params}
+                    \begin{itemize}
+                        \item \texttt{playlist\_id}: ID de la playlist a la que se subirá la imagen personalizada.
+                    \end{itemize}
+              \item \textbf{Body}
+                    \begin{itemize}
+                        \item Imagen en formato JPEG codificada en Base64 (máx 256 KB) .
+                    \end{itemize}
+          \end{itemize}
+    \item \textbf{Campos del Response}
+          \begin{itemize}
+              \item No devuelve datos adicionales.
+          \end{itemize}
+\end{itemize}
+
+Los datos proporcionados por estos endpoints serán utilizados para poblar de información la aplicación, procesándolos y adaptándolos cuando sea necesario para ofrecer una experiencia personalizada al usuario. Además, estos datos influirán directamente en el diseño de la aplicación, tanto en los componentes del frontend, como en la estructura del servidor y la comunicación entre ambos.
 
 \section{Scopes Necesarios}
 
@@ -425,8 +486,12 @@ Como ya se ha mencionado en el apartado \ref{subsubsec:scopes}, para poder trata
         \item \texttt{user-read-email}
         \item \texttt{user-read-recently-played}
         \item \texttt{user-library-read}
+        \item \texttt{playlist-modify-private}
+        \item \texttt{ugc-image-upload}
     \end{itemize}
 \end{multicols}
+
+Cada uno de ellos añadirá una descripción asociada en la pantalla de autorización que se muestra al usuario durante el inicio de sesión.
 
 \section{Limitaciones y Consideraciones}
 
@@ -439,14 +504,14 @@ Además del límite de 50 canciones en el endpoint de \textbf{Get Recently Playe
     \label{fig:rate_limit}
 \end{figure}
 
+\newpage
+
 Para evitar alcanzar este límite, se pueden implementar técnicas para optimizar el número de peticiones. Algunas de las que se implementarán en este proyecto son:
 
 \begin{itemize}
     \item Batch APIs: Utilizar endpoints que permiten obtener lotes de datos en una sola petición, como el endpoint \textbf{Get Several Artists}.
     \item Lazy Loading: Retrasar las solicitudes de datos hasta que el usuario interactúe con un elemento específico, como al abrir una estadística.
 \end{itemize}
-
-\newpage
 
 \section{Política y Términos de Uso de la API}
 
@@ -464,6 +529,8 @@ El uso de la API está sujeto a restricciones específicas, que se berán de cum
     \item \textbf{Caché local:} Aunque se permite el almacenamiento temporal de ciertos datos para mejorar el rendimiento, no se debe almacenar contenido indefinidamente.
     \item \textbf{Mecanismos de desconexión:} La aplicación debe ofrecer a los usuarios una forma accesible y funcional de desconectar su cuenta de \textit{Spotify} en cualquier momento.
 \end{itemize}
+
+\newpage
 
 \subsection{Protección de Datos y Seguridad}
 
