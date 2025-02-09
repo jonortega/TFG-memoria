@@ -184,12 +184,15 @@
 % APÉNDICES %
 %%%%%%%%%%%%%
 
-\backmatter
 \appendix
+\renewcommand{\appendixname}{Anexo}
 
-\chapter{Anexos} \label{ch:anexos}
+\chapter*{Anexos}
+\addcontentsline{toc}{chapter}{Anexos}
 \input content/chapters/anexos
 
+
+\backmatter
 %%%%%%%%%%%%%%%%
 % BIBLIOGRAFIA %
 %%%%%%%%%%%%%%%%
