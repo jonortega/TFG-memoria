@@ -166,19 +166,63 @@ De esta manera se evita la necesidad de definir manualmente grandes cantidades d
 
 Otra razón por la que se ha decidido utilizar este sistema, es su integración con \textit{React} y \textit{Next.js}. Es un stack de tecnologías frontend muy popular, por lo que existe mucha documentación al respecto y se garantiza una gran compatibilidad. Además, \textit{Tailwind} es muy flexible y permite personalizar los estilos de manera sencilla para ajustarlos a cualquier tipo de proyecto.
 
-% TODO: Escribir y sacar capturas de pantalla de la app.
-\subsection{Páginas y Gráficos}
+\subsection{Páginas y Componentes Principales}
 
-Por completar.
+Para finalizar con la cacterización de la interfaz de usuario, se presentarán los componentes de la web, la distribución de los elementos dentro de ella y las decisiones tomadas al respecto. Dado el enfoque más técnico de este documento, solo se han incluido las figuras de los componentes principales. Los detalles específicos de cada estadística y elementos secundarios de la interfaz se han trasladado al anexo [REF].
 
-% - Barra de navegación: Con logo simple, botones Home y Stat y perfil del usuario.
+La primera página presentada al usuario es la página de \textbf{inicio de sesión} (figura \ref{fig:login}), que se encuentra en la ruta raíz. Solo se presenta una interacción posible, que es con el botón de \textit{Log In}. Además de la parte puramente funcional, esta pantalla inicial permite una introducción visual al estilo de la web, centrado en los colores ya presentados y la decisión de usar un fondo negro, al igual que la aplicación nativa de \textit{Spotify}.
 
-% - Home: Estadísiticas simples, todas de una. Formato de tarjetas o componentes separados. Diferenciar pdos partes: los tops y la lista de recently played.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{figures/capturas_ui/login.png}
+    \caption{Página de inicio de sesión del proyecto.}
+    \label{fig:login}
+\end{figure}
 
-% - Stats: Estadísticas avanzadas. Presentación de cuadrícua de tarjetas con cada nombre y descripción de la estística. Fácil de añadir e incorporar más. Al clicar, se muestra el gráfico en una "ventana flotante". Se emborrona el fondo para dar sensación de profundidad y hacer foco en la estadísitica.
+Una vez dentro, la navegación entre las diferentes secciones se realiza a través de una \textbf{barra de navegación} (figura \ref{fig:navbar}), accesible en todo momento. En esta barra se incluyen el logo y nombre de la aplicación, los botones de navegación principales y el perfil del usuario. Desde este último, el usuario puede cerrar sesión en cualquier momento mediante la opción de \textit{Log Out}. Este elemento fijo en la interfaz facilita la orientación dentro de la aplicación y permite un acceso rápido a las secciones esenciales.
 
-% - Gráficos: Explicar cada uno. Su interactividad. Cómo se cierran dando a la X.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figures/capturas_ui/navbar.png}
+    \caption{Barra de navegación fijada en la parte superior de la web.}
+    \label{fig:navbar}
+\end{figure}
 
+La primera sección tras el inicio de sesión es el \textbf{Home} (\ref{fig:home}), donde se presentan las estadísticas básicas del usuario. Para organizar la información, se ha optado por un diseño basado en módulos, que encapsulan cada una de las estadísticas. Demás del los datos del perfil del usuario, se muestran los tres tops (\textit{Top Tracks}, \textit{Top artists} y  \textit{Top Genres}). Justo debajo, manteniendo una separación, se encuentra la sección de \textit{Recently Played}, que se puede ver al desplazar la ventana.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.65\textwidth]{figures/capturas_ui/home.png}
+    \caption{Página de \textit{Home} con las estadísticas básicas.}
+    \label{fig:home}
+\end{figure}
+
+La segunda gran sección es la de \textbf{Stats} (figura \ref{fig:stats}), donde se han implementado las estadísticas avanzadas. Al igual que en el \textit{Home}, se mantiene el diseño modular basado en tarjetas, pero en este caso con una disposición más flexible para generar una presentación más interesante. Al hacer clic sobre cualquiera de ellas, se abre una \textbf{ventana modal} (figura \ref{fig:modal}) sobre la página, en la que se carga y renderiza la estadística seleccionada. Oscureciendo y difuminando el fondo, se da una sensación de profundidad y crea una separación para foco en la estadísitica. El usuario puede cerrar la ventana modal en cualquier momento haciendo clic fuera de ella o mediante el botón de cierre.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.65\textwidth]{figures/capturas_ui/stats.png}
+    \caption{Página de \textit{Stats} con las tarjetas de estadísticas avanzadas.}
+    \label{fig:stats}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.65\textwidth]{figures/capturas_ui/modal.png}
+    \caption{Ventana modal que contendrá la estadística a mostrar (en este ejemplo, \textit{Huella Del Día}).}
+    \label{fig:modal}
+\end{figure}
+
+Finalmente, en la parte inferior de la web se encuentra el \textbf{footer} (\ref{fig:footer}), un elemento presente en todas las páginas, incluyendo la pantalla de inicio de sesión. Su función principal es proporcionar un botón para el acceso a la política de privacidad, requisito de los términos de \textit{Spotify} para el uso de su API. Al igual que en las estadísticas, la información se muestra en una ventana modal, evitando la necesidad de cargar una nueva página y manteniendo la coherencia en la interacción del usuario con la aplicación.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{figures/capturas_ui/footer.png}
+    \caption{\textit{Footer} anclado al pie de todas las páginas de la web.}
+    \label{fig:footer}
+\end{figure}
+
+Aunque las figuras incluidas en el documento hayan sido capturadas en una pantalla de escritorio, todos los elementos dentro de los componentes han sido implementados con un diseño \textit{responsive} en mente, asegurando una visualización clara tanto en pantallas grandes como en dispositivos móviles con pantallas más reducidas.
 
 % TODO: "Pon los más importantes y explícalos y el resto a un anexo. En el apartado indica que solo vas a mostrar los más importantes y que los demás están en el anexo tal"
 \section{Diagramas de Secuencia}
