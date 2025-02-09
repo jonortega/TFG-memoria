@@ -80,18 +80,33 @@ Las interfaces se suelen diseñar en forma de jerarquías de componentes, en las
     \label{fig:componentes_react}
 \end{figure}
 
-% TODO: Explicar los client y server components y los Skeletons del fallback también
+Como se muestra en el diagrama, se pueden diferenciar tres tipos diferentes de compontentes, según sus características. \textit{React} define dos principales clases: los \textbf{Client Components} y, los ya mecionados, \textbf{Server Componens}. \textit{Next.js} hace uso concreto de esta diferenciación para optimizar las páginas. Como su nombre indica, los \textit{client components} son componentes de \textit{React} que se ejecutan en el navagador del cliente. Para ello, es necesario enviar toda la lógica junto con el HTML y los estilos, haciendo que este tipo de componentes sean más pesados y requieran más computación por parte de la máquina del usuario. Como respuesta, se introdujeron los \textit{server components}, para que los componentes que no contuviesen funcionalidades de interacción complejas pudieran ser renderizados en el servidor, enviando solamente el HTML y los estilos necesarios al cliente. Con esto se reduce considerablemente la carga del navegador y mejora la rapidez de la web.
 
-La mayoría de los componentes están definidos de manera explícita y son renderizados cuando se llegue a una ruta en concreto, pero hay otros componentes que se cargan dinámicamente, es decir, el contenido que aparece en su lugar puede variar en función de las acciones del usuario o del contexto del componente. Se podría considerar que el componente hijo temporal, se ``transforma'' en otro que toma su lugar. En este proyecto, se han definido dos componentes que se comportan así:
+El tercer tipo de componente, los \textbf{Loading Components}, no son una clasificación oficial, si no que se ha querido hacer una diferenciación con respecto a los componentes ``comunes''. No añaden funcionalidad ni información concreta a la página, solamente se usan como sustitutos temporales mientras se cargan los componentes finales. Son especialmente útiles para usarlos junto con los \textit{server components}, ya que estos pueden tardar en ser enviados al cliente por el proceso de renderizado (y carga de datos) en el servidor. Hasta entonces, \textit{Next.js} recurre a mostrar el \textit{loading component} para dar un feedback al usuario (figura \ref{alg:suspense_fallback}). Además, estos componentes pueden modelarse de tal forma que representen el ``esqueleto'' del estilo del componente final. Todo esto permite que el proceso de carga se sienta más rápido e informativo, mejorando la experiencia del usuario.
+
+% Ajustar espacios antes de este entorno
+\setlength{\intextsep}{15pt} % Espacio superior
+\setlength{\abovecaptionskip}{0pt} % Espacio antes del título
+\setlength{\belowcaptionskip}{0pt} % Espacio entre título y texto posterior
+
+\begin{ifalgorithm}[H]
+    \begin{lstlisting}
+    <Suspense fallback={<UserProfileSkeleton />}>
+        <UserProfile />
+    </Suspense>
+    \end{lstlisting}
+    \caption{Entorno \texttt{Suspense} para mostrar un fallback mientras se carga el componente \texttt{UserProfile}.}
+    \label{alg:suspense_fallback}
+\end{ifalgorithm}
+
+Por último, hay algunos componentes que se han definido para realizar cargas dinámicas. El contenido no será enviado hasta que el usuario realice alguna acción que dispare una petición a \textit{Next.js}, sustituyendo en el lugar indicado uno de los componentes preestablecidos. En este proyecto, se han definido dos componentes que se comportan así:
 
 \begin{itemize}
-    \item \textbf{StatComponent}: Se utiliza para mostrar una de las seis estadísticas disponibles, cada una siendo un componente autocontenido. Dependiendo de la selección del usuario, se cargará uno de estos subcomponentes en el lugar correspondiente. También se puede inferir que solo se podrá mostrar una estadística a la vez.
-    \item \textbf{IconComponent}: Está asociado con los iconos representativos de cada estadística, que se muestran en las tarjetas (\texttt{StatCard}) que el usuario puede clicar para verla. Utiliza el paquete \texttt{LucideIcon} para cargar diferentes iconos, ya que, en este paquete, cada icono es representado como un componente de \textit{React}.
+    \item \textbf{Dialog}: Se utiliza para cargar en una ventana modal una de las seis estadísticas disponibles, cada una siendo un componente autocontenido. Dependiendo de la selección del usuario, se cargará uno de estos subcomponentes en el lugar correspondiente. También se puede inferir que solo se podrá mostrar una estadística a la vez.
+    \item \textbf{IconComponent}: Está asociado con los iconos representativos de cada estadística, que se muestran en las tarjetas (\texttt{StatCard}) y que el usuario puede clicar para ver. Utiliza el paquete \texttt{LucideIcon} para cargar diferentes iconos, ya que, en este paquete, cada icono es representado como un componente de \textit{React}.
 \end{itemize}
 
-Con este diseño, en especial con el componente \texttt{StatComponent}, se reduce la cantidad de código a renderizar y enviar al cliente, ya que solamente se cargará la estadística necesaria y cuando el usuario lo solicite. Además, en el desarrollo se puede encapsular toda la lógica necesaria para cada estadística en un único componente, facilitando la incorporación de nuevas estadísticas, si hace falta.
-
-\newpage
+Utilizando de manera consciente estas herramientas del framework, se reduce la cantidad de código a enviar al cliente. En el caso de este proyecto, se ha procurado usar, en la medida de lo posible, los \textit{server components}; solo recurriendo al uso de los \textit{client components} en casos necesarios, ya sea por la gestión de estados para interactividad avanzada o llamadas a endpoits de datos.
 
 \section{Interfaz de Usuario}
 
@@ -107,14 +122,12 @@ El principal identificador visual de \textit{Spotify} es su color verde, llamado
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\textwidth]{figures/colores_usados.png}
+    \includegraphics[width=0.5\textwidth]{figures/colores_usados.png}
     \caption{Colores seleccionados para la paleta de colores de la aplicación.}
     \label{fig:colores_usados}
 \end{figure}
 
 Estas combinaciones respetan las recomendaciones de la plataforma, que desaconseja el uso de colores sobresaturados, y también se ha ajustado claridad de los colores en ciertas ocasiones para mejorar el contraste en la lectura de texto.
-
-\newpage
 
 \subsubsection*{Tipografía}
 
@@ -122,7 +135,7 @@ Aunque \textit{Spotify} no proporciona acceso público a su tipografía ofical, 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.75\textwidth]{figures/inter_fuente.png}
+    \includegraphics[width=0.6\textwidth]{figures/inter_fuente.png}
     \caption{Muestra de caracteres de la tipografía \textit{Inter}.}
     \label{fig:inter_fuente}
 \end{figure}
@@ -149,7 +162,7 @@ Para el estilizado de los elementos de la interfaz se ha utilizado \textit{Tailw
     \label{alg:ejemplo_tailwind}
 \end{ifalgorithm}
 
-De esta manera se evita la necesidad de definir manualmente grandes cantidades de estilos en archivos CSS. Otra ventaja que aporta \textit{Tailwind} es el diseño responsivo, que viene integrado de serie en las clases definidas. Esto facilita la creación de interfaces adaptables a distintos tamaños de pantalla, sin necesidad de escribir reglas adicionales.
+De esta manera se evita la necesidad de definir manualmente grandes cantidades de estilos en archivos CSS. Además de los estilos estéticos, \textit{Tailwind} aporta muchas clases relacionadas con la adaptavilidad de los componentes a diferentes dispositivos, para generar interfaces \textit{responsive} con facilidad.
 
 Otra razón por la que se ha decidido utilizar este sistema, es su integración con \textit{React} y \textit{Next.js}. Es un stack de tecnologías frontend muy popular, por lo que existe mucha documentación al respecto y se garantiza una gran compatibilidad. Además, \textit{Tailwind} es muy flexible y permite personalizar los estilos de manera sencilla para ajustarlos a cualquier tipo de proyecto.
 
