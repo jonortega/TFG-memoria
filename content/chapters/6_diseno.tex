@@ -67,7 +67,7 @@ La estructura de carpetas para los endpoints de este proyecto es la siguiente:
 
 Los endpoints en \texttt{/api/auth/} gestionan el incio de sesión del usuario, mientras que los de \texttt{/api/home/} y \texttt{/api/stats/} se encargan de obtener y procesar los datos necesarios para las estadísiticas. El contenido del fichero \texttt{route.ts} sigue una convención concreta que \textit{Next.js} reconoce y utiliza para gestionar las peticiones, la cual se explicará con más detalle en el capítulo de \nameref{ch:implementacion}.
 
-\section{Diagrama de Componentes de React}
+\section{Diagrama de Componentes de React} \label{sec:diagrama_componentes_react}
 
 Los componentes en \textit{React} son las piezas fundamentales para construir interfaces de usuario. Cada componente puede ser reutilizable, contener su propio estado y lógica, y ser combinado con otros para formar estructuras más complejas. Para describir estas interfaces de manera declarativa, \textit{React} utiliza \textbf{JSX} (JavaScript XML), una extensión de sintaxis de JavaScript, que permite escribir el código de los componentes con una sintaxis similar a \textit{HTML}. Aunque no sea obligatorio, su uso es ampliamente adoptado en proyectos \textit{React}.
 
@@ -224,8 +224,15 @@ Finalmente, en la parte inferior de la web se encuentra el \textbf{footer} (\ref
 
 Aunque las figuras incluidas en el documento hayan sido capturadas en una pantalla de escritorio, todos los elementos dentro de los componentes han sido implementados con un diseño \textit{responsive} en mente, asegurando una visualización clara tanto en pantallas grandes como en dispositivos móviles con pantallas más reducidas.
 
-% TODO: "Pon los más importantes y explícalos y el resto a un anexo. En el apartado indica que solo vas a mostrar los más importantes y que los demás están en el anexo tal"
+\newpage
+
 \section{Diagramas de Secuencia}
+
+En esta sección se presentan los diagramas de secuencia más importantes. Se han seleccionado aquellos que presentan una complejidad particular o requieren una explicación más detallada para su correcta interpretación. El resto de los diagramas correspondientes a los casos de uso estarán disponibles en el \nameref{ch:anexoB}.
+
+\subsection*{Iniciar Sesión}
+
+Aunque la acción para el usuario sea simple, este caso de uso requiere varios pasos y llamadas a la API de \textit{Spotify} por parte de la lógica de la aplicación. La complejidad viene principalmente viene de la gestión de los errores, ya que, durante este proceso, existen dos puntos en los que el usuario puede rechazar (o ser rechazado) el inicio de sesión. Esos dos casos son: si el usurio introduce las credenciales incorrectas en la autenticación o si el usuario decide no dar la autorización necesaria a la aplicación para trabajar con sus datos. En el diagrama \ref{fig:ds_iniciar_sesion} se caracterizan todas estas posibilidades con los marcos de interacción alternativas.
 
 \begin{figure}[H]
     \centering
@@ -234,12 +241,9 @@ Aunque las figuras incluidas en el documento hayan sido capturadas en una pantal
     \label{fig:ds_iniciar_sesion}
 \end{figure}
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.85\textwidth]{figures/diagramas_secuencia/ds_cerrar_sesion.png}
-    \caption{Diagrama de secuencia: Cerrar Sesión.}
-    \label{fig:ds_cerrar_sesion}
-\end{figure}
+\subsection*{Acceder a Home}
+
+En este este caso de uso, la aplicación carga la página de \textit{Home} junto con todos los componentes de las estadísticas básicas. En el diagrama \ref{fig:ds_acceder_home} se muestra un marco que representa un proceso paralelo. Se ha querido remarcar esta característica de la carga, ya que todos los componentes se renderizan de manera asíncrona, gracias a la funcionalidad del entorno \textsl{Suspense} de \textit{Next.js} mencionado en la sección \nameref{sec:diagrama_componentes_react}.
 
 \begin{figure}[H]
     \centering
@@ -248,12 +252,20 @@ Aunque las figuras incluidas en el documento hayan sido capturadas en una pantal
     \label{fig:ds_acceder_home}
 \end{figure}
 
+\subsection*{Acceder a Stats}
+
+Al acceder a la página de \textit{Stats}, se renderizan varias instancias del mismo componente \textsl{StatCard}, una para cada estadística. Luego, cuando el usuario selecciona una de ellas, el componente envía el \texttt{statId} de la estadística correspondiente al componente \texttt{StatWrapper}. Por último, el \texttt{StatWrapper} renderizará el componente asociado al indentificador de manera dinámica, cuyos diagramas de secuencia se han definido de manera independiente. El acceso a \textit{Stats} se ha caracterizado en el siguiente diagrama \ref{fig:ds_acceder_stats}:
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.9\textwidth]{figures/diagramas_secuencia/ds_acceder_stats.png}
     \caption{Diagrama de secuencia: Acceder a \textit{Stats}.}
     \label{fig:ds_acceder_stats}
 \end{figure}
+
+\subsection*{Ver Hall Of Fame}
+
+El renderizado y la carga de la estadística \textit{Hall Of Fame} se realiza de manera estándar, pero ofrece una funcionalidad añadida, identificado con el caso de uso extendido \textbf{Crear Playlist} (diagrama \ref{fig:ds_ver_hall_of_fame}). Al clicar sobre el botón, se realizan varias interacciónes en cadena con la API de \textit{Spotify} para crear la playlist, añadir canciones y establecer una nueva portada.
 
 \begin{figure}[H]
     \centering
@@ -262,39 +274,15 @@ Aunque las figuras incluidas en el documento hayan sido capturadas en una pantal
     \label{fig:ds_ver_hall_of_fame}
 \end{figure}
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{figures/diagramas_secuencia/ds_ver_huella_del_dia.png}
-    \caption{Diagrama de secuencia: Ver Huella Del Día.}
-    \label{fig:ds_ver_huella_del_dia}
-\end{figure}
+\subsection*{Ver La Bitácora}
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{figures/diagramas_secuencia/ds_ver_estaciones_musicales.png}
-    \caption{Diagrama de secuencia: Ver Estaciones Musicales.}
-    \label{fig:ds_ver_estaciones_musicales}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{figures/diagramas_secuencia/ds_ver_tus_decadas.png}
-    \caption{Diagrama de secuencia: Ver Tus Décadas.}
-    \label{fig:ds_ver_tus_decadas}
-\end{figure}
+En el caso de esta estadística, se permite al usuario navegar entre los distintos niveles temporales de datos. Para evitar consumir constantemente la API de \textit{Spotify}, los datos se cargan en un caché temporal en el servidor. De esta manera, cuando el usuario solicite los datos, se enviarán con menos latencia y se evita la sobrecarga de llamadas a \textit{Spotify}. En el diagrama \ref{fig:ds_ver_la_bitacora} se muestra esa interacción en el marco de bucle.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{figures/diagramas_secuencia/ds_ver_la_bitacora.png}
     \caption{Diagrama de secuencia: Ver La Bitácora.}
     \label{fig:ds_ver_la_bitacora}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{figures/diagramas_secuencia/ds_ver_indice_de_interferencia.png}
-    \caption{Diagrama de secuencia: Ver Índice De Interferencia.}
-    \label{fig:ds_ver_indice_de_interferencia}
 \end{figure}
 
 \section{Seguridad}
