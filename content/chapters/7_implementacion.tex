@@ -82,13 +82,75 @@ Es posible eliminar estas restricciones, enviando una solicitud a \textit{Spotif
 
 Con estos pasos, se habrá realizado correctamente el registro de la aplicación y obtención del \textit{Client ID/Secret}, imprescindibles para la comunicación con la API de \textit{Spotify}. En la plataforma de desarrollo, además, tenemos accesible un panel para poder monitorear la actividad de la aplicación (\hyperref[ch:anexoC]{Anexo C}, figura \ref{fig:dashboard_spotify}).
 
-\section{Ciclo de Vida del Desarrollo}
+\section{Ciclo de Desarrollo}
 
-\subsection{Incremento I: Prototipado Rápido}
+El ciclo de desarrollo del proyecto ha seguido un enfoque híbrido entre los modelos \textbf{incremental} e \textbf{iterativo}. En concreto, se ha construido en tres incrementos, realizados en diferentes puntos del proyecto. En cada uno, se han añadido más funcionalidades (incremental) y refinando las ya existentes (iterativo). A continuación se describe cada incremento con más detalle.
 
-\subsection{Incremento II: Producto Mínimo Viable (PMV)}
+\subsection*{Incremento I: Prototipado Rápido}
 
-\subsection{Incremento III: Producto Final}
+Durante la fase inical de adquisición de competencias, se desarrolló un prototipo rápido para validar la viabilidad técnica del proyecto. No se buscaba crear la base desde donde seguir trabajando una vez inicase el desarrollo formal; si no que, utilizando herramientas más simples, se quería obtener una idea preliminar de cómo se podrían implementar las funcionalidades principales. No se utilizaron las tecnologías finales del desarrollo, por lo que gran parte del código implementado no fue reutilizado.
+
+En este prototipo se implementaron las siguientes funcionalidades, en diferentes grados de completado:
+\setlength{\itemsep}{0pt}
+\begin{itemize}
+    \item Inicio de sesión de un usuario y obtención de los tokens.
+    \item Renovación del \texttt{access\_token} mediante el \texttt{refresh\_token}.
+    \item Obtener los \textit{top items} del usuario.
+    \item Obtener las canciones favoritas del usuario.
+    \item Obtener los \textit{track features} (\textbf{no implementado en el producto final}).
+    \item Prototipos de las estadísticas:
+          \begin{itemize}
+              \item \textit{Hall Of fame}
+              \item \textit{Huella Del Día}
+              \item \textit{La Bitácora}
+          \end{itemize}
+\end{itemize}
+
+\subsection*{Incremento II: Producto Mínimo Viable (PMV)}
+
+Una vez terminada la planificación del proyecto, se dio comienzo a una primera implementación del sistema, desarrollando una base de código que formaría parte del producto final. En esta fase, se utilizaron todas las tecnologías finales seleccionadas para el desarrollo, incluyendo \textit{Next.js}, \textit{React}, TypeScript y \textit{Tailwind CSS}.
+
+Durante este incremento, se completaron las siguientes partes fundamentales del sistema:
+
+\setlength{\itemsep}{0pt}
+\begin{itemize}
+    \item Estructura completa de páginas de la aplicación web.
+    \item Implementación de los endpoints mediante \textit{Route Handlers}.
+    \item Inicio de sesión y cierre de sesión seguros.
+    \item Gestión segura de los tokens.
+    \item Implementación de las estadísticas básicas \textit{Top Tracks}, \textit{Top Artists}, \textit{Top Genres} y \textit{Recently Played}.
+    \item Desarrollo inicial de las seis estadísticas avanzadas finales en un estado funcional básico.
+\end{itemize}
+
+Si bien estas estadísticas se implementaron de manera inicial y sin refinamientos, su propósito principal fue definir la interacción entre el frontend y el backend, establecer los tipos de datos y endpoints exactos requeridos, y detectar posibles problemas en la presentación de la información. Asimismo, esta fase permitió identificar la necesidad de herramientas adicionales, como bibliotecas de gráficos, en caso de que las opciones disponibles no fueran suficientes.
+
+En términos generales, este incremento sirvió para caracterizar con mayor precisión el alcance del proyecto y definir con claridad los aspectos que deberían considerarse en las siguientes etapas de análisis y diseño. A diferencia del prototipo inicial, gran parte del código desarrollado en esta iteración se integró directamente en la versión final del sistema.
+
+\subsection*{Incremento III: Producto Final}
+
+Finalmente, en el último incremento se completaron todas las funcionalidades secundarias pendientes, junto con una serie de optimizaciones de rendimiento, ajustes en las estadísticas avanzadas y mejoras en la interfaz y experiencia de usuario. Esta fase marcó la consolidación del sistema y la preparación del código para su despliegue.
+
+Las principales funcionalidades implementadas y correcciones realizadas fueron:
+
+\setlength{\itemsep}{0pt}
+\begin{itemize}
+    \item Posibilidad de cambiar el rango temporal en los módulos \textit{Top Tracks}, \textit{Top Artists} y \textit{Top Genres}.
+    \item Implementación de la funcionalidad para crear playlists en \textit{Hall Of Fame}.
+    \item Desarrollo de la estadística \textit{Tus Décadas} utilizando la librería \textit{Konva} para una mayor optimización.
+    \item Mejora en la presentación y rendimiento de la estadística \textit{Índice de Interferencia} con \textit{D3.js}.
+    \item Corrección en la estructura de datos enviada desde el backend a la estadística \textit{La Bitácora}.
+    \item Implementación de la ventana informativa sobre la \textit{Política de Privacidad}.
+    \item Reemplazo de la implementación manual de la ventana modal de las estadísticas por la librería \textit{Radix UI}.
+    \item Creación de componentes de carga (\textit{loading components}).
+    \item Gestión de errores encontrados al probar con diferentes cuentas de usuario.
+    \item Desarrollo de una pantalla de carga específica para las estadísticas avanzadas.
+    \item Refactorización del código para crear funciones reutilizables, como en la obtención de datos (\textit{fetch}), facilitando la gestión de los componentes.
+    \item Preparación del código para su despliegue en \textit{Vercel}, especialmente la gestión de variables de entorno.
+\end{itemize}
+
+Este último incremento permitió completar todas las funcionalidades planeadas y refinar el sistema en su conjunto. Además de las mejoras implementadas, se documentaron posibles optimizaciones futuras, aunque, dentro del alcance definido para el proyecto, la aplicación alcanzó un estado final funcional y estable.
+
+Cabe destacar que las listas de funcionalidades y mejoras descritas en cada incremento no son exhaustivas, sino que recogen las implementaciones y cambios más relevantes realizados durante el desarrollo. A lo largo del proceso, se llevaron a cabo numerosas correcciones, ajustes e implementaciones adicionales que no se han detallado en su totalidad. No obstante, estas listas permiten ofrecer una visión general de los aspectos más significativos de cada incremento en el desarrollo del proyecto.
 
 \section{Implementación del Fronted}
 
