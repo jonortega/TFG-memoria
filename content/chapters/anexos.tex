@@ -197,4 +197,29 @@ Además de los elementos presentados, también se han implementado algunos compo
     \label{fig:ds_ver_indice_de_interferencia}
 \end{figure}
 
-% \chapter{Anexo C} \label{ch:anexoC}
+\chapter{Ficheros Relacionados con la Implementación} \label{ch:anexoC}
+
+\section{Fichero .env.local}
+
+\begin{ifalgorithm}[H]
+    \begin{lstlisting}[language=bash]
+    # ID del cliente registrado en la API de Spotify
+    SPOTIFY_CLIENT_ID="81af...642b"
+
+    # Secreto del cliente registrado en la API de Spotify no compartir nunca
+    SPOTIFY_CLIENT_SECRET="1207...393e"
+
+    # URL del dominio donde se ejecuta la aplicacion en desarrollo, localhost
+    DOMAIN_URL="http://localhost:3000"
+
+    # URI de redireccion configurada en Spotify para la autenticacion OAuth
+    SPOTIFY_REDIRECT_URI="http://localhost:3000/api/auth/callback"
+
+    # URL utilizada por NextAuth para gestionar la autenticacion en la aplicacion
+    NEXTAUTH_URL="http://localhost:3000/api/auth/callback"
+    \end{lstlisting}
+    \caption{Variables de entrono necesarios en el fichero \texttt{.env.local}.}
+    \label{alg:variables_entorno}
+\end{ifalgorithm}
+
+
