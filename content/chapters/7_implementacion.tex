@@ -152,6 +152,29 @@ Este último incremento permitió completar todas las funcionalidades planeadas 
 
 Cabe destacar que las listas de funcionalidades y mejoras descritas en cada incremento no son exhaustivas, sino que recogen las implementaciones y cambios más relevantes realizados durante el desarrollo. A lo largo del proceso, se llevaron a cabo numerosas correcciones, ajustes e implementaciones adicionales que no se han detallado en su totalidad. No obstante, estas listas permiten ofrecer una visión general de los aspectos más significativos de cada incremento en el desarrollo del proyecto.
 
+\section{Gestión Segura de los Tokens}
+
+Como se ha descrito anteriormente en la sección de \nameref{sec:diseno_seguridad}, se han tomado ciertas medidas a la hora de gestionar los tokens que permiten la interacción con la API de \textit{Spotify}. En primer lugar, el \textit{Client ID} y \textit{Client Secret} se alamacenan en el servidor, en respectivas variables de entorno, y solo se acceden desde el objeto \texttt{process.env}. Estos tokens nunca son enviados al cliente y se usan en casos concretos, como en el inicio de sesión de un nuevo usuario o la renovación del \texttt{access\_token}.
+
+Por otro lado, la gestión del propio \texttt{access\_token} requiere más atención. Se evaluaron varias opciones, pero finalmente se decidió en hacer uso de las \textbf{cookies}. Esto se debe a que, de esta manera, no era necesario implementar un sistema de almacenamiento en el servidor (manual o mediante herramientas como \textit{Redis}) para guardar los \texttt{access\_token} de los diferentes usuarios y asociarlos a un identificador único. El propio \texttt{access\_token} hace de identificador de cada usuario, por lo que el servidor solo tiene que hacer uso del token recibido mediante las cookies agregadas en la petición.
+
+No obstante, es importante utilizar los sistemas de seguridad que las propias cookies ofrecen, para limitar cualquier tipo de uso malintencionado del token. Existen ciertas opciones (\textit{flags}) de configuración que se han establecido:
+
+\setlength{\itemsep}{0pt}
+\begin{itemize}
+    \item \textbf{httpOnly}: \textbf{Impide que el token sea accesible mediante JavaScript en el navegador}, protegiéndolo contra ataques de tipo \textit{Cross-Site Scripting} (XSS).
+    \item \textbf{secure}: Se asegura de que las cookies \textbf{solo sean enviadas a través de conexiones HTTPS}, protegiéndolas contra ataques de interceptación de tráfico (\textit{Man-in-the-Middle}, MITM). Esta opción solo se habilita cuando la aplicación se ejecuta en un entorno de producción.
+    \item \textbf{maxAge}: Define el tiempo de expiración de las cookies. El \texttt{access\_token} tiene una validez de una hora, mientras que el \texttt{refresh\_token} se mantiene activo durante 24 horas, permitiendo la renovación del token de acceso sin necesidad de solicitar credenciales nuevamente.
+\end{itemize}
+
+Estableciendo de esta manera el \texttt{access\_token} y el \texttt{refresh\_token} en las cookies y enviándolas en la respuesta al cliente, se mantiene la posibilidad de que cada usuario envíe su propio token como identificador, pero manteniendo la seguridad frente a ataques comunes. También se debe mencionar que, por el hecho de haber habilitado el \textit{flag} \texttt{httpOnly}, \textbf{ningún componente de cliente puede realizar peticiones directamente desde el neavegador}. Todas las peticiones de datos a la API de \textit{Spotify} deben de ser realizadas a tráves del backend seguro.
+
+El uso de las cookies como forma de almacenamiento del identificador también requiere el conocimiento del alcance efectivo de este sistema, que permite identificar posibles limitaciones que este método impone. Las cookies son compartidas entre todas las pestañas y ventanas del mismo navegador mientras se mantengan dentro del mismo dominio, lo que permite que la autenticación y la sesión del usuario se mantengan consistentes en diferentes contextos de navegación. Sin embargo, estas no se comparten entre distintos navegadores, ya que cada uno gestiona su propio almacenamiento de cookies.
+
+Sin embargo, este sistema es \textbf{vulnerable si un atacante tiene acceso físico a la máquina} del usuario con la sesión abierta. A través del panel de desarrollador del navegador, el atacante podría visualizar directamente los valores de los tokens almacenados en las cookies. Aunque este método de almacenamiento impide el acceso mediante sistemas automatizados, un atacante con acceso manual al dispositivo podría extraer y utilizar estos valores.
+
+Una posible medida de mitigación sería cifrar los tokens antes de almacenarlos en las cookies. No obstante, se ha decidido no implementar esta solución debido a varias razones: en primer lugar, por las limitaciones de alcance del proyecto; en segundo lugar, por la carga computacional adicional que supondría para el servidor el proceso de cifrado y descifrado en cada solicitud del usuario; y, finalmente, porque se considera que la probabilidad de que un atacante tenga acceso físico a una sesión abierta del usuario es extremadamente baja, lo que no justifica la implementación de este mecanismo en un sistema de estas características.
+
 \section{Implementación del Fronted}
 
 \subsection{Lógica de las Estadísticas}
@@ -163,5 +186,7 @@ Cabe destacar que las listas de funcionalidades y mejoras descritas en cada incr
 \subsection{Lógica y Tratamiento de Datos en el Servidor}
 
 \subsection{Estructuras de Datos}
+
+\section{Middleware}
 
 \section{Optimizaciones}
