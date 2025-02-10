@@ -164,22 +164,142 @@ No obstante, es importante utilizar los sistemas de seguridad que las propias co
 \begin{itemize}
     \item \textbf{httpOnly}: \textbf{Impide que el token sea accesible mediante JavaScript en el navegador}, protegiéndolo contra ataques de tipo \textit{Cross-Site Scripting} (XSS).
     \item \textbf{secure}: Se asegura de que las cookies \textbf{solo sean enviadas a través de conexiones HTTPS}, protegiéndolas contra ataques de interceptación de tráfico (\textit{Man-in-the-Middle}, MITM). Esta opción solo se habilita cuando la aplicación se ejecuta en un entorno de producción.
-    \item \textbf{maxAge}: Define el tiempo de expiración de las cookies. El \texttt{access\_token} tiene una validez de una hora, mientras que el \texttt{refresh\_token} se mantiene activo durante 24 horas, permitiendo la renovación del token de acceso sin necesidad de solicitar credenciales nuevamente.
+    \item \textbf{maxAge}: Define el tiempo de \textbf{expiración de las cookies}. El \texttt{access\_token} tiene una validez de una hora, mientras que el \texttt{refresh\_token} se mantiene activo durante 24 horas, permitiendo la renovación del token de acceso sin necesidad de solicitar credenciales nuevamente.
 \end{itemize}
 
 Estableciendo de esta manera el \texttt{access\_token} y el \texttt{refresh\_token} en las cookies y enviándolas en la respuesta al cliente, se mantiene la posibilidad de que cada usuario envíe su propio token como identificador, pero manteniendo la seguridad frente a ataques comunes. También se debe mencionar que, por el hecho de haber habilitado el \textit{flag} \texttt{httpOnly}, \textbf{ningún componente de cliente puede realizar peticiones directamente desde el neavegador}. Todas las peticiones de datos a la API de \textit{Spotify} deben de ser realizadas a tráves del backend seguro.
 
-El uso de las cookies como forma de almacenamiento del identificador también requiere el conocimiento del alcance efectivo de este sistema, que permite identificar posibles limitaciones que este método impone. Las cookies son compartidas entre todas las pestañas y ventanas del mismo navegador mientras se mantengan dentro del mismo dominio, lo que permite que la autenticación y la sesión del usuario se mantengan consistentes en diferentes contextos de navegación. Sin embargo, estas no se comparten entre distintos navegadores, ya que cada uno gestiona su propio almacenamiento de cookies.
+\subsection*{Implicaciones de la Decisión del uso de las Cookies}
+
+El uso de las cookies como forma de almacenamiento del identificador también requiere el conocimiento del alcance efectivo de este sistema, que permite identificar posibles limitaciones que este método impone. Las cookies son compartidas entre todas las pestañas y ventanas del mismo navegador mientras se mantengan dentro del mismo dominio, lo que permite que la autenticación y la sesión del usuario se mantengan consistentes en diferentes contextos de navegación. Estas no se comparten entre distintos navegadores, ya que cada uno gestiona su propio almacenamiento de cookies.
 
 Sin embargo, este sistema es \textbf{vulnerable si un atacante tiene acceso físico a la máquina} del usuario con la sesión abierta. A través del panel de desarrollador del navegador, el atacante podría visualizar directamente los valores de los tokens almacenados en las cookies. Aunque este método de almacenamiento impide el acceso mediante sistemas automatizados, un atacante con acceso manual al dispositivo podría extraer y utilizar estos valores.
 
-Una posible medida de mitigación sería cifrar los tokens antes de almacenarlos en las cookies. No obstante, se ha decidido no implementar esta solución debido a varias razones: en primer lugar, por las limitaciones de alcance del proyecto; en segundo lugar, por la carga computacional adicional que supondría para el servidor el proceso de cifrado y descifrado en cada solicitud del usuario; y, finalmente, porque se considera que la probabilidad de que un atacante tenga acceso físico a una sesión abierta del usuario es extremadamente baja, lo que no justifica la implementación de este mecanismo en un sistema de estas características.
+Una posible medida de mitigación sería cifrar los tokens antes de almacenarlos en las cookies. No obstante, \textbf{se ha decidido no implementar esta solución} debido a varias razones: en primer lugar, por las limitaciones de alcance del proyecto; en segundo lugar, por la carga computacional adicional que supondría para el servidor el proceso de cifrado y descifrado en cada solicitud del usuario; y, finalmente, porque se considera que la probabilidad de que un atacante tenga acceso físico a una sesión abierta del usuario es extremadamente baja, lo que no justifica la implementación de este mecanismo en un sistema de estas características.
 
-\section{Implementación del Fronted}
+% \section{Implementación del Fronted}
 
-\subsection{Lógica de las Estadísticas}
+% \subsection{React Hooks}
+
+% Uno de los conceptos más importantes de \textit{React} son los \textbf{Hooks}. Estos permiten gestionar el estado y el ciclo de vida de los componentes funcionales sin necesidad de utilizar clases. El uso de los \textit{hooks} está limitado únicamente a los componentes del cliente.
+
+% En el desarrollo de esta aplicación, se han utilizado varios \textit{Hooks} esenciales para la gestión del estado, la obtención de datos desde la API de Spotify y la optimización del rendimiento. A continuación, se describen los principales \textit{Hooks} empleados y su propósito en el proyecto:
+
+% \begin{itemize}
+%     \item \textbf{\texttt{useState}}: Permite manejar el estado local en los componentes. Se ha utilizado, por ejemplo, para almacenar los datos obtenidos de la API de Spotify antes de ser renderizados en la interfaz.
+
+%     \item \textbf{\texttt{useEffect}}: Se emplea para gestionar efectos secundarios en los componentes, como la obtención de datos de la API o la suscripción a eventos. En este caso, se ha utilizado para realizar llamadas a la API de Spotify en función de cambios en el estado del usuario o de la aplicación.
+
+%     \item \textbf{\texttt{useRef}}: Permite acceder directamente a elementos del DOM o persistir valores entre renderizados sin disparar una nueva renderización. En este proyecto, se ha empleado en algunos componentes para manejar referencias a elementos gráficos y mejorar el rendimiento.
+% \end{itemize}
+
+% También se ha implementado un hook personalizado (no es la palabra adecuada, es custom) \textbf{useFetch}. Esto se usa en los componentes de cliente para hajcer los fetch de los datos. En realidad es un wrapper para un useEffect. (mostrar el código o poner que está en el anexo).
+
+% Next.js tiene un modo en desarrollador llamado \textbf{StrictMode}, que hace que realice todos los efectos de useEffect dos veces. Es decir, se hace una llamda y seguido se para y se vuelve a hacer. Esto sirve apara llamar la atención de un efecto mal programado. Deja en evidencia si el efecto no se ``limpia'' correctamente, que resultaría en posibles bugs. Para gestionarlo de manera correcta, se debe implementar dentro del useEffect, en el return, una función de limpieza que se encargue de parar o eliminar cualquier efecto secundario que nuestra app pueda hacer. En nuestro caso, son las llamadas fetch and backend. PAra parar estas llamadas en medio del proceso, se usa una señal gracial a la API de fetch. Se puede envíar una señal de detención y se cancela el proceso del fetch incluso una vez haya empezado.
+
+% \subsection{Lógica de las Estadísticas}
+
+% Ahora se va a describir cómo se hace para cargar los datos y mostrar las estadísticas. Se van a mencionar solo las partes interesante o que merecen mención, como el paso de los datos y el uso de lo que permite el sistema de React con el tema de las PROPS y la actualizaciónd e los estados por componentes externos para gestionar el estado de los hijos desde un componente padre.
+
+% \subsubsection{Estadísticas Básicas (Home)}
+
+% Estos componentes son componentes de servidor, por lo que la comunicación entre el componente y el endpoint del backend se hace internamente. Por ello, los mismos componentes peudes realizar un fetch obteniendo el access\_token de las cookies, ya que no se encuentran en el navegador.
+
+% El componente de selección de rango de tiempo, tiene tres valores de time\_range: short\_term, medium\_term y long\_term (short\_term es el default). Es un componente de cliente y detecta si hay cambios en su propio estado de qué está seleccionado. Cuando detecta un cambio, realiza una llamada al endpint de /home, pero añade un parámetro en la URL con el time\_range seleccionado.
+
+% El componente de Home se encarga de obtener ese valor del parámetro y se lo pasa a los componentes de las estadísticas mediante los PROPS.
+
+% Con estos props, cuando se detecta un cambio en los datos, se cargan otra vez (en el servidor) y se envía el resultado estático de cada componente al frontend. Miestras tanto, se muestra al usuario el componente de fallback.
+
+% Con esto se consigue que solamente los componentes necesarios (los tops) son refrescados.
+
+% Cada uno de los componentes de los tops hace una llamada a respectivos endpoints del backend y obtienen los datos que deben mostrar, sin mucha complicación.
+
+% El componente de Recently Played no se ve afectado por el selector de tiempo. Es un lcient component por lo que no peude gestionar la cookie él solo, lo que hace es usar el HOOK personalizado de useFetch (poner código en Anexo), que se reutiliza en todas las estadísticas del cliente, para obtener los datos. Este componente es de cliente porque gestiona el estado de abierto y cerrado, para mostrar 10 o 50 últimas canciones escuchadas, respectivamente.
+
+% \subsubsection{Estadísticas Avanzadas (Stats)}
+
+% Esta página y todas sus hijas son de cliente, por lo que requiere más recursos de procesamiento y es más grande que el de Home, pero para reducir todo esto, las estadísticas avanzadas se cargan dinámicamente, que no se envían desde el rpincipio, solamente cuando se requieran.
+
+% \subsubsection*{Paso de Información entre Componentes React}
+
+% Este componente Stat contiene el StatsGrid con las tarjetas y también el StatWrapper, que es el contenedor de estadísticas, pero se encuentra oculta. Se encarga de gestionar los estados de si la ventana modal está abierta o cerrada; y también de qué estadística se debe mostrar. Esto es muy importante, porque vemos que la comunicación entre el StatCard, que el usuario selecciona y el StatWrapper, pasándole el statID que debe mostras, se hace ``a través'' del componente padre común, que es el que gestiona el estado total. Este tipo de gesión de estados es muy común en React.
+
+% También se definen el contenido y la forma de los StatCards en este componente (referencia el código), que se pasan como PROPS al componente StatsGrid, que es el contenedor y el encargado de renderizar cada uno de los StatCards que se necesitan. La funcion de StatGrid es simplemente esa, se podría hacer en Stats directamente, pero encapsularlo en un componente individual facilita el manejo del código.
+
+% Cada StatCard que se renderiza tomará el título, nombre de icono (que obtendra el indicado del paquete Lucide React), el className para los estilos de Tailwind y statId, que será lo que se establecerá como la estadística activa en el componente Stats padre. Es decir, como se ha pasado por PROPS la función definida en Stats, se puede ejecutar en el componente StatCard y el efecto podrá detectarlo el padre, ``enviando'' la señal de update a StatWrapper, que es otro hijo de Stat. De esta manera, los dos hijos StatCard y StatWrapper se pueden comunicar sin una interacción directa, a través del componente padre Stats.
+
+% \subsubsection*{Carga Dinámica de las Estadísticas}
+
+% A StatWrapper se le pasan las siguientes cosas por PROPS: el statId del stat activo, el estado de si el modal está activo o no para saber si tiene que cargar dinámicamente la estadística, y una función para handle on close (cambia el estado a que no hay estadística seleccionada y que no esta abierto el modal, en el padre).
+
+% Lo interesante de StatWrapper es la carga dinámica (poner código de statComponents). Según el statId, carga esa estadística y lo introduce como su hijo. La ventana es gestioanda con el componente Dialog que se obtiene de RadixUI, para facilitar la gestión de la ventana modal. No afecta a cómo funciona la selección y carga dinámica de la estadística.
+
+% Ahora, vamos a describir las partes mencionables de la implementación de las estadísticas. (puede que alguno se vaya al anexo)
+
+\section{Implementación del Frontend}
 
 \subsection{React Hooks}
+
+Antes de comenzar con la explicación del código del proyecto, se considera importante mencionar el hecho de que uno de los conceptos más importantes de \textit{React} son los \textbf{Hooks}. Estos permiten gestionar el estado y el ciclo de vida de los componentes funcionales sin necesidad de utilizar clases. Es importante destacar que el uso de los \textit{Hooks} está limitado únicamente a los componentes de cliente.
+
+En el desarrollo de esta aplicación, se han empleado diversos \textit{Hooks} esenciales para la gestión del estado, la obtención de datos desde la API de Spotify y la optimización del rendimiento. A continuación, se describen los principales \textit{Hooks} utilizados y su aplicación en el proyecto:
+
+\begin{itemize}
+    \item \textbf{\texttt{useState}}: Permite manejar el estado local dentro de los componentes. En este proyecto, se ha utilizado para almacenar los datos obtenidos de la API de Spotify antes de renderizarlos en la interfaz.
+
+    \item \textbf{\texttt{useEffect}}: Se emplea para gestionar efectos secundarios dentro de los componentes, como la obtención de datos o la suscripción a eventos. En este caso, se ha utilizado para realizar llamadas a la API de Spotify en función de cambios en el estado del usuario o de la aplicación.
+
+    \item \textbf{\texttt{useRef}}: Facilita el acceso a elementos del DOM y la persistencia de valores entre renderizados sin provocar re-renderizaciones innecesarias. En este proyecto, se ha usado en algunos componentes para manejar referencias a elementos gráficos y optimizar el rendimiento.
+\end{itemize}
+
+Además, se ha desarrollado un \textbf{\textit{hook personalizado}} denominado \texttt{useFetch}, el cual encapsula la lógica de obtención de datos de la API dentro de un \texttt{useEffect}. Este \textit{hook} es utilizado por los componentes de cliente para realizar peticiones de manera reutilizable. Se incluye el código detallado en el Anexo [REF].
+
+Cabe destacar que \textbf{Next.js} incorpora el modo de desarrollo \texttt{StrictMode}, el cual ejecuta los efectos definidos en \texttt{useEffect} dos veces consecutivas. Esto significa que, cuando un efecto se dispara, se ejecuta y se detiene inmediatamente para volver a ejecutarse desde cero. Este comportamiento permite detectar efectos mal programados y verificar si se están limpiando correctamente, evitando posibles errores en la aplicación.
+
+Para gestionar correctamente este comportamiento, es fundamental definir una \textbf{función de limpieza} dentro del retorno de \texttt{useEffect}. En este proyecto, la principal aplicación de este mecanismo ha sido la cancelación de las peticiones a la API de Spotify. Para ello, se ha empleado la señal de aborto (\texttt{AbortController}) de la API \texttt{fetch}, la cual permite interrumpir una solicitud incluso si ya ha sido iniciada [REF].
+
+a continuación se describe el flujo de datos y la estructura utilizada para cargar y renderizar las estadísticas dentro de la aplicación. Se explican los aspectos más relevantes, como el paso de información entre componentes mediante \textbf{props} y la actualización de estados en componentes externos.
+
+\subsection{Estadísticas Básicas (Home)}
+
+Las estadísticas básicas se encuentran en la pantalla de inicio (\textit{Home}) y se implementan como \textbf{componentes de servidor}. Dado que estos componentes no se ejecutan en el navegador, pueden realizar peticiones al backend obteniendo directamente el \texttt{access\_token} desde las cookies, sin necesidad de gestionarlo manualmente en el cliente.
+
+El \textbf{selector de rango temporal} permite modificar la visualización de las estadísticas en función de tres intervalos: \texttt{short\_term}, \texttt{medium\_term} y \texttt{long\_term}, siendo \texttt{short\_term} la opción por defecto. Este selector es un \textbf{componente de cliente} que detecta cambios en su estado y, al modificarse, realiza una nueva petición al endpoint \texttt{/home} con el \textit{time range} seleccionado como parámetro en la URL.
+
+El \textbf{componente Home} recibe este parámetro y lo propaga a los componentes de estadísticas mediante \textbf{props}. Cuando se detecta un cambio en los datos, los componentes vuelven a renderizarse en el servidor y se envían al frontend con un nuevo estado preprocesado. Mientras la actualización se procesa, el usuario visualiza un \textbf{componente de fallback}, garantizando una experiencia fluida.
+
+Gracias a este enfoque, únicamente los componentes afectados (los \textbf{Top Tracks, Top Artists y Top Genres}) se actualizan, evitando recargas innecesarias.
+
+El componente \textbf{Recently Played} funciona de manera diferente, ya que no se ve afectado por el selector de tiempo. Al ser un \textbf{componente de cliente}, no puede acceder a las cookies directamente. En su lugar, utiliza el \texttt{useFetch} para obtener los datos desde el backend. Este componente también gestiona su propio estado para alternar entre mostrar las últimas 10 o 50 canciones reproducidas.
+
+\subsection{Estadísticas Avanzadas (Stats)}
+
+Las estadísticas avanzadas se encuentran en la página \texttt{/stats}, la cual está compuesta completamente por \textbf{componentes de cliente}. Debido a su mayor complejidad y carga de procesamiento, estas estadísticas se \textbf{cargan dinámicamente}, evitando que todas se envíen al navegador desde el inicio y mejorando el rendimiento.
+
+\subsection*{Paso de Información entre Componentes React}
+
+El componente \textbf{Stats} contiene la estructura principal de la página, incluyendo el \textbf{StatsGrid} (que muestra las tarjetas de estadísticas) y el \textbf{StatWrapper} (que gestiona la visualización de la estadística seleccionada).
+
+La selección de una estadística se realiza a través de las \textbf{StatCards}, que al ser clicadas envían su \texttt{statId} al componente padre \textbf{Stats}. Este, a su vez, actualiza su estado y notifica a \textbf{StatWrapper} cuál estadística debe mostrarse. De esta manera, los componentes hijos (\textit{StatCards y StatWrapper}) se comunican de manera indirecta a través del componente padre (\textit{Stats}), siguiendo el flujo de datos típico en React.
+
+    [Meter un diagrama de esa expliación de paso de estado]
+
+\subsection*{Carga Dinámica de las Estadísticas}
+
+El \textbf{StatWrapper} recibe, mediante \textbf{props}, el \texttt{statId} de la estadística seleccionada, el estado de visibilidad del modal y una función de cierre que permite resetear el estado al cerrar la ventana.
+
+\textit{La carga dinámica se gestiona a través del componente statComponents, el cual determina qué estadística debe renderizarse según el statId (ESTA MAL ESO, ES PONER EL CODIGO DEL OBJETO statComponents, no es un componente)}. Para la ventana modal, se ha utilizado \textbf{Radix UI}, lo que ha permitido una gestión más eficiente sin afectar el proceso de selección y carga de las estadísticas.
+
+Este enfoque optimiza la carga de la página, reduciendo el tiempo de procesamiento inicial y mejorando la experiencia del usuario. En la siguiente sección se detallarán algunos aspectos específicos de la implementación de cada estadística.
+
+\subsubsection*{Hall Of Fame}
+\subsubsection*{Estaciones Musicales}
+\subsubsection*{Huella Del Día}
+\subsubsection*{La Bitácora}
+\subsubsection*{Tus Décadas}
+\subsubsection*{Índice De Interferencia}
+
 
 \section{Implementación del Backend}
 
@@ -188,5 +308,40 @@ Una posible medida de mitigación sería cifrar los tokens antes de almacenarlos
 \subsection{Estructuras de Datos}
 
 \section{Middleware}
+
+% El código del middleware para ver las comprobaciones que se hacen está en el anexo.
+
+% El middleware es global en las rutas /home y /stats y las subrutas. Se ejecuta antes de llegar las peticiones al backend.
+
+% Funcion principal la de verificar si el usuario está autenticado y permitido dentro de las páginas protegidas. Esto lo hace comprobando si tiene un access token y un refresh token.
+
+% También se encarga del refrescado del access token. Como despues de 1h se elimina el access token se comprueba si sigue teniendo un refresh token, en ese caso se renueva con una funcion renovarAccessToken, que usa el client id y el client secret para refrescar con la API de Spotify el token (código de la función o igual en el anexo si es largo). Como el middleware se ejecuta en el servidor, es seguro acceder al client id y secret.
+
+% Existe una vulnerabilidad conocida y es que solo comprueba de la existencia de un access y refresh token, pero no verifica su validez. Eso quiere decir que se pueden crear manualmente dos cookies con esos nombres y te deja pasar a la web, lo único que todas las estadísticas darían error porque ya sí que Spotify respondería con error.
+
+% Sería posible parchear esto con una llamada desd el middleware a un endpoint de Spotify y comprobar qué responde, si da error es que no es válido. PEro esto requiere una llamada extra a Spotify por cada request al servidor, por lo que se ah decidio no implementarlo para evitar llamadas innecesarias y evitar sobrecargar la API. Tampoco se cree que será un problema grande y para un proyecto como este es un poco innecesario.
+
+El \textit{middleware} de la aplicación desempeña un papel fundamental en la gestión de autenticación y protección de las rutas sensibles del sistema. Su código completo se encuentra disponible en el Anexo [REF].
+
+\subsection{Funcionamiento del Middleware}
+
+El \textit{middleware} se aplica de manera global a las rutas \texttt{/home}, \texttt{/stats} y sus subrutas, ejecutándose antes de que las peticiones alcancen el backend. Su función principal es verificar si el usuario está autenticado y autorizado para acceder a estas secciones protegidas.
+
+Para ello, realiza una comprobación de la existencia de las cookies de autenticación: el \texttt{access\_token} y el \texttt{refresh\_token}. Si ambas están presentes, la solicitud se considera válida y se permite el acceso a la página correspondiente.
+
+\subsection{Renovación del Access Token}
+
+Dado que el \texttt{access\_token} tiene una validez limitada de una hora, el \textit{middleware} también se encarga de gestionar su renovación automática cuando expira. En caso de no detectar un \texttt{access\_token} pero un \texttt{refresh\_token} válido, se invoca la función \texttt{renovarAccessToken} [REF], la cual interactúa con la API de Spotify utilizando las credenciales de la aplicación (Client ID y Client Secret) para solicitar un nuevo token de acceso.
+
+Dado que el \textit{middleware} se ejecuta en el servidor, el acceso a estas credenciales es seguro, ya que nunca son expuestas en el cliente. Esta estrategia permite extender la sesión del usuario sin requerir una nueva autenticación manual, mejorando la experiencia de usuario.
+
+\subsection{Limitaciones y Consideraciones de Seguridad}
+
+Si bien el sistema de autenticación basado en \textit{cookies} es funcional y práctico para este tipo de aplicación, existe una vulnerabilidad potencial: el \textit{middleware} solo verifica la existencia de los tokens, pero no su validez. Esto significa que un usuario malintencionado podría crear manualmente cookies con los nombres \texttt{access\_token} y \texttt{refresh\_token}, lo que le permitiría acceder a la interfaz protegida. No obstante, cualquier intento de obtener datos desde la API de Spotify fallaría, ya que los tokens falsificados no serían reconocidos por el servicio.
+
+Para mitigar esta vulnerabilidad, se podría implementar una validación adicional enviando una solicitud a la API de Spotify desde el \textit{middleware} para comprobar si el token es válido antes de conceder acceso. Sin embargo, esta solución implicaría una llamada extra a Spotify en cada solicitud, lo que aumentaría significativamente la carga en la API y afectaría el rendimiento de la aplicación.
+
+Dado que la probabilidad de explotación de esta vulnerabilidad es baja en el contexto de este proyecto, se ha decidido no implementar esta verificación adicional para evitar un consumo innecesario de recursos y garantizar un mejor rendimiento del sistema.
+
 
 \section{Optimizaciones}
