@@ -38,11 +38,49 @@ El proyecto se encuentra alojado en un repositorio de \textit{GitHub}\footnote{R
     \label{alg:instalacion_proyecto}
 \end{ifalgorithm}
 
-Tras estos pasos, la página web estará accesible en \texttt{localhost:3000}. Es encesario agregar un fichero de variables de entorno \texttt{.env.local}, ya que, por seguridad, no se registra en el sistema de control de versiones. El contenido de dicho fichero se muestra en el \hyperref[alg:variables_entorno]{Anexo C}.
+Tras estos pasos, la página web estará accesible en \texttt{localhost:3000}. Es encesario agregar un fichero de variables de entorno \texttt{.env.local}, ya que, por seguridad, no se registra en el sistema de control de versiones. El contenido de dicho fichero se muestra en el \hyperref[ch:anexoC]{Anexo C} (algoritmo \ref{alg:variables_entorno}).
 
 Dos de las variables de entorno necesarias para poder tratar con la API de \textit{Spotify}, son el \textbf{Client ID} y el \textbf{Client Secret}. Estos dos valores se obtienen al realizar el registro de la aplicación en la plataforma de desarrollo de \textit{Spotify}. En la siguiente sección, se explicará cómo realizar este registro y dónde obtener dichas variables.
 
+\newpage
+
 \section{Registro de la Aplicación en Spotify}
+
+Para poder obtener datos de la Web API de \textit{Spotify}, es necesario registra la aplicación en su plataforma de desarrollo\footnote{Spotify for Developers: \href{https://developer.spotify.com/}{https://developer.spotify.com/}}. Tras inciar con una cuenta, se nos presentará un panel donde podremos crear una nueva app. \textit{Spotify} pedirá algunos datos (figura \ref{fig:create_app}), que tendremos que rellenar. Los campos como \textit{Redirect URIs} pueden ser modificados posteriormente, ya que tendremos que actualizarlo con el dominio indicado tras el despliegue de la aplicación.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.65\textwidth]{figures/registro_spotify/create_app.png}
+    \caption{Panel de creación de app en la plataforma de \textit{Spotify}.}
+    \label{fig:create_app}
+\end{figure}
+
+Al aceptar los términos y crear la app, tendremos acceso al \textit{Client ID} y \textit{Client Secret}. Estos se encuentran en los ajustes (\textit{settings}) y tendremos que expandir el panel para poder ver los dos valores (figura \ref{fig:client_id_secret}).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.65\textwidth]{figures/registro_spotify/client_id_secret.png}
+    \caption{Panel de ajustes con el \textit{Client ID} y el \textit{Client Secret}.}
+    \label{fig:client_id_secret}
+\end{figure}
+
+En el caso en el que el \textit{Client Secret} haya sido comprometido, es posible generar uno nuevo, anulando el anterior y evitando tener que desechar la aplicación registrada. También se muestra un campo llamado \textit{App Status} con el valor \textbf{Development Mode}. Esto significa que la aplicación registrada está en ``desarrollo'', por lo que existen las siguientes restricciones:
+
+\begin{itemize}
+    \item Un máximo de 25 usuarios (cuentas verificadas de \textit{Spotify}) pueden usar la aplicación.
+    \item Cada usuario tiene que estar registrado en una lista de permitidos (\textit{allowlist}) de la plataforma.
+\end{itemize}
+
+Es posible eliminar estas restricciones, enviando una solicitud a \textit{Spotify} para cambiar el estado de \textit{Development Mode} a \textbf{Extended Quota Mode}. En el caso de que sea aceptada, se elimina cualquier restricción sobre el número de usuarios permitidos y no será necesario registrarlos anteriormente, además de ampliar el umbral de la tasa de peticiones (\textit{rate limit}). En este trabajo \textbf{no se va a realizar dicha solicitud}, por lo que tendremos que acogernos a las limitaciones impuestas en el modo de desarrollo. Esto requiere que se registren las cuentas de usuarios que vayan a probar la aplicación en la pestaña de gestión de usuarios (figura \ref{fig:user_management}).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{figures/registro_spotify/user_management.png}
+    \caption{Panel de gestión de usuarios que tienen acceso a la aplicación.}
+    \label{fig:user_management}
+\end{figure}
+
+Con estos pasos, se habrá realizado correctamente el registro de la aplicación y obtención del \textit{Client ID/Secret}, imprescindibles para la comunicación con la API de \textit{Spotify}. En la plataforma de desarrollo, además, tenemos accesible un panel para poder monitorear la actividad de la aplicación (\hyperref[ch:anexoC]{Anexo C}, figura \ref{fig:dashboard_spotify}).
 
 \section{Ciclo de Vida del Desarrollo}
 
