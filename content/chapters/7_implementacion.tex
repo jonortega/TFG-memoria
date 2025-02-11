@@ -237,7 +237,7 @@ Cuando un \textbf{StatCard} es clicada, ejecuta dicha función y actualiza el es
 
 Como se puede ver en la figura \ref{fig:actualizacion_stats}, los componentes \textbf{StatCard} y \textbf{StatWrapper} no se comunican directamente, \underline{si no que lo hacen de manera indirecta a través del componente} \underline{superior común \textbf{Stats}}. Esto es un flujo de datos típico entre componentes de cliente de \textit{React}.
 
-\subsection*{Carga Dinámica de las Estadísticas}
+\subsection*{Carga Dinámica de las Estadísticas} \label{sub:carga_dinamica}
 
 Además del \texttt{statId}, \textbf{StatWrapper} recibe, mediante \textbf{props}, el estado de visibilidad del modal (\texttt{isModalOpen}) y una función de cierre (\texttt{handleCloseModal()}) que permite resetear el estado al cerrar la ventana. Para simplificar la gestión de la ventana modal, se ha utilizado la librería \textbf{Radix UI}, la cual no afecta el proceso de selección y carga de las estadísticas.
 
@@ -385,33 +385,52 @@ Si bien el sistema de autenticación definido es funcional y práctico para este
 
 Para mitigar esta vulnerabilidad, se podría implementar una validación adicional enviando una solicitud a la API desde el \textit{middleware} para comprobar si el token es válido antes de conceder acceso. Sin embargo, esta solución implicaría una llamada extra a \textit{Spotify} en cada solicitud, lo que aumentaría la carga en la API y afectaría el tiempo de carga de la aplicación. Dado que la probabilidad de explotación de esta vulnerabilidad es baja en el contexto de este proyecto, \textbf{se ha decidido no implementar esta verificación adicional} para evitar un consumo innecesario de recursos.
 
-
 \section{Optimizaciones} \label{sec:optimizaciones}
-De todas las estadísticas:
-los aspectos de la gestión de errores o de carga
 
-En La Bitácora:
-Para mejorar la experiencia de usuario y la eficiencia del sistema, se han implementado las siguientes optimizaciones:
+Como sección final del capítulo de implementación, se presentan algunas de las optimizaciones más relevantes realizadas en la última iteración del desarrollo del producto. Estas mejoras han permitido optimizar el rendimiento del sistema, mejorar la experiencia del usuario y reducir el consumo de recursos, tanto en el backend como en el frontend.
+
+\subsection{Peticiones a Spotify y Procesado de Datos}
+
+El acceso a la API de \textit{Spotify} es un aspecto crítico dentro del funcionamiento de la aplicación, ya que la cantidad de datos necesarios para generar cada estadística puede ser considerable. Con el objetivo de reducir la carga en la API y mejorar la eficiencia del sistema, se han aplicado distintas estrategias.
+
+Para aquellos casos en los que se requiere obtener una gran cantidad de información, como en \textit{La Bitácora}, \textit{Tus Décadas} o \textit{Índice De Interferencia}, se ha implementado un \textbf{sistema de paginación} que permite recuperar los datos en lotes, evitando bloqueos y reduciendo el tiempo de espera. Además, en el caso de \textit{La Bitácora}, se ha implementado un sistema de \textbf{caché en memoria} que almacena los datos agregados, lo que evita que se realicen cálculos repetitivos y mejora significativamente la velocidad de respuesta del servidor.
+
+Por otro lado, en \textit{Índice de Interferencia}, donde el objetivo es comparar la frecuencia de escucha habitual del usuario con su comportamiento actual, se decidió emplear un \textbf{muestreo de datos} en lugar de analizar toda la biblioteca musical al completo. Al detectar una cantidad mayor de 500 canciones guardadas, el sistema toma una muestra representativa del 20\% del total, que permite calcular una buena aproximación sin comprometer el rendimiento.
+
+A nivel general de todas las estadísticas, también se ha optimizado el filtrado de datos antes de enviarlos al frontend, eliminando aquellos valores innecesarios y asegurando que las respuestas sean lo más ligeras posible.
+
+\subsection{Interfaz y Experiencia de Usuario}
+
+Desde el punto de vista del frontend, una de las principales mejoras implementadas ha sido la carga dinámica de componentes ya mencionada en la sección \nameref{sub:carga_dinamica}, así como el uso del componente \texttt{next/image} para mejorar la carga y optimización de las portadas de álbumes sin afectar la calidad visual.
+
+Para mejorar la experiencia del usuario, se han incorporado \textit{loaders} progresivos en aquellas estadísticas que requieren la recuperación de grandes volúmenes de datos. A través del uso del entorno \texttt{Suspense}, se garantiza que la interfaz no quede congelada mientras se procesan las solicitudes. Adicionalmente, en estadísticas que incluyen gráficos interactivos, como \textit{Índice de Interferencia} y \textit{Estaciones Musicales}, se han añadido animaciones y transiciones suaves, mejorando la fluidez de las interacciones sin afectar el rendimiento.
+
+\subsection{Optimización en Estadísticas Específicas}
+
+Cada estadística ha sido optimizada con enfoques específicos para mejorar su funcionalidad y eficiencia. De entre todas ellas, se mencionan las siguientes:
+
+\subsubsection*{La Bitácora}
+
+En el caso de \textit{La Bitácora}, una de las principales mejoras ha sido la ordenación cronológica de los datos, asegurando que los valores se presenten en el orden adecuado para facilitar su interpretación. Para mejorar la legibilidad de la información, también se han personalizado las etiquetas del gráfico, reemplazando los formatos numéricos estándar por nombres de meses y días más intuitivos. Además, se ha eliminado el periodo de carga entre clics en la navegación entre distintos niveles de granularidad, permitiendo una transición fluida entre las vistas de años, meses y días.
+
+Otra mejora destacable ha sido el cálculo dinámico de porcentajes en los \textit{tooltips} del gráfico de barras, lo que proporciona al usuario información detallada sobre la proporción que representa cada período respecto al total.
+
+\subsubsection*{Índice de Interferencia}
+
+En el caso de \textit{Índice de Interferencia}, se han aplicado varias mejoras para hacer que la visualización de las ondas sinusoidales sea más intuitiva y atractiva, ya que se trata de la estadística más experimental:
+
 \begin{itemize}
-    \item \textbf{Ordenación de datos}: Los valores se ordenan cronológicamente para facilitar su interpretación.
-    \item \textbf{Formateo de etiquetas}: Se han personalizado los nombres de los meses y días para mejorar la legibilidad.
-    \item \textbf{Evitación de recargas innecesarias}: Se han optimizado las llamadas a la API para evitar periodos de carga entre clics, haciendo la navegación más fluida.
-    \item \textbf{Cálculo dinámico de porcentajes}: Se muestra en los \textit{tooltips} de cada barra el porcentaje que representa cada período sobre el total.
+    \item Transiciones progresivas en la generación de las ondas, asegurando que estas aparezcan de manera fluida en la pantalla.
+    \item Efectos de resaltado dinámico mediante filtros de visuales, para que el usuario pueda identificar claramente las diferentes ondas.
+    \item Posibilidad de alternar entre la visualización de ondas individuales y la onda combinada, facilitando el análisis de la diferencia entre ambas frecuencias.
 \end{itemize}
 
-Para Indice de Interferencia:
-Para mejorar la experiencia del usuario, se han implementado diversas optimizaciones:
-\begin{itemize}
-    \item \textbf{Transiciones suaves}: Se han añadido animaciones progresivas en la aparición de las ondas para mejorar la fluidez visual.
-    \item \textbf{Efectos de resaltado}: Se han aplicado filtros de \texttt{drop-shadow} dinámicos para destacar la onda seleccionada.
-    \item \textbf{Interactividad mejorada}: Se permite alternar entre la vista de ondas individuales y la onda combinada mediante un botón, facilitando el análisis de la interferencia entre ambas frecuencias.
-\end{itemize}
+\subsubsection*{Tus Décadas}
 
-Para Tus Décadas:
-Para mejorar la experiencia del usuario y la eficiencia del sistema, se han aplicado las siguientes optimizaciones:
-\begin{itemize}
-    \item \textbf{Ajuste dinámico del lienzo}: Se detecta automáticamente el tamaño de la pantalla del usuario para adaptar la visualización de la línea de tiempo, utilizando el \textit{hook} \texttt{useRef}.
-    \item \textbf{Renderización optimizada}: Se emplean capas (\textit{layers}) dentro de \texttt{react-konva} para procesar solo los elementos visibles, mejorando el rendimiento en dispositivos con menor capacidad gráfica.
-\end{itemize}
+En \textit{Tus Décadas}, se ha mejorado la navegación y visualización de los álbumes organizados por año. Siendo la estadística que más recursos demanda del cliente, el cambio de una implementación manual al uso de la librería \textit{Konva} ha sido la pieza clave para que fuese funcional. \textit{Konva} permite dividir los elementos gráficos en capas (\textit{layers}), asegurando que solo se rendericen aquellos elementos que están en pantalla.
 
+También se ha mejorado la experiencia de exploración al añadir soporte para zoom dinámico y desplazamiento, permitiendo que el usuario pueda navegar libremente entre las diferentes décadas y explorar su colección de álbumes de manera intuitiva. En iteraciones anteriores, esta funcionalidad también se había implementado de manera manual, que daba resultado a una experiencia más limitante y muy lenta.
 
+\subsection{Impacto General de las Optimizaciones}
+
+Gracias a la última fase de optimizaciones, la plataforma ha logrado reducir significativamente los tiempos de carga y mejorar la fluidez de la interacción del usuario con las estadísticas. La reducción en el número de peticiones innecesarias a la API de \textit{Spotify} ha permitido disminuir la latencia y evitar sobrecargas en el servidor. Del mismo modo, la optimización en la renderización de gráficos y componentes ha permitido que la interfaz sea más ágil y responsiva, incluso en dispositivos con menor capacidad de procesamiento. En conjunto, \textbf{todas estas mejoras han contribuido a ofrecer una experiencia de usuario más rápida, intuitiva y eficiente}.
