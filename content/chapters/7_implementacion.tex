@@ -197,15 +197,15 @@ En el desarrollo de esta aplicación, se han empleado diversos \textit{hooks}. A
     \item \textbf{\texttt{useRef}}: Facilita el acceso a elementos del DOM y la \textbf{persistencia de valores entre renderizados} sin provocar re-renderizaciones innecesarias. Se ha utilizado en algunos componentes para manejar referencias a elementos gráficos, como un \textit{canvas} o contenedores, permitiendo obtener sus dimensiones y ajustar los renderizados en consecuencia.
 \end{itemize}
 
-Además, se ha desarrollado un \textbf{hook personalizado} denominado \textbf{\texttt{useFetch}}, el cual encapsula la lógica de obtención de datos de la API dentro de un \texttt{useEffect}. Este \textit{hook} es utilizado por los componentes de cliente para realizar peticiones de manera reutilizable. Se incluye el código detallado en el Anexo [REF].
+Además, se ha desarrollado un \textbf{hook personalizado} denominado \textbf{\texttt{useFetch}}, el cual encapsula la lógica de obtención de datos de la API dentro de un \texttt{useEffect}. Este \textit{hook} es utilizado por los componentes de cliente para realizar peticiones de manera reutilizable. Se incluye el código detallado en el anexo, en el algoritmo \ref{alg:use_fetch}.
 
-Cabe destacar que \textbf{Next.js} incorpora el modo de desarrollo \textbf{StrictMode}, el cual ejecuta los efectos definidos en \texttt{useEffect} dos veces consecutivas. Esto significa que, cuando un efecto se dispara, se ejecuta y se detiene inmediatamente para volver a ejecutarse desde cero. Este comportamiento permite detectar efectos mal programados y verificar si se están limpiando correctamente, evitando posibles errores que puedan aparecer en producción. Para gestionar correctamente este comportamiento, es necesario definir una \textbf{función de limpieza} dentro del \texttt{return} de \texttt{useEffect}. En este proyecto, la principal aplicación de este mecanismo ha sido la cancelación de las peticiones al backend. Para ello, se ha empleado la señal de aborto (\texttt{AbortController}) de la API \texttt{fetch}, la cual permite interrumpir una solicitud incluso si ya ha sido iniciada [REF].
+Cabe destacar que \textbf{Next.js} incorpora el modo de desarrollo \textbf{StrictMode}, el cual ejecuta los efectos definidos en \texttt{useEffect} dos veces consecutivas. Esto significa que, cuando un efecto se dispara, se ejecuta y se detiene inmediatamente para volver a ejecutarse desde cero. Este comportamiento permite detectar efectos mal programados y verificar si se están limpiando correctamente, evitando posibles errores que puedan aparecer en producción. Para gestionar correctamente este comportamiento, es necesario definir una \textbf{función de limpieza} dentro del \texttt{return} de \texttt{useEffect}. En este proyecto, la principal aplicación de este mecanismo ha sido la cancelación de las peticiones al backend. Para ello, se ha empleado la señal de aborto (\texttt{AbortController}) de la API \texttt{fetch}, la cual permite interrumpir una solicitud incluso si ya ha sido iniciada.
 
 \subsection{Estadísticas Básicas (Home)}
 
 Las estadísticas básicas se encuentran en la pantalla de inicio (\textit{Home}) y se implementan como \textbf{componentes de servidor}. Dado que estos componentes no se ejecutan en el navegador, pueden realizar peticiones al backend obteniendo directamente el \texttt{access\_token} desde las cookies, sin necesidad de gestionarlo manualmente en el cliente. Por otro lado, el selector de rango temporal (\textbf{TimeRangeSelector}) permite modificar la visualización de las estadísticas en función de tres intervalos: \texttt{short\_term}, \texttt{medium\_term} y \texttt{long\_term}, siendo \texttt{short\_term} la opción por defecto. Este selector es un \textbf{componente de cliente} que detecta cambios en su estado y, al modificarse, \underline{realiza una nueva petición al endpoint \texttt{/home}} con el \texttt{time\_range} seleccionado como parámetro en la URL.
 
-El componente \textbf{Home} recibe este parámetro y lo propaga a los componentes de estadísticas mediante \textbf{props} [REF], propiedades (o parámetros) de los componentes. Cuando se detecta un cambio en los datos, los componentes vuelven a renderizarse en el servidor y se envían al frontend con un nuevo estado preprocesado. Mientras la actualización se procesa, el usuario visualiza un fallback (\textit{loading component}), garantizando una experiencia fluida. Gracias a este enfoque, únicamente los componentes afectados (los \textbf{TopTracks}, \textbf{TopArtists} y \textbf{TopGenres}) se actualizan, evitando recargas innecesarias. En la siguiente figura \ref{fig:actualizacion_tops} se sintetiza esta interacción:
+El componente \textbf{Home} recibe este parámetro y lo propaga a los componentes de estadísticas mediante \textbf{props} (ver código en el anexo, algoritmo \ref{alg:home_component}), propiedades (o parámetros) de los componentes. Cuando se detecta un cambio en los datos, los componentes vuelven a renderizarse en el servidor y se envían al frontend con un nuevo estado preprocesado. Mientras la actualización se procesa, el usuario visualiza un fallback (\textit{loading component}), garantizando una experiencia fluida. Gracias a este enfoque, únicamente los componentes afectados (los \textbf{TopTracks}, \textbf{TopArtists} y \textbf{TopGenres}) se actualizan, evitando recargas innecesarias. En la siguiente figura \ref{fig:actualizacion_tops} se sintetiza esta interacción:
 
 \begin{figure}[H]
     \centering
@@ -223,7 +223,7 @@ Las estadísticas avanzadas se encuentran en la página \texttt{/stats}, la cual
 
 \subsection*{Paso de Información entre Componentes del Cliente}
 
-El componente \textbf{Stats} contiene la estructura principal de la página, incluyendo el \textbf{StatsGrid} (que muestra las tarjetas de estadísticas) y el \textbf{StatWrapper} (que gestiona la visualización de la estadística seleccionada). La gestión de los estados se centraliza en el componente padre \textbf{Stats}, mientras que, a través de \textit{props}, se pasa a los componentes hijos las funciones definidas que habilitan la actualización de esos estados [REF].
+El componente \textbf{Stats} contiene la estructura principal de la página, incluyendo el \textbf{StatsGrid} (que muestra las tarjetas de estadísticas) y el \textbf{StatWrapper} (que gestiona la visualización de la estadística seleccionada). La gestión de los estados se centraliza en el componente padre \textbf{Stats}, mientras que, a través de \textit{props}, se pasa a los componentes hijos las funciones definidas que habilitan la actualización de esos estados (ver código en el anexo, algoritmo \ref{alg:stats_component}).
 
 Cuando un \textbf{StatCard} es clicada, ejecuta dicha función y actualiza el estado \texttt{activeStat} con el valor del \texttt{statId} que contiene cada tarjeta y el estado \texttt{isModalOpen}, indicando que que se abra la ventana modal. Al detectar un cambio en su estado, \textbf{Stats} se vuelve a renderizar, provocando, a su vez, el renderizado de sus componentes hijos. Ahora, \textbf{StatWrapper} obtiene el valor \texttt{activeStat} como un \textit{prop} y puede cargar la estadística apropiada.
 
@@ -235,7 +235,7 @@ Cuando un \textbf{StatCard} es clicada, ejecuta dicha función y actualiza el es
     \label{fig:actualizacion_stats}
 \end{figure}
 
-Como se puede ver en la figura \ref{fig:actualizacion_stats}, los componentes \textbf{StatCard} y \textbf{StatWrapper} no se comunican directamente, si no que lo hacen de manera indirecta a través del componente superior común \textbf{Stats}. Esto es un flujo de datos típico entre componentes de cliente de \textit{React}.
+Como se puede ver en la figura \ref{fig:actualizacion_stats}, los componentes \textbf{StatCard} y \textbf{StatWrapper} no se comunican directamente, \underline{si no que lo hacen de manera indirecta a través del componente} \underline{superior común \textbf{Stats}}. Esto es un flujo de datos típico entre componentes de cliente de \textit{React}.
 
 \subsection*{Carga Dinámica de las Estadísticas}
 
@@ -243,7 +243,7 @@ Además del \texttt{statId}, \textbf{StatWrapper} recibe, mediante \textbf{props
 
 Dentro del componente \textbf{StatWrapper} existe un objeto que asocia cada \texttt{statId} con su respectivo componente (algoritmo \ref{alg:stat_components}). Mediante la función \textbf{dynamic()} de \textit{Next.js}, se realiza una carga dinámica en el momento en el que sea necesario renderizar el componente indicado. Cada vez que se selecciona una nueva estadística, se desmonta el componente anterior y se renderiza el nuevo en su lugar. También se elimina el componente cuando ya no sea necesario renderizarlo (al cerrar la ventana modal), por lo que el código relacionado con las estadísticas solo existe en el navegador el tiempo necesario, liberándolo de todo procesamiento innecesario.
 
-Para más detalle del proceso de carga dinámico, se puede encontrar el código completo del componente \textbf{StatWrapper} en el Anexo [REF].
+Para más detalle del proceso de carga dinámico, se puede encontrar el código completo del componente \textbf{StatWrapper} en el anexo, algoritmo \ref{alg:stat_wrapper}.
 
 \begin{ifalgorithm}[H]
     \begin{lstlisting}
@@ -262,14 +262,85 @@ Para más detalle del proceso de carga dinámico, se puede encontrar el código 
     \label{alg:stat_components}
 \end{ifalgorithm}
 
-En la siguiente sección se detallarán algunos aspectos específicos de la implementación de cada estadística.
+A continuación se detallarán algunos aspectos concretos de la implementación de cada estadística. Para mantener la redacción compacta, no se va a dar una descripción exhaustiva de todas las funcionalidades, si no que se centrará solamente en aquellos puntos notables o partes que requieran una mención especial. Tampoco se explicarán los aspectos de la gestión de errores o de carga, ya que recaen más en el ámbito de las \nameref{sec:optimizaciones} y todas lo hacen de manera muy similar.
 
-\subsubsection*{Hall Of Fame}
-\subsubsection*{Estaciones Musicales}
-\subsubsection*{Huella Del Día}
-\subsubsection*{La Bitácora}
-\subsubsection*{Tus Décadas}
-\subsubsection*{Índice De Interferencia}
+Para cada estadística, se ha usado el sistema de renderizado de gráficos más conveniente y óptimo para la situación. En la siguiente tabla \ref{tab:librerias_renderizado} se recogen dichas librerías:
+
+\begin{table}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/implementacion/librerias_renderizado.png}
+    \captionsetup{skip=5pt}
+    \caption{Librerías de renderizado seleccionadas para cada estadística avanzada.}
+    \label{tab:librerias_renderizado}
+\end{table}
+
+\subsubsection*{i. Hall Of Fame}
+
+La estadística \textit{Hall Of Fame} permite al usuario visualizar una cuadrícula con los álbumes más representativos de su historial de reproducción. Para su renderizado, se emplea el componente \textbf{Image} de \textit{Next.js}, que optimiza la carga y presentación de las imágenes de manera automática. Además, se ha implementado un sistema de generación de imagen que permite capturar la cuadrícula generado en \textbf{canvas} mediante la librería \textbf{html2canvas}.
+
+\newpage
+
+Antes de enviar la imagen al backend, la imagen se somete a un proceso de optimización (función \texttt{optimizeImage()} en el algoritmo \ref{alg:optimize_image}) para reducir su tamaño y que ocupe el límite máximo de datos a enviar (256 KB) con la máxima calidad posible bajo dicha restricción.
+
+\subsubsection*{ii. Estaciones Musicales}
+
+La estadística \textit{Estaciones Musicales} muestra la relación entre las estaciones del año y los hábitos de escucha del usuario mediante un gráfico de tipo ``donut'', donde cada estación se representa con un color distintivo y un icono característico.
+
+La interfaz es interactiva y responde a los movimientos del cursor. Al pasar sobre una estación, el segmento correspondiente se resalta con una animación de expansión, y se despliega una tarjeta emergente con información sobre el artista y género más representativos de ese periodo. La posición del \textit{tooltip} se ajusta dinámicamente en función de la ubicación del cursor. La creación de estos segmentos y la gestión de las animaciones se realiza de forma manual mediante SVGs personalizados con la función en el algoritmo \ref{alg:calculate_path}.
+
+\subsubsection*{iii. Huella Del Día}
+
+La estadística \textit{Huella del Día} muestra la distribución de los minutos de escucha a lo largo del día mediante un gráfico de líneas, permitiendo al usuario identificar sus horas de mayor consumo musical. Para su implementación, la librería \texttt{react-chartjs-2} ayuda con la integración de \textbf{chart.js} en un entorno \textit{React}.
+
+El gráfico cuenta con dos elementos:
+\begin{itemize}
+    \item \textbf{Línea principal}: Representa la cantidad de minutos de reproducción en cada hora del día.
+    \item \textbf{Punto destacado}: Resalta la hora con mayor actividad, facilitando su identificación visual.
+\end{itemize}
+
+Además, se incluye un mensaje dinámico que indica al usuario su hora de mayor escucha, resaltando este dato con un color distintivo para mejorar su visibilidad.
+
+\subsubsection*{iv. La Bitácora}
+
+La estadística \textit{La Bitácora} permite visualizar la evolución de las canciones guardadas por el usuario a lo largo del tiempo mediante un gráfico de barras interactivo que permite navegar entre distintos niveles de granularidad: \textbf{años}, \textbf{meses} y \textbf{días}.
+
+Para su implementación, se ha utilizado la biblioteca \textbf{chart.js} integrada también con \texttt{react-chartjs-2}.
+
+\subsubsection*{v. Tus Décadas}
+
+La estadística \textit{Tus Décadas} permite visualizar la distribución de las canciones guardadas por el usuario a lo largo de diferentes décadas mediante una línea de tiempo interactiva que organiza las portadas de los álbumes por año, agrupándolos en bloques de diez años. Al igual que la estadística anterior, para integrar la biblioteca \textbf{Konva} en un entorno \textit{React}, se ha utilizado la biblioteca \texttt{react-konva}.
+
+El sistema incorpora las siguientes opciones de interacción con la gráfica:
+\begin{itemize}
+    \item \textbf{Navegación mediante desplazamiento}: Permite moverse horizontal y verticalmente a lo largo de la línea de tiempo para explorar los álbumes de cada década. Esto se gestiona con el componente \texttt{Stage} de \textit{Konva}, como se muestra en el algoritmo \ref{alg:stage_tus_decadas}
+    \item \textbf{Zoom dinámico}: Se ha implementado un sistema de \textit{zoom} con la rueda del ratón, facilitando la exploración de los datos en distintos niveles de detalle. La función encargada se puede encontrar en el algoritmo \ref{alg:handle_wheel_tus_decadas}.
+\end{itemize}
+
+\subsubsection*{vi. Índice De Interferencia}
+
+La estadística \textit{Índice de Interferencia}, la más abstracta de todas, representa la diferencia entre los hábitos de escucha del usuario y su comportamiento actual mediante una visualización basada en ondas sinusoidales. Los datos de base corresponden a la \textbf{media de la popularidad} de las canciones que el usuario suele escuchar, determinada a partir de su biblioteca de canciones guardadas, y la popularidad de lo que está escuchando en el momento, calculada a partir de sus últimas 50 reproducciones. Estos valores de popularidad, que son numéricos, se traducen a la frecuencia de cada onda representada en la visualización.
+
+Para su implementación, se ha utilizado la biblioteca \textbf{D3.js}, más capaz que \textit{chart.js}, y que facilita la generación de gráficos SVG optimizados. Los datos de frecuencia se obtienen desde el backend y se interpolan (algoritmo \ref{alg:generate_wave_data}) para construir las ondas representadas en la visualización (algoritmo \ref{alg:draw_wave}).
+
+El sistema permite visualizar las siguientes ondas:
+\begin{itemize}
+    \item \textbf{Frecuencia habitual}: Representa el patrón de escucha estándar del usuario.
+    \item \textbf{Frecuencia del momento}: Refleja la frecuencia de escucha actual.
+    \item \textbf{Onda combinada}: Muestra la interferencia entre ambas frecuencias, resaltando las diferencias entre el comportamiento habitual y el actual.
+\end{itemize}
+
+El cálculo de la interferencia entre las dos ondas originales se hace mediante la suma los respectivos puntos en cada una. Esto se realiza con la siguiente función sencilla que se muestra en el algoritmo \ref{alg:combined_wave}, que genera los datos para la función de dibujado de onda:
+
+\begin{ifalgorithm}[H]
+    \begin{lstlisting}
+    const combinedData = normalData.map((d, i) => ({
+        x: d.x,
+        y: d.y + actualData[i].y,
+    }));
+    \end{lstlisting}
+    \caption{Cálculo de la onda combinada en \textit{Índice de Interferencia} sumando las ondas de la frecuencia habitual y la frecuencia actual.}
+    \label{alg:combined_wave}
+\end{ifalgorithm}
 
 
 \section{Implementación del Backend}
@@ -280,26 +351,13 @@ En la siguiente sección se detallarán algunos aspectos específicos de la impl
 
 \section{Middleware}
 
-% El código del middleware para ver las comprobaciones que se hacen está en el anexo.
-
-% El middleware es global en las rutas /home y /stats y las subrutas. Se ejecuta antes de llegar las peticiones al backend.
-
-% Funcion principal la de verificar si el usuario está autenticado y permitido dentro de las páginas protegidas. Esto lo hace comprobando si tiene un access token y un refresh token.
-
-% También se encarga del refrescado del access token. Como despues de 1h se elimina el access token se comprueba si sigue teniendo un refresh token, en ese caso se renueva con una funcion renovarAccessToken, que usa el client id y el client secret para refrescar con la API de Spotify el token (código de la función o igual en el anexo si es largo). Como el middleware se ejecuta en el servidor, es seguro acceder al client id y secret.
-
-% Existe una vulnerabilidad conocida y es que solo comprueba de la existencia de un access y refresh token, pero no verifica su validez. Eso quiere decir que se pueden crear manualmente dos cookies con esos nombres y te deja pasar a la web, lo único que todas las estadísticas darían error porque ya sí que Spotify respondería con error.
-
-% Sería posible parchear esto con una llamada desd el middleware a un endpoint de Spotify y comprobar qué responde, si da error es que no es válido. PEro esto requiere una llamada extra a Spotify por cada request al servidor, por lo que se ah decidio no implementarlo para evitar llamadas innecesarias y evitar sobrecargar la API. Tampoco se cree que será un problema grande y para un proyecto como este es un poco innecesario.
-
-
-El \textit{middleware} en \textit{Next.js} permite interceptar y modificar las solicitudes HTTP antes de que lleguen a las rutas del \textit{App Router} o los endpoints de los \textit{Route Handers}. En esta aplicación, se usa como un sistema de separación entre las rutas para usuarios no autenticados (\texttt{/}, la raíz) y las rutas protegidas tras las autenticación y autorización (\texttt{/home} y \texttt{/stats}). Su código completo se encuentra disponible en el Anexo [REF].
+El \textit{middleware} en \textit{Next.js} permite interceptar y modificar las solicitudes HTTP antes de que lleguen a las rutas del \textit{App Router} o los endpoints de los \textit{Route Handers}. En esta aplicación, se usa como un sistema de separación entre las rutas para usuarios no autenticados (\texttt{/}, la raíz) y las rutas protegidas tras las autenticación y autorización (\texttt{/home} y \texttt{/stats}). Su código completo se encuentra disponible en el anexo, en el algoritmo \ref{alg:middleware}.
 
 \subsection{Funcionamiento del Middleware}
 
 El \textit{middleware} se aplica de manera global a las rutas \texttt{/home}, \texttt{/stats} y sus subrutas, ejecutándose antes de que las peticiones alcancen el backend. Su función principal es \textbf{verificar si el usuario está autenticado y autorizad}o para acceder a estas secciones protegidas. Para ello, realiza una comprobación de la existencia de las cookies de autenticación: el \texttt{access\_token} y el \texttt{refresh\_token}. Si ambas están presentes, la solicitud se considera válida y se permite el acceso a la página correspondiente.
 
-Dado que el \texttt{access\_token} tiene una validez limitada de una hora, el \textit{middleware} también se encarga de \textbf{gestionar su renovación automática} cuando expira. En caso de no detectar un \texttt{access\_token} pero sí un \texttt{refresh\_token} válido, se invoca la función \texttt{renovarAccessToken()} [REF], la cual interactúa con la API de \textit{Spotify} utilizando las credenciales de la aplicación (\textit{Client ID} y \textit{Client Secret}) para solicitar un nuevo token de acceso. Como el \textit{middleware} se ejecuta en el servidor, el acceso a estas credenciales es seguro, ya que nunca son expuestas en el cliente. Esta estrategia permite extender la sesión del usuario sin requerir una nueva autenticación manual, mejorando la experiencia de usuario.
+Dado que el \texttt{access\_token} tiene una validez limitada de una hora, el \textit{middleware} también se encarga de \textbf{gestionar su renovación automática} cuando expira. En caso de no detectar un \texttt{access\_token} pero sí un \texttt{refresh\_token} válido, se invoca la función \texttt{renovarAccessToken()} (algoritmo \ref{alg:renovar_access_token}), la cual interactúa con la API de \textit{Spotify} utilizando las credenciales de la aplicación (\textit{Client ID} y \textit{Client Secret}) para solicitar un nuevo token de acceso. Como el \textit{middleware} se ejecuta en el servidor, el acceso a estas credenciales es seguro, ya que nunca son expuestas en el cliente. Esta estrategia permite extender la sesión del usuario sin requerir una nueva autenticación manual, mejorando la experiencia de usuario.
 
 En la siguiente tabla \ref{tab:middleware_opciones} se han resumido todas las posibilidades y las acciones respectivas que el \textit{middleware} llevaría a cabo:
 
@@ -318,4 +376,32 @@ Si bien el sistema de autenticación definido es funcional y práctico para este
 Para mitigar esta vulnerabilidad, se podría implementar una validación adicional enviando una solicitud a la API desde el \textit{middleware} para comprobar si el token es válido antes de conceder acceso. Sin embargo, esta solución implicaría una llamada extra a \textit{Spotify} en cada solicitud, lo que aumentaría la carga en la API y afectaría el tiempo de carga de la aplicación. Dado que la probabilidad de explotación de esta vulnerabilidad es baja en el contexto de este proyecto, \textbf{se ha decidido no implementar esta verificación adicional} para evitar un consumo innecesario de recursos.
 
 
-\section{Optimizaciones}
+\section{Optimizaciones} \label{sec:optimizaciones}
+De todas las estadísticas:
+los aspectos de la gestión de errores o de carga
+
+En La Bitácora:
+Para mejorar la experiencia de usuario y la eficiencia del sistema, se han implementado las siguientes optimizaciones:
+\begin{itemize}
+    \item \textbf{Ordenación de datos}: Los valores se ordenan cronológicamente para facilitar su interpretación.
+    \item \textbf{Formateo de etiquetas}: Se han personalizado los nombres de los meses y días para mejorar la legibilidad.
+    \item \textbf{Evitación de recargas innecesarias}: Se han optimizado las llamadas a la API para evitar periodos de carga entre clics, haciendo la navegación más fluida.
+    \item \textbf{Cálculo dinámico de porcentajes}: Se muestra en los \textit{tooltips} de cada barra el porcentaje que representa cada período sobre el total.
+\end{itemize}
+
+Para Indice de Interferencia:
+Para mejorar la experiencia del usuario, se han implementado diversas optimizaciones:
+\begin{itemize}
+    \item \textbf{Transiciones suaves}: Se han añadido animaciones progresivas en la aparición de las ondas para mejorar la fluidez visual.
+    \item \textbf{Efectos de resaltado}: Se han aplicado filtros de \texttt{drop-shadow} dinámicos para destacar la onda seleccionada.
+    \item \textbf{Interactividad mejorada}: Se permite alternar entre la vista de ondas individuales y la onda combinada mediante un botón, facilitando el análisis de la interferencia entre ambas frecuencias.
+\end{itemize}
+
+Para Tus Décadas:
+Para mejorar la experiencia del usuario y la eficiencia del sistema, se han aplicado las siguientes optimizaciones:
+\begin{itemize}
+    \item \textbf{Ajuste dinámico del lienzo}: Se detecta automáticamente el tamaño de la pantalla del usuario para adaptar la visualización de la línea de tiempo, utilizando el \textit{hook} \texttt{useRef}.
+    \item \textbf{Renderización optimizada}: Se emplean capas (\textit{layers}) dentro de \texttt{react-konva} para procesar solo los elementos visibles, mejorando el rendimiento en dispositivos con menor capacidad gráfica.
+\end{itemize}
+
+
