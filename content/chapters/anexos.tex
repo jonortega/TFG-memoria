@@ -1,3 +1,4 @@
+% * ANEXO A *
 \chapter{Capturas de la Interfaz de Usuario} \label{ch:anexoA}
 
 \section{Interfaz de Estadísticas}
@@ -152,6 +153,8 @@ Además de los elementos presentados, también se han implementado algunos compo
     \label{fig:skeletons}
 \end{figure}
 
+% * ANEXO B *
+
 \chapter{Diagramas de Secuencia Adicionales} \label{ch:anexoB}
 
 \begin{itemize}
@@ -196,6 +199,8 @@ Además de los elementos presentados, también se han implementado algunos compo
     \caption{Diagrama de secuencia: \textbf{Ver Índice De Interferencia}.}
     \label{fig:ds_ver_indice_de_interferencia}
 \end{figure}
+
+% * ANEXO C *
 
 \chapter{Contenidos Relacionados con la Implementación} \label{ch:anexoC}
 
@@ -774,5 +779,342 @@ Además de los elementos presentados, también se han implementado algunos compo
     \caption{Función \texttt{drawWave()} para dibujar ondas sinusoidales animadas en \textit{Índice de Interferencia} utilizando D3.js.}
     \label{alg:draw_wave}
 \end{ifalgorithm}
+
+
+% * ANEXO D *
+
+\chapter{Información del Backend de las Estadísticas Avanzadas} \label{ch:anexoD}
+
+\section{Información del Backend del Hall Of Fame} \label{sec:backend_hall_of_fame}
+
+\begin{ifalgorithm}[H]
+    \begin{lstlisting}
+    // * GET /api/stats/hall-of-fame
+    1. Obtener access_token de las cookies.
+    2. Si no hay access_token, devolver error 401.
+    3. Realizar una peticion a la API de Spotify para obtener las 16 canciones mas escuchadas a largo plazo.
+    4. Si la peticion no es exitosa, devolver error 500.
+    5. Extraer la informacion relevante de cada cancion:
+       - URL de la imagen del album
+       - Nombre de la cancion
+       - Nombre del artista principal
+    6. Estructurar los datos en un array de objetos Album.
+    7. Enviar la respuesta en formato JSON con los datos procesados.
+
+    // * POST /api/stats/hall-of-fame
+    1. Obtener access_token de las cookies.
+    2. Si no hay access_token, devolver error 401.
+    3. Obtener la imagen de portada desde el cuerpo de la peticion.
+    4. Realizar una peticion a la API de Spotify para obtener las 16 canciones mas escuchadas.
+    5. Extraer las URIs de las canciones.
+    6. Obtener el perfil del usuario y su userId.
+    7. Crear una nueva playlist privada llamada "Hall Of Fame".
+    8. Extraer el playlistId de la respuesta.
+    9. Anadir las canciones obtenidas a la playlist recien creada.
+    10. Actualizar la imagen de portada de la playlist con la imagen proporcionada.
+    11. Enviar respuesta en JSON con el playlistId creado si todo ha sido exitoso.
+    \end{lstlisting}
+    \caption{Pseudocódigo del procesamiento de datos en el endpoint Hall Of Fame.}
+    \label{alg:hall_of_fame}
+\end{ifalgorithm}
+
+\begin{ifalgorithm}[H]
+    \begin{lstlisting}
+    {
+      "title": "Hall of Fame",
+      "albums": [
+        {
+          "albumArtUrl": "https://i.scdn.co/image/abc123",
+          "track": "Bohemian Rhapsody",
+          "artist": "Queen"
+        },
+        {
+          "albumArtUrl": "https://i.scdn.co/image/xyz456",
+          "track": "Billie Jean",
+          "artist": "Michael Jackson"
+        },
+        ...
+      ]
+    }
+    \end{lstlisting}
+    \caption{Ejemplo de estructura de datos enviada en el endpoint Hall Of Fame.}
+    \label{alg:hall_of_fame_response}
+\end{ifalgorithm}
+
+\section{Informacion del Backend de Estaciones Musicales} \label{sec:backend_estaciones_musicales}
+
+\begin{ifalgorithm}[H]
+    \begin{lstlisting}
+    // * GET /api/stats/estaciones-musicales
+    1. Obtener access_token de las cookies.
+    2. Si no hay access_token, devolver error 401.
+    3. Inicializar una estructura para almacenar los datos de artistas y generos por estacion.
+    4. Obtener todos los tracks guardados por el usuario hasta un ano atras, recorriendo la API de Spotify con paginacion.
+    5. Determinar la estacion correspondiente de cada track segun su fecha de agregado.
+    6. Contar la frecuencia de aparicion de cada artista y almacenar sus IDs.
+    7. Obtener datos de artistas en lotes de 50 desde la API de Spotify.
+    8. Actualizar la informacion de cada artista con su imagen y contar los generos musicales asociados.
+    9. Determinar el artista y genero mas representativos en cada estacion segun la frecuencia de aparicion.
+    10. Estructurar los datos en un objeto JSON con la informacion obtenida.
+    11. Enviar la respuesta en formato JSON con los datos procesados.
+    \end{lstlisting}
+    \caption{Pseudocodigo del procesamiento de datos en el endpoint Estaciones Musicales.}
+    \label{alg:estaciones_musicales}
+\end{ifalgorithm}
+
+\begin{ifalgorithm}[H]
+    \begin{lstlisting}
+    {
+      "invierno": {
+        "artist": {
+          "name": "Coldplay",
+          "artistPicUrl": "https://i.scdn.co/image/coldplay123"
+        },
+        "genre": {
+          "name": "Alternative Rock"
+        }
+      },
+      "primavera": {
+        "artist": {
+          "name": "Dua Lipa",
+          "artistPicUrl": "https://i.scdn.co/image/dualipa123"
+        },
+        "genre": {
+          "name": "Pop"
+        }
+      },
+      "verano": {
+        "artist": {
+          "name": "Bad Bunny",
+          "artistPicUrl": "https://i.scdn.co/image/badbunny123"
+        },
+        "genre": {
+          "name": "Reggaeton"
+        }
+      },
+      "otono": {
+        "artist": {
+          "name": "The Beatles",
+          "artistPicUrl": "https://i.scdn.co/image/beatles123"
+        },
+        "genre": {
+          "name": "Rock"
+        }
+      }
+    }
+    \end{lstlisting}
+    \caption{Ejemplo de estructura de datos enviada en el endpoint Estaciones Musicales.}
+    \label{alg:estaciones_musicales_response}
+\end{ifalgorithm}
+
+\section{Información del Backend de Huella del Día} \label{sec:backend_huella_del_dia}
+
+\begin{ifalgorithm}[H]
+    \begin{lstlisting}
+    // * GET /api/stats/huella-del-dia
+    1. Obtener access_token de las cookies.
+    2. Si no hay access_token, devolver error 401.
+    3. Inicializar la URL base para obtener el historial de reproduccion reciente.
+    4. Inicializar una lista para almacenar todas las canciones reproducidas.
+    5. Realizar una peticion a la API de Spotify para obtener las ultimas 50 canciones reproducidas.
+    6. Si la peticion es exitosa:
+       a. Agregar las canciones obtenidas a la lista total.
+       b. Verificar si hay mas paginas de resultados.
+       c. Si hay mas paginas, actualizar la URL y repetir la peticion.
+    7. Si la peticion falla, devolver error con el mensaje correspondiente.
+    8. Inicializar un array de 24 posiciones para almacenar los minutos escuchados por cada hora del dia.
+    9. Iterar sobre todas las canciones obtenidas y extraer:
+       a. La hora en la que se reprodujo la cancion.
+       b. Su duracion en minutos (limitada a un maximo de 60 por hora).
+    10. Acumular el tiempo de reproduccion en la hora correspondiente dentro del array.
+    11. Limitar cada posicion del array a un maximo de 60 minutos por hora.
+    12. Enviar la respuesta en formato JSON con los datos procesados.
+    \end{lstlisting}
+    \caption{Pseudocodigo del procesamiento de datos en el endpoint Huella del Dia.}
+    \label{alg:huella_del_dia}
+\end{ifalgorithm}
+
+\begin{ifalgorithm}[H]
+    \begin{lstlisting}
+    [5, 12, 25, 35, 50, 42, 30, 20, 15, 10, 8, 5, 3, 2, 1, 0, 0, 0, 5, 10, 20, 30, 40, 50]
+    \end{lstlisting}
+    \caption{Ejemplo de estructura de datos enviada en el endpoint Huella del Dia.}
+    \label{alg:huella_del_dia_response}
+\end{ifalgorithm}
+
+\section{Información del Backend de La Bitácora} \label{sec:backend_la_bitacora}
+
+\begin{ifalgorithm}[H]
+    \begin{lstlisting}
+    // * GET /api/stats/la-bitacora
+    1. Obtener access_token de las cookies.
+    2. Si no hay access_token, devolver error 401.
+    3. Extraer los parametros de consulta (year y month) de la URL.
+    4. Si la cache no esta inicializada:
+       a. Obtener todas las canciones guardadas del usuario desde la API de Spotify.
+       b. Extraer las fechas de guardado de cada cancion y estructurarlas en objetos con year, month y day.
+       c. Agregar todas las canciones obtenidas a una lista total.
+       d. Crear una estructura de almacenamiento:
+          - Diccionario de anios con el total de canciones guardadas por cada anio.
+          - Diccionario de meses por anio con el total de canciones guardadas por cada mes.
+          - Diccionario de dias por anio-mes con el total de canciones guardadas por dia.
+    5. Completar los periodos faltantes con valor 0:
+       a. Rellenar los anio faltantes desde el primer hasta el ultimo.
+       b. Rellenar los meses faltantes en cada anio.
+       c. Rellenar los dias faltantes en cada mes considerando la cantidad de dias de cada mes.
+    6. Si no se proporciona un anio en la consulta, devolver la estructura de datos por anio.
+    7. Si se proporciona solo un anio, devolver la estructura de datos por mes para ese anio.
+    8. Si se proporciona un anio y un mes, devolver la estructura de datos por dia para ese mes.
+    9. Enviar la respuesta en formato JSON con los datos procesados.
+    \end{lstlisting}
+    \caption{Pseudocodigo del procesamiento de datos en el endpoint La Bitacora.}
+    \label{alg:la_bitacora}
+\end{ifalgorithm}
+
+\begin{ifalgorithm}[H]
+    \begin{lstlisting}
+    {
+      "2020": 150,
+      "2021": 120,
+      "2022": 180
+    }
+    \end{lstlisting}
+    \caption{Ejemplo de estructura de datos enviada por año en el endpoint La Bitacora.}
+    \label{alg:la_bitacora_response_year}
+\end{ifalgorithm}
+
+\begin{ifalgorithm}[H]
+    \begin{lstlisting}
+    {
+      "2022-01": 15,
+      "2022-02": 10,
+      "2022-03": 20
+    }
+    \end{lstlisting}
+    \caption{Ejemplo de estructura de datos enviada por mes en el endpoint La Bitacora.}
+    \label{alg:la_bitacora_response_month}
+\end{ifalgorithm}
+
+\begin{ifalgorithm}[H]
+    \begin{lstlisting}
+    {
+      "2022-03-01": 5,
+      "2022-03-02": 3,
+      "2022-03-03": 8
+    }
+    \end{lstlisting}
+    \caption{Ejemplo de estructura de datos enviada por dia en el endpoint La Bitacora.}
+    \label{alg:la_bitacora_response_day}
+\end{ifalgorithm}
+
+\section{Información del Backend de Tus Décadas} \label{sec:backend_tus_decadas}
+
+\begin{ifalgorithm}[H]
+    \begin{lstlisting}
+    // * GET /api/stats/tus-decadas
+    1. Obtener access_token de las cookies.
+    2. Si no hay access_token, devolver error 401.
+    3. Inicializar una lista para almacenar los albums procesados y un conjunto para evitar duplicados.
+    4. Definir la URL inicial para la paginacion de las canciones guardadas en Spotify.
+    5. Mientras haya una URL valida:
+       a. Realizar una peticion a la API de Spotify para obtener los tracks guardados.
+       b. Iterar sobre los tracks obtenidos:
+          - Si el album ya ha sido procesado, omitirlo.
+          - Extraer la imagen de mayor resolucion disponible.
+          - Si no hay imagen disponible, omitir el track.
+          - Extraer el anio de lanzamiento del album segun su precision de fecha.
+          - Agregar la informacion del album procesado a la lista.
+          - Registrar el album en el conjunto de albums procesados.
+       c. Actualizar la URL con la siguiente pagina de resultados, si existe.
+    6. Ordenar los tracks por anio de lanzamiento.
+    7. Determinar el rango de decadas abarcadas por los datos:
+       - Encontrar el anio minimo y redondearlo al inicio de la decada correspondiente.
+       - Encontrar el anio maximo y redondearlo al final de la decada correspondiente.
+    8. Construir una estructura de datos que agrupe los albums por anio.
+    9. Rellenar los anios faltantes dentro del rango completo de decadas con listas vacias.
+    10. Enviar la respuesta en formato JSON con los datos procesados.
+    \end{lstlisting}
+    \caption{Pseudocodigo del procesamiento de datos en el endpoint Tus Decadas.}
+    \label{alg:tus_decadas}
+\end{ifalgorithm}
+
+\begin{ifalgorithm}[H]
+    \begin{lstlisting}
+    {
+      "1970": [
+        {
+          "id": "album1",
+          "albumPicUrl": "https://i.scdn.co/image/abc123",
+          "year": 1970
+        }
+      ],
+      "1980": [
+        {
+          "id": "album2",
+          "albumPicUrl": "https://i.scdn.co/image/xyz456",
+          "year": 1980
+        },
+        {
+          "id": "album3",
+          "albumPicUrl": "https://i.scdn.co/image/def789",
+          "year": 1980
+        }
+      ],
+      "1990": [],
+      "2000": [
+        {
+          "id": "album4",
+          "albumPicUrl": "https://i.scdn.co/image/ghi101",
+          "year": 2000
+        }
+      ]
+    }
+    \end{lstlisting}
+    \caption{Ejemplo de estructura de datos enviada en el endpoint Tus Decadas.}
+    \label{alg:tus_decadas_response}
+\end{ifalgorithm}
+
+\section{Información del Backend de Índice de Interferencia} \label{sec:backend_indice_de_interferencia}
+
+\begin{ifalgorithm}[H]
+    \begin{lstlisting}
+    // * GET /api/stats/indice-de-interferencia
+    1. Obtener access_token de las cookies.
+    2. Si no hay access_token, devolver error 401.
+
+    // * Calcular el valor "normal" basado en canciones guardadas
+    3. Definir un porcentaje del 20% de canciones a muestrear, con un minimo de 500 y un maximo de 1000 canciones.
+    4. Realizar una peticion a la API de Spotify para obtener el total de canciones guardadas.
+    5. Si el total de canciones guardadas es menor o igual a 500:
+       a. Obtener todas las canciones paginando la API de Spotify.
+    6. Si hay mas de 500 canciones:
+       a. Generar offsets aleatorios para seleccionar una muestra representativa.
+       b. Realizar peticiones a la API de Spotify usando estos offsets para obtener una muestra aleatoria.
+    7. Calcular la popularidad media de las canciones obtenidas y redondear el resultado.
+
+    // * Calcular el valor "actual" basado en reproducciones recientes
+    8. Realizar una peticion a la API de Spotify para obtener las ultimas 50 canciones reproducidas.
+    9. Calcular la popularidad media de estas canciones y redondear el resultado.
+
+    // * Responder con los datos calculados
+    10. Devolver un JSON con los valores "normal" y "actual".
+    \end{lstlisting}
+    \caption{Pseudocodigo del procesamiento de datos en el endpoint Indice de Interferencia.}
+    \label{alg:indice_interferencia}
+\end{ifalgorithm}
+
+\begin{ifalgorithm}[H]
+    \begin{lstlisting}
+    {
+      "normal": 75,
+      "actual": 62
+    }
+    \end{lstlisting}
+    \caption{Ejemplo de estructura de datos enviada en el endpoint Indice de Interferencia.}
+    \label{alg:indice_interferencia_response}
+\end{ifalgorithm}
+
+
+
 
 
