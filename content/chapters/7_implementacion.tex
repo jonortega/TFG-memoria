@@ -156,7 +156,7 @@ Cabe destacar que las listas de funcionalidades y mejoras descritas en cada incr
 
 Antes de poder interactuar con la API de \textit{Spotify}, es fundamental obtener y poder gestionar correctamente los tokens de autenticación que, como se ha descrito anteriormente en la sección de \nameref{sec:diseno_seguridad}, se han decidido tomar ciertas medidas. En dicha sección, se abordó el tema desde una perspectiva de diseño y un nivel más alto de abstracción, mientras que en esta, se profundizará en los aspectos más técnicos.
 
-En primer lugar, el \textit{Client ID} y \textit{Client Secret} se alamacenan en el servidor, en respectivas variables de entorno, y solo se acceden desde el objeto \texttt{process.env}. Estos tokens nunca son enviados al cliente y se usan en casos concretos, como en el inicio de sesión de un nuevo usuario o la renovación del \texttt{access\_token}.
+En primer lugar, el \textit{Client ID} y \textit{Client Secret} se almacenan en el servidor, en respectivas variables de entorno, y solo se acceden desde el objeto \texttt{process.env}. Estos tokens nunca son enviados al cliente y se usan en casos concretos, como en el inicio de sesión de un nuevo usuario o la renovación del \texttt{access\_token}.
 
 Por otro lado, la gestión del propio \texttt{access\_token} requiere más atención. Se evaluaron varias opciones, pero finalmente se decidió en hacer uso de las \textbf{cookies}. Esto se debe a que, de esta manera, no era necesario implementar un sistema de almacenamiento en el servidor (manual o mediante herramientas como \textit{Redis}) para guardar los \texttt{access\_token} de los diferentes usuarios y asociarlos a un identificador único. El propio \texttt{access\_token} hace de identificador de cada usuario, por lo que el servidor solo tiene que hacer uso del token recibido mediante las cookies agregadas en la petición.
 
@@ -346,9 +346,36 @@ El cálculo de la interferencia entre las dos ondas originales se hace mediante 
 
 \section{Implementación del Backend}
 
-El backend de la aplicación se encarga de gestionar la comunicación con la API de \textit{Spotify}, procesar los datos recibidos y servir la información al frontend de manera eficiente. A continuación, se detallan los aspectos más relevantes de su implementación, incluyendo la lógica aplicada en el tratamiento de datos (en forma de pseudocódigo, para facilitar la compresión) y las estructuras de datos definidas para el fácil consumo del frontend.
+El backend de la aplicación se encarga de gestionar la comunicación con la API de \textit{Spotify}, procesar los datos recibidos y servir la información al frontend de manera eficiente. En esta sección, se describen algunas implementaciones destacadas dentro del backend, enfocándose en aquellos endpoints que presentan particularidades interesantes o que han requerido una solución específica. El resto de la implementación detallada se encuentra en el \hyperref[ch:anexoD]{Anexo D}, donde se incluyen todas las estructuras de datos definidas para el fácil consumo del frontend y lógica aplicada (en forma de pseudocódigo, para facilitar la compresión) en el procesamiento de estadísticas.
 
-Para evitar la sobrecarga del contenido principal, todo el contenido se encuentra en el \hyperref[ch:anexoD]{Anexo D}. Mediante esta lista, se podrá acceder a los contenidos concretos, agrupados por estadística:
+\subsection{Implementaciones Destacadas}
+A continuación, se explican dos de las implementaciones más relevantes dentro del backend:
+
+\subsubsection*{Estaciones Musicales}
+
+Como ya se ha mencionado en el \hyperref[sec:estudio_api_tracks]{Estudio de la API de Spotify}, la API no permite acceder al historial completo de reproducciones pasadas de un usuario, por lo que utilizar los elementos ``destacados'' de cada estación, se realizan en base a las canciones favoritas del el usuario.
+
+Primero se obtiene la lista de todas las canciones guardadas en el último año. A cada una de estas canciones se le asigna una estación específica en función de su fecha de guardado. Posteriormente, se contabiliza cuántas veces aparece cada artista dentro de cada estación. \textbf{El artista con mayor frecuencia en una estación es considerado el artista destacado de ese período}.
+
+El proceso de selección del género representativo de cada estación sigue una lógica similar, pero con una particularidad adicional: los géneros están asociados a los artistas y no a las canciones individualmente. Para obtener esta información, se recopilan los artistas correspondientes a cada estación y se consultan sus géneros mediante la API de \textit{Spotify}. Como un mismo artista puede pertenecer a varios géneros, se agrupan todos los géneros de todos los artistas de la estación y se contabilizan sus apariciones. Finalmente, \textbf{el género con más repeticiones se considera el género representativo de esa estación}. Es importante notar que el artista más destacado y el género más representativo de una estación no tienen por qué coincidir, ya que cada uno se obtiene mediante un proceso de conteo independiente.
+
+Una vez determinado el artista y el género, se estructura la información en un objeto JSON con los datos completamente procesados. Este formato permite que el frontend reciba los datos de manera limpia y lista para su visualización, sin necesidad de realizar cálculos adicionales.
+
+\newpage
+
+\subsubsection*{Índice de Interferencia}
+
+El propósito de esta estadística es representar dos valores que reflejan los hábitos de escucha del usuario en diferentes escalas de tiempo: un valor ``normal'', que describe sus preferencias musicales generales, y un valor ``actual'', que representa lo que está escuchando en un periodo corto de tiempo reciente. La comparación entre estos valores permite observar si el usuario está escuchando música en línea con sus hábitos o si ha cambiado significativamente sus preferencias.
+
+Para obtener el valor ``actual'', se utiliza la lista de las últimas 50 canciones reproducidas por el usuario, ya que \textit{Spotify} permite acceder a este historial reciente. Cada canción tiene un valor de popularidad entre 0 y 100, donde 100 representa la música más popular en la plataforma. Se calcula la media de la popularidad de estas canciones para obtener un indicador del nivel de popularidad de la música que el usuario ha estado escuchando recientemente.
+
+Para determinar el valor ``normal'', se usan como referencia las canciones guardadas en la biblioteca del usuario, asumiendo que reflejan de manera aproximada sus preferencias a lo largo del tiempo. Sin embargo, en usuarios con muchas canciones guardadas, calcular la media de popularidad sobre toda la colección sería un proceso costoso en términos de tiempo y consumo de API. Para optimizar este cálculo, \textbf{se emplea una estrategia de muestreo}: si el usuario tiene más de 500 canciones guardadas, en lugar de recorrer toda la biblioteca, se extrae una muestra del 20\% de las canciones, con un mínimo de 500 y un máximo de 1000 canciones. Este muestreo se realiza seleccionando canciones desde posiciones aleatorias dentro de la biblioteca, aprovechando que \textit{Spotify} permite acceder a cualquier parte de la colección directamente mediante un índice de desplazamiento. Este método proporciona una estimación muy cercana al valor real sin necesidad de procesar todas las canciones guardadas.
+
+Una vez obtenidos ambos valores, se estructuran en un objeto JSON con dos números simples que se envían al frontend. Mediante esta optimización, se ha podido ahorrar mucho tiempo de procesamiento y se obtiene un resultado muy parecido al que sería con todas las canciones.
+
+\subsection{Resto de Endpoints}
+
+El resto de los endpoints se encuentran en el \hyperref[ch:anexoD]{Anexo D}, donde se puede consultar el pseudocódigo de todas las estadísticas, incluyendo las dos explicadas anteriormente. Allí se detallan los pasos de la lógica de cada endpoint, por si se quiere revisar con más precisión cómo están implementados.
 
 \begin{itemize}
     \item \textbf{Hall Of Fame}: \ref{sec:backend_hall_of_fame}
