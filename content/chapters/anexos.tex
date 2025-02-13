@@ -1115,6 +1115,218 @@ Además de los elementos presentados, también se han implementado algunos compo
 \end{ifalgorithm}
 
 
+\chapter{Tablas de Tests Realizados} \label{ch:anexoE}
+
+\section{Pruebas de Componentes}
+
+\begin{longtable}{|p{5cm}|p{9cm}|}
+  \caption{Pruebas realizadas en los componentes \textit{de Next.js}.} \label{tab:pruebas_componentes}                           \\
+
+  \hline
+  \rowcolor[HTML]{E6B8CE}
+  \textbf{\textcolor{white}{Componente}}          & \textbf{\textcolor{white}{Test}}                                             \\ \hline
+  \endfirsthead
+
+  \hline
+  \rowcolor[HTML]{E6B8CE}
+  \textbf{\textcolor{white}{Componente}}          & \textbf{\textcolor{white}{Test}}                                             \\ \hline
+  \endhead
+
+  \hline \multicolumn{2}{|r|}{\textit{Continúa en la siguiente página}}                                                          \\ \hline
+  \endfoot
+
+  \hline
+  \endlastfoot
+
+  \multirow{5}{*}{\texttt{Footer}}                & se renderiza correctamente                                                   \\ \cline{2-2}
+                                                  & contiene enlaces de redes sociales                                           \\ \cline{2-2}
+                                                  & el modal de Política de Privacidad está cerrado al inicio                    \\ \cline{2-2}
+                                                  & abre el modal de Política de Privacidad al hacer clic                        \\ \cline{2-2}
+                                                  & cierra el modal al hacer clic en 'Cerrar'                                    \\ \hline
+
+  \multirow{3}{*}{\texttt{Loading}}               & se renderiza correctamente con una frase inicial                             \\ \cline{2-2}
+                                                  & actualiza la frase cada 3 segundos                                           \\ \cline{2-2}
+                                                  & muestra los puntos de carga dinámicamente                                    \\ \hline
+
+  \multirow{2}{*}{\texttt{LoginPage}}             & renderiza el heading principal                                               \\ \cline{2-2}
+                                                  & renderiza el botón de Sign In                                                \\ \hline
+
+  \multirow{5}{*}{\texttt{Navbar}}                & renderiza correctamente la barra de navegación                               \\ \cline{2-2}
+                                                  & muestra el enlace Home como activo cuando la ruta es /home                   \\ \cline{2-2}
+                                                  & muestra el enlace Stats como activo cuando la ruta es /stats                 \\ \cline{2-2}
+                                                  & muestra el enlace Home como inactivo cuando la ruta NO es /home              \\ \cline{2-2}
+                                                  & pasa correctamente el usuario al UserActionPanel                             \\ \hline
+
+  \multirow{2}{*}{\texttt{NoFavorites}}           & se renderiza correctamente con el mensaje adecuado                           \\ \cline{2-2}
+                                                  & muestra el icono de advertencia                                              \\ \hline
+
+  \multirow{6}{*}{\texttt{RecentlyPlayed}}        & se renderiza correctamente con el título 'Recently Played'                   \\ \cline{2-2}
+                                                  & muestra el mensaje de carga cuando está cargando                             \\ \cline{2-2}
+                                                  & muestra un mensaje de error cuando ocurre un error                           \\ \cline{2-2}
+                                                  & muestra canciones cuando hay datos disponibles                               \\ \cline{2-2}
+                                                  & muestra un mensaje cuando no hay canciones recientes                         \\ \cline{2-2}
+                                                  & cambia entre mostrar más y mostrar menos correctamente                       \\ \hline
+
+  \multirow{3}{*}{\texttt{Stats Page}}            & renderiza StatsGrid con los elementos esperados                              \\ \cline{2-2}
+                                                  & abre el modal con la estadística seleccionada al hacer clic en un stat       \\ \cline{2-2}
+                                                  & cierra el modal cuando se hace clic en el botón de cierre                    \\ \hline
+
+  \multirow{4}{*}{\texttt{StatCard}}              & se renderiza correctamente con el título                                     \\ \cline{2-2}
+                                                  & renderiza el icono correctamente                                             \\ \cline{2-2}
+                                                  & llama a onClick con el statId correcto cuando se hace clic                   \\ \cline{2-2}
+                                                  & aplica la clase className correctamente                                      \\ \hline
+
+  \multirow{3}{*}{\texttt{StatsGrid}}             & renderiza StatsGrid con los elementos esperados                              \\ \cline{2-2}
+                                                  & abre el modal con la estadística seleccionada al hacer clic en un stat       \\ \cline{2-2}
+                                                  & cierra el modal cuando se hace clic en el botón de cierre                    \\ \hline
+
+  \multirow{3}{*}{\texttt{StatWrapper}}           & se renderiza correctamente                                                   \\ \cline{2-2}
+                                                  & llama a onStatClick con el id correcto cuando se hace clic en un StatCard    \\ \cline{2-2}
+                                                  & maneja correctamente una lista vacía de stats sin errores                    \\ \hline
+
+  \multirow{10}{*}{\texttt{TimeRangeSelector}}    & no se renderiza cuando isOpen es false                                       \\ \cline{2-2}
+                                                  & se renderiza correctamente cuando isOpen es true                             \\ \cline{2-2}
+                                                  & muestra el título correcto basado en `activeStat`                            \\ \cline{2-2}
+                                                  & renderiza el componente dinámico correcto                                    \\ \cline{2-2}
+                                                  & muestra un mensaje cuando `activeStat` es inválido                           \\ \cline{2-2}
+                                                  & cierra el modal al hacer clic en el botón de cierre                          \\ \cline{2-2}
+                                                  & desmonta correctamente el contenido cuando el modal se cierra                \\ \cline{2-2}
+                                                  & muestra mensaje de error cuando se selecciona una estadística no válida      \\ \cline{2-2}
+                                                  & muestra el componente de Hall of Fame cuando se selecciona                   \\ \cline{2-2}
+                                                  & muestra el componente de Huella Del Día cuando se selecciona                 \\ \hline
+
+  \multirow{10}{*}{\texttt{UserActionPanel}}      & muestra el valor seleccionado correctamente                                  \\ \cline{2-2}
+                                                  & abre el menú al hacer clic en el botón y muestra las opciones                \\ \cline{2-2}
+                                                  & cierra el menú al hacer clic fuera                                           \\ \cline{2-2}
+                                                  & actualiza el parámetro de la URL al seleccionar una opción                   \\ \cline{2-2}
+                                                  & cierra el menú al seleccionar una opción                                     \\ \cline{2-2}
+                                                  & renderiza correctamente la imagen y el nombre del usuario                    \\ \cline{2-2}
+                                                  & abre y cierra el panel de usuario al hacer clic                              \\ \cline{2-2}
+                                                  & cierra el panel al hacer clic fuera                                          \\ \cline{2-2}
+                                                  & ejecuta el logout y redirige al usuario a la página principal                \\ \cline{2-2}
+                                                  & muestra un error en la consola si el logout falla                            \\ \hline
+
+  \multirow{4}{*}{\texttt{HuellaDelDia}}          & las etiquetas del eje X van de '00:00' a '23:00'                             \\ \cline{2-2}
+                                                  & el gráfico recibe los datos correctos cuando useFetch devuelve datos válidos \\ \cline{2-2}
+                                                  & el gráfico muestra un punto destacado en la hora con más minutos escuchados  \\ \cline{2-2}
+                                                  & el texto debajo del gráfico muestra correctamente la hora con más escuchas   \\ \hline
+
+  \multirow{1}{*}{\texttt{IndiceDeInterferencia}} & IndiceDeInterferencia se renderiza sin errores                               \\ \hline
+
+  \multirow{3}{*}{\texttt{TusDecadas}}            & se renderiza sin errores                                                     \\ \cline{2-2}
+                                                  & muestra mensaje de error cuando la API falla                                 \\ \cline{2-2}
+                                                  & muestra correctamente las etiquetas de las décadas según los datos de la API \\ \hline
+\end{longtable}
+
+\section{Pruebas de Utilidades}
+
+\begin{longtable}{|p{5cm}|p{9cm}|}
+  \caption{Pruebas realizadas en las utilidades del proyecto.} \label{tab:pruebas_utilidades}                                \\
+
+  \hline
+  \rowcolor[HTML]{E6B8CE}
+  \textbf{\textcolor{white}{Utilidad}}       & \textbf{\textcolor{white}{Test}}                                              \\ \hline
+  \endfirsthead
+
+  \hline
+  \rowcolor[HTML]{E6B8CE}
+  \textbf{\textcolor{white}{Utilidad}}       & \textbf{\textcolor{white}{Test}}                                              \\ \hline
+  \endhead
+
+  \hline \multicolumn{2}{|r|}{\textit{Continúa en la siguiente página}}                                                      \\ \hline
+  \endfoot
+
+  \hline
+  \endlastfoot
+
+  \multirow{4}{*}{\texttt{fetchTopArtists}}  & devuelve una lista de artistas correctamente cuando la API responde con éxito \\ \cline{2-2}
+                                             & devuelve un array vacío si no se proporciona access\_token                    \\ \cline{2-2}
+                                             & devuelve un array vacío si la respuesta de la API no es exitosa               \\ \cline{2-2}
+                                             & devuelve un array vacío si ocurre un error en la petición                     \\ \hline
+
+  \multirow{4}{*}{\texttt{fetchTopGenres}}   & devuelve una lista de géneros correctamente cuando la API responde con éxito  \\ \cline{2-2}
+                                             & devuelve un array vacío si no se proporciona access\_token                    \\ \cline{2-2}
+                                             & devuelve un array vacío si la respuesta de la API no es exitosa               \\ \cline{2-2}
+                                             & devuelve un array vacío si ocurre un error en la petición                     \\ \hline
+
+  \multirow{2}{*}{\texttt{fetchTopTracks}}   & devuelve una lista de tracks correctamente                                    \\ \cline{2-2}
+                                             & maneja errores correctamente                                                  \\ \hline
 
 
+  \multirow{3}{*}{\texttt{fetchUserProfile}} & devuelve error si no hay access\_token                                        \\ \cline{2-2}
+                                             & maneja errores cuando la API responde con fallo                               \\ \cline{2-2}
+                                             & devuelve el perfil del usuario cuando la API responde correctamente           \\ \hline
+
+
+  \multirow{4}{*}{\texttt{useFetch Hook}}    & devuelve datos correctamente cuando la API responde con éxito                 \\ \cline{2-2}
+                                             & maneja correctamente un error en la petición (error de red)                   \\ \cline{2-2}
+                                             & devuelve un error si la respuesta de la API no es exitosa                     \\ \cline{2-2}
+                                             & cancela la petición cuando el componente se desmonta                          \\ \hline
+\end{longtable}
+
+\section{Pruebas de Endpoints del Backend}
+
+\begin{longtable}{|p{5cm}|p{9cm}|}
+  \caption{Pruebas realizadas en los endpoints del backend.} \label{tab:pruebas_route_handlers}                                                    \\
+
+  \hline
+  \rowcolor[HTML]{E6B8CE}
+  \textbf{\textcolor{white}{Endpoint}}                  & \textbf{\textcolor{white}{Test}}                                                         \\ \hline
+  \endfirsthead
+
+  \hline
+  \rowcolor[HTML]{E6B8CE}
+  \textbf{\textcolor{white}{Endpoint}}                  & \textbf{\textcolor{white}{Test}}                                                         \\ \hline
+  \endhead
+
+  \hline \multicolumn{2}{|r|}{\textit{Continúa en la siguiente página}}                                                                            \\ \hline
+  \endfoot
+
+  \hline
+  \endlastfoot
+
+  \multirow{2}{*}{\texttt{/auth/callback}}              & debe redirigir con error si faltan los parámetros \texttt{code} y \texttt{state}         \\ \cline{2-2}
+                                                        & debe redirigir con error si el estado no coincide con la cookie                          \\ \hline
+  \multirow{4}{*}{\texttt{/auth/login}}                 & debe redirigir a la página de autenticación de Spotify con los parámetros correctos      \\ \cline{2-2}
+                                                        & debe establecer la cookie \texttt{spotify\_auth\_state} correctamente                    \\ \cline{2-2}
+                                                        & debe generar un \textit{state} aleatorio en cada llamada                                 \\ \cline{2-2}
+                                                        & debe generar un \textit{state} válido en formato hex                                     \\ \hline
+  \multirow{2}{*}{\texttt{/auth/logout}}                & debe redirigir al usuario a \texttt{/} después del logout                                \\ \cline{2-2}
+                                                        & debe eliminar las cookies \texttt{access\_token} y \texttt{refresh\_token} correctamente \\ \hline
+  \multirow{4}{*}{\texttt{/home/recently-played}}       & debe devolver 401 si no se proporciona el token de acceso                                \\ \cline{2-2}
+                                                        & debe obtener correctamente las canciones recientemente reproducidas                      \\ \cline{2-2}
+                                                        & debe manejar correctamente respuestas sin imágenes o nombres de álbum                    \\ \cline{2-2}
+                                                        & debe devolver error 500 si la API de Spotify falla                                       \\ \hline
+  \multirow{5}{*}{\texttt{/home/top-artists}}           & debe devolver 401 si no se proporciona el token de acceso                                \\ \cline{2-2}
+                                                        & debe devolver 401 si el token de acceso es inválido                                      \\ \cline{2-2}
+                                                        & debe obtener los top 5 artistas correctamente                                            \\ \cline{2-2}
+                                                        & debe manejar correctamente respuestas malformadas                                        \\ \cline{2-2}
+                                                        & debe devolver error 500 si la API de Spotify falla                                       \\ \hline
+  \multirow{5}{*}{\texttt{/home/top-genres}}            & debe devolver 401 si no se proporciona el token de acceso                                \\ \cline{2-2}
+                                                        & debe devolver 401 si el token de acceso es inválido                                      \\ \cline{2-2}
+                                                        & debe obtener los top 5 géneros correctamente                                             \\ \cline{2-2}
+                                                        & debe manejar correctamente artistas sin géneros                                          \\ \cline{2-2}
+                                                        & debe devolver error 500 si la API de Spotify falla                                       \\ \hline
+  \multirow{5}{*}{\texttt{/home/top-tracks}}            & debe devolver 401 si no se proporciona el token de acceso                                \\ \cline{2-2}
+                                                        & debe devolver 401 si el token de acceso es inválido                                      \\ \cline{2-2}
+                                                        & debe obtener los top 5 tracks correctamente                                              \\ \cline{2-2}
+                                                        & debe manejar correctamente respuestas malformadas                                        \\ \cline{2-2}
+                                                        & debe devolver error 500 si la API de Spotify falla                                       \\ \hline
+  \multirow{5}{*}{\texttt{/home/user-profile}}          & debe devolver 401 si no se proporciona el token de acceso                                \\ \cline{2-2}
+                                                        & debe devolver 401 si el token de acceso es inválido                                      \\ \cline{2-2}
+                                                        & debe obtener el perfil de usuario correctamente                                          \\ \cline{2-2}
+                                                        & debe manejar correctamente usuarios sin nombre, email o imagen                           \\ \cline{2-2}
+                                                        & debe devolver error 500 si la API de Spotify falla                                       \\ \hline
+  \multirow{4}{*}{\texttt{/stats/estaciones-musicales}} & debe devolver 401 si no se proporciona el token de acceso                                \\ \cline{2-2}
+                                                        & debe devolver artistas y géneros destacados por estación                                 \\ \cline{2-2}
+                                                        & debe manejar correctamente la paginación de la API de Spotify                            \\ \cline{2-2}
+                                                        & debe devolver error 500 si la API de Spotify falla                                       \\ \hline
+  \multirow{3}{*}{\texttt{/stats/huella-del-dia}}       & debe devolver 401 si no se proporciona el token de acceso                                \\ \cline{2-2}
+                                                        & debe devolver un array de 24 posiciones con valores numéricos                            \\ \cline{2-2}
+                                                        & debe devolver un error 500 si la API de Spotify falla                                    \\ \hline
+  \multirow{4}{*}{\texttt{/stats/tus-decadas}}          & debe devolver 401 si no se proporciona el token de acceso                                \\ \cline{2-2}
+                                                        & debe devolver los tracks correctamente agrupados por década                              \\ \cline{2-2}
+                                                        & debe manejar correctamente cuando no hay canciones guardadas                             \\ \cline{2-2}
+                                                        & debe devolver error 500 si la API de Spotify falla                                       \\ \hline
+\end{longtable}
 
