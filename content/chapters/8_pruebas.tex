@@ -1,5 +1,28 @@
-\section{Diseño de Pruebas}
+\section{Implementación de Pruebas}
 
-\section{Ejecución de Pruebas}
+Para garantizar el correcto funcionamiento de la aplicación, durante el desarrollo se ha realizado una fase de pruebas. Principalmente se han implementado pruebas unitarias, pero también algunas pruebas de integración para verificar el comportamiento de ciertos componentes y su interaccion con los componentes vecinos.
+
+\subsection{Framework y Librerías}
+
+Para la ejecución de los tests se ha utilizado \textbf{Jest} como framework principal, junto con \textbf{React Testing Library} para la prueba de componentes de \textit{React}. \textit{Jest} permite ejecutar tests de forma rápida y aislar cada prueba en un entorno controlado, mientras que \textit{React Testing Library} facilita la interacción y consulta de elementos en el DOM, asegurando que los tests reflejen mejor el comportamiento real de los usuarios.
+
+En el caso de los endpoints del backend, \textit{Next.js} no proporciona un mecanismo directo para testear las API definidas con \textit{Route Handlers}, por lo que ha sido necesario el uso de la librería \textbf{\texttt{next-test-api-route-handler}}. Esta herramienta permite simular peticiones HTTP a los endpoints del backend y verificar las respuestas esperadas, facilitando la validación del comportamiento de la lógica del servidor.
+
+\subsection{Consideraciones a Tener en Cuenta}
+
+A la hora de escribir los tests, se han tenido en cuenta diferentes aspectos para asegurar su correcta ejecución:
+
+\begin{itemize}
+    \item \textbf{Entorno de ejecución}: \textit{Jest} permite definir diferentes entornos de ejecución, siendo los más relevantes \textit{jsdom}, que simula un entorno de navegador, y \textit{node}, que representa el entorno de servidor. En este proyecto, \textbf{se han utilizado ambos entornos} según corresponda, ya que existen tanto componentes de cliente como de servidor. Es importante indicar explícitamente el entorno en la configuración de \textit{Jest} para evitar errores en la ejecución de los tests.
+
+    \item \textbf{Configuración de variables de entorno}: Algunas pruebas requieren acceso a variables. Para ello, se ha utilizado el archivo \textbf{\texttt{.env.test}}, donde se definen las variables necesarias en el contexto de pruebas.
+
+    \item \textbf{Cobertura del código}: Se ha utilizado la funcionalidad de cobertura de \textit{Jest} para analizar qué partes del código están siendo verificadas por las pruebas y detectar posibles áreas sin testear.
+
+    \item \textbf{Limitaciones y problemas encontrados}: En algunos casos, no ha sido posible realizar ciertas pruebas debido a problemas con dependencias específicas. Por ejemplo, \textit{Jest} presenta dificultades al manejar módulos basados en \textit{CommonJS} y en la manipulación de \texttt{canvas} en entornos de servidor, lo que ha impedido testear correctamente ciertos gráficos generados con \texttt{D3.js}. Se intentó solucionar esto mediante \textit{mocking} de dependencias, pero sin éxito.
+\end{itemize}
+
+Además de la ejecución local de las pruebas, se ha configurado un flujo de integración continua (CI) para ejecutar los tests automáticamente en cada nueva actualización del código. Esto se ha realizado mediante \textbf{GitHub Actions}, asegurando que cualquier cambio en el proyecto sea validado antes de desplegarse. Se explican más detalles sobre esta integración en el capítulo de \textbf{Despliegue}, en la sección \nameref{sec:test_automaticos}.
+
 
 \section{Resultados de Pruebas}
