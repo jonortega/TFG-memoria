@@ -109,8 +109,8 @@
 % ODS %
 %%%%%%%
 
-% Insertar el pdf de los ODS
-\includepdf[pages={1-}]{content/ods/ods.pdf}
+\chapter*{Objetivos de Desarrollo Sostenible}
+\input content/chapters/objetivosDesarrollo
 \cleardoublepage
 
 %%%%%%%%%%%
@@ -134,10 +134,7 @@
 \mainmatter
 \pagestyle{ruled}
 
-% Descomentar para generar la página de ODS
-% \chapter*{Objetivos de Desarrollo Sostenible}
-% \input content/chapters/objetivosDesarrollo
-% \cleardoublepage
+\nocite{ehuagenda2030}
 
 \chapter{Introducción} \label{ch:introduccion}
 \input content/chapters/1_introduccion
@@ -201,7 +198,7 @@
 %%%%%%%%%%%%%%%%
 
 \bibliographystyle{IEEEtran}
-\bibliography{referencias}
+\bibliography{referencias} \label{ch:bib}
 %% ALDATU HEMEN EDUKIEN ZERRENDAN AGERTUKO DENA 
 \addcontentsline{tof}{chapter}{\bibname}
 
