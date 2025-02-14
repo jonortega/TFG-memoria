@@ -15,7 +15,7 @@ Para llevar un control detallado del desarrollo del proyecto, se ha utilizado un
 Gracias a este sistema de seguimiento, se ha podido llevar un control preciso del tiempo dedicado al proyecto y de la distribución de esfuerzos en las distintas fases. Además, con un total de 94 registros en este documento, se han podido documentar incidencias, decisiones y cambios en el alcance del proyecto, lo que ha facilitado la trazabilidad de su evolución.
 
 
-\section{Materialización de Riesgos}
+\section{Materialización de Riesgos} \label{sec:materializacion_riesgos}
 
 A lo largo del desarrollo del proyecto, se han materializado algunos de los riesgos identificados en la planificación inicial. Aunque estos riesgos afectaron de diversas formas al desarrollo, la planificación anticipada y las estrategias de mitigación permitieron minimizar sus efectos, asegurando que el TFG pudiera completarse dentro de los plazos establecidos. A continuación, se detallan los principales riesgos materializados:
 
@@ -41,7 +41,7 @@ El mayor desafío se presentó al implementar la ejecución automática de prueb
 
 \subsection*{R06: Dificultad para compaginar el proyecto con las obligaciones académicas}
 
-Desde el inicio del proyecto se identificó el riesgo de que la carga académica afectara al progreso del TFG, especialmente debido a la necesidad de aprobar una asignatura en diciembre para poder presentar el trabajo en febrero. Como medida preventiva, se realizó un ajuste en la distribución del tiempo de trabajo durante ese periodo, priorizando el estudio en las dos semanas previas al examen, que tuvo lugar el 16 de diciembre.
+Desde el inicio del proyecto se identificó el riesgo de que la carga académica afectara al progreso del TFG, especialmente debido a la necesidad de aprobar una asignatura en diciembre para poder presentar el trabajo en febrero. Como medida preventiva, se realizó un ajuste en la distribución del tiempo de trabajo durante ese periodo, priorizando el estudio en las tres semanas previas al examen, que tuvo lugar el 16 de diciembre.
 
 Si bien esto supuso una reducción temporal en la dedicación al TFG, la estrategia de mitigación permitió redistribuir el esfuerzo en semanas posteriores sin causar un impacto significativo en el desarrollo global del proyecto. Gracias a esta previsión, no fue necesario realizar modificaciones drásticas en los plazos generales y se pudo retomar el ritmo normal de trabajo tras el periodo de exámenes.
 
@@ -70,32 +70,69 @@ Como resultado de estas modificaciones, de las seis estadísticas avanzadas inic
 
 \section{Desviaciones Temporales}
 
-Para evaluar la ejecución del proyecto respecto a la planificación inicial, se ha realizado un seguimiento continuo de los tiempos de dedicación y cumplimiento de tareas. Esto ha permitido ajustar plazos cuando ha sido necesario y asegurar que el desarrollo del proyecto se mantuviera dentro de unos márgenes aceptables.
+A continuación, se analiza cómo las incidencias ocurridas durante el desarrollo han impactado en la planificación del proyecto desde el punto de vista temporal.
 
-\textbf{Estrategias de gestión de la planificación:}
+\subsection{Dedicaciones}
+
+A lo largo del desarrollo del proyecto, las dedicaciones estimadas para cada tarea han sufrido algunas variaciones, aunque en general se han mantenido bastante alineadas con la planificación inicial. En la siguiente tabla \ref{tab:dedicaciones_real} se muestra la comparativa entre las estimaciones de dedicación establecidas en la planificación y la dedicación real registrada en el documento Excel mencionado al inicio.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/syc/dedicaciones_real.png}
+    \vspace{0.5cm}
+    \caption{Comparativa entre las dedicaciones estimadas y las reales de cada tarea.}
+    \label{tab:dedicaciones_real}
+\end{figure}
+
+Aunque la dedicación total real ha sido de 312 horas, esta cifra no incluye la preparación para la defensa del TFG, ya que se llevará a cabo después de la entrega de esta memoria. Teniendo en cuenta este aspecto, la \textbf{dedicación real se aproximará más a las 320 horas}, un valor ligeramente superior a lo planificado.
+
+Sin embargo, el hecho de que la suma total de horas sea similar a la prevista no significa que no haya habido desviaciones significativas en tareas individuales, sino que estas han terminado compensándose entre sí. A continuación, se analiza en detalle los principales puntos de desviación y las razones que los han provocado:
 
 \begin{itemize}
-    \item \textbf{Monitoreo periódico}: Se han registrado las horas dedicadas a cada tarea y se ha comparado con lo planificado.
-    \item \textbf{Ajustes sobre la marcha}: En tareas críticas que tomaron más tiempo del esperado, se reorganizaron las actividades para evitar acumulación de retrasos.
-    \item \textbf{Priorización de tareas}: Algunas funcionalidades se postergaron para evitar riesgos en la entrega del proyecto final.
+    \item \textbf{Análisis (A)}: Se observa un incremento notable en la dedicación a este apartado debido a la decisión de realizar un prototipado inicial de las estadísticas, lo cual se ha incluido dentro de esta fase.
+    \item \textbf{AW.D.2 y AW.D.3}: La menor dedicación en estas tareas se debe a que gran parte del diseño de la interfaz y la lógica se llevó a cabo durante la construcción del PMV en la fase de implementación. Como consecuencia, en la fase de diseño solo fue necesario plasmar las decisiones que ya se habían tomado durante el segundo incremento de la aplicación.
+    \item \textbf{AW.I.1}: La implementación del \textit{Login} de la web se alargó debido a que era la primera funcionalidad que se implementaba, por lo que no se estaba del todo familiarizado con las tecnologías como \textit{Next.js} y \textit{TypeScript}, lo que llevó a varias correcciones tras la primera implementación.
+    \item \textbf{AW.I.5}: Dentro de la tarea de Optimizaciones se ha incluido el desarrollo del tercer incremento de la aplicación, que resultó una tarea mayor de lo que inicialmente representarían.
+    \item \textbf{Despliegue (DPL)}: Este apartado incluye la configuración de \textit{GitHub Actions}, la cual generó diversas complicaciones, como ya se ha detallado en el apartado de \nameref{sec:materializacion_riesgos}.
+    \item \textbf{Pruebas (P)}: La considerable reducción en las horas dedicadas se debe principalmente a la tarea AW.P.R, donde se había previsto un mayor número de errores. Al realizar la planificación con márgenes laxos, se estimo un tiempo amplio si ocurría el caso de la aparición de muchos errores.
+    \item \textbf{Documentación (DOC)}: La reducción en la dedicación a esta tarea es únicamente aparente, ya que no se han contabilizado las horas correspondientes a la tarea DOC.DEF, relativa a la preparación de la defensa.
 \end{itemize}
 
-Gracias a estas estrategias, se ha minimizado el impacto de los imprevistos en la planificación global del TFG.
+\newpage
+
+\subsection{Plazos del Desarrollo}
+
+En cuanto a los plazos generales, ha habido algunos ajustes en la distribución temporal de las tareas. La mayor desviación se produjo en diciembre, cuando el desarrollo del TFG se paralizó durante tres semanas debido a la preparación del examen de la asignatura. Esta interrupción tuvo un impacto en el calendario de desarrollo, pero las tareas fueron reubicadas en los meses siguientes sin que ello generara problemas significativos. Gracias a la flexibilidad de la planificación, estas variaciones pudieron absorberse sin afectar la fecha final de entrega.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figures/syc/calendario_trabajo.png}
+    \vspace{0.5cm}
+    \caption{Canlendario indicando los días de trabajo realizados, el periodo de examen y fechas de hitos}
+    \label{tab:calendario_trabajo}
+\end{figure}
+
+
+Otro de los cambios mencionables en la planificación fue la evolución del ciclo de desarrollo de la aplicación. Inicialmente, se había planteado un enfoque más lineal, pero con el avance del proyecto se decidió adoptar un modelo incremental. Para garantizar un mejor análisis y diseño del sistema, se creó un \textbf{Producto Mínimo Viable (PMV)}. Aunque esta decisión no estaba prevista desde el inicio, surgió de manera orgánica durante el proceso y resultó beneficiosa para el desarrollo.
+
+Más allá de estas adaptaciones, el desarrollo del proyecto se ha mantenido dentro de los plazos previstos, permitiendo completar todas las fases necesarias sin desviaciones críticas.
 
 \section{Revisión de Objetivos}
 
-\section{Entregables Generados}
+El desarrollo del proyecto ha concluido con éxito, logrando cumplir plenamente con los objetivos planteados en la fase inicial. El \textbf{objetivo general} se ha alcanzado de manera satisfactoria, que consistía en desarrollar una plataforma web interactiva que permitiera a los usuarios de \textit{Spotify} acceder a visualizaciones y análisis de sus datos musicales personales.
 
-El desarrollo del proyecto ha dado lugar a una serie de entregables clave que documentan su progreso y resultados:
+Además del objetivo general, cada uno de los \textbf{objetivos específicos} establecidos en la planificación también ha sido cumplido con éxito:
+
+\newpage
 
 \begin{itemize}
-    \item Código fuente de la aplicación.
-    \item Documentación técnica sobre la arquitectura y la implementación.
-    \item Memoria del TFG con todos los análisis y resultados obtenidos.
-    \item Tablas de seguimiento con la dedicación real a cada tarea.
-    \item Informes de pruebas y validación de la aplicación.
+    \item \textbf{Análisis de la API de Spotify}: Parte fundamental del proyecto, se identificaron las restricciones y posibilidades de la API.
+    \item \textbf{Procesamiento de datos}: Se implementó la lógica necesaria para filtrar, organizar y transformar los datos obtenidos en el backend de la aplicación mediante los \textit{Route Handlers}.
+    \item \textbf{Diseño de la interfaz de usuario}: Gracias a la facilidad de uso de los estilos de \textit{Tailwind CSS}, se desarrolló una interfaz intuitiva, interactiva y responsiva, asegurando una experiencia de usuario fluida en distintos dispositivos.
+    \item \textbf{Uso de tecnologías modernas}: Se utilizaron \textit{Next.js}, \textit{React} y \textit{TypeScript}, aprovechando sus ventajas en estructuración del código, tipado estático y rendimiento optimizado.
+    \item \textbf{Automatización del despliegue}: Se implementaron prácticas de \textit{CI/CD} con \textit{Vercel} y \textit{GitHub Actions}, permitiendo un flujo automatizado de pruebas antes de un despliegue, accionado por un push a la rama principal \texttt{main}.
+    \item \textbf{Seguridad y gestión de datos}: Se respetaron las políticas de \textit{Spotify} relevantes para este proyecto, como la no persistencia de datos, la gestión de la autorización mediante \textit{OAuth 2.0} y el manejo seguro de los datos del usuario.
+    \item \textbf{Documentación del desarrollo}: Se registró detalladamente el proceso completo, asegurando la trazabilidad de las decisiones y facilitando la revisión del trabajo realizado, plasmado en esta memoria.
 \end{itemize}
 
-Estos entregables han sido fundamentales para garantizar la trazabilidad y calidad del proyecto.
-
-
+En conclusión, el proyecto \textbf{ha cumplido con éxito todos sus objetivos}, tanto a nivel general como en cada uno de los aspectos específicos definidos en la planificación. A pesar de algunos ajustes en funcionalidades concretas debido a limitaciones técnicas, la plataforma desarrollada mantiene la esencia del planteamiento original y proporciona una experiencia completa y funcional para el usuario.
