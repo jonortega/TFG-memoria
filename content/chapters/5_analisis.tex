@@ -102,10 +102,6 @@ Se presentará al usuario, de forma visual, dos métricas relacionadas con sus p
 
 Los requisitos no funcionales de la aplicación son fundamentales para garantizar no solo su funcionalidad, sino también su rendimiento, seguridad, escalabilidad y usabilidad. A continuación, se detallan los aspectos clave que la aplicación debe cumplir para asegurar una experiencia de usuario satisfactoria y el cumplimiento de los estándares de calidad.
 
-\subsection*{Rendimiento y Escalabilidad}
-
-La aplicación debe ofrecer tiempos de respuesta aceptables en las operaciones críticas, como la carga inicial del \textit{Home} o la presentación de las estadísticas. El tiempo de respuesta debe ser inferior a \textbf{1 s} bajo condiciones normales de uso, con un máximo de \textbf{3 s} bajo picos de carga. Este requisito se medirá utilizando herramientas de pruebas de carga como K6, simulando hasta \textbf{50 usuarios simultáneos} realizando operaciones comunes. El objetivo es garantizar que el rendimiento del sistema satisfactorio para los usuarios, incluso en picos de carga inusuales.
-
 \subsection*{Seguridad}
 
 Es esencial garantizar la protección de los datos del usuario y las comunicaciones entre el frontend y el backend. Para ello, todas las conexiones deben utilizar \textbf{HTTPS}, y los tokens de acceso deben almacenarse de forma segura para prevenir ataques comunes como \textit{Cross-Site Scripting} (XSS) y \textit{Man-in-the-Middle} (MITM). Además, es necesario implementar medidas de seguridad en procesos críticos, como la autenticación de usuarios, incluyendo protección frente a ataques de tipo \textit{Cross-Site Request Forgery} (CSRF).
@@ -177,8 +173,6 @@ Permite al usuario anónimo iniciar sesión en la aplicación utilizando sus cre
               \item El sistema redirige al usuario de vuelta a la pantalla principal.
           \end{enumerate}
 \end{itemize}
-
-\newpage
 
 \subsubsection*{Acceder a Home}
 
