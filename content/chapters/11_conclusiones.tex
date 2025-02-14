@@ -1,23 +1,53 @@
-\section{Conclusiones Técnicas}
+\section{Revisión de Objetivos}
+
+El desarrollo del proyecto ha concluido con éxito, logrando cumplir plenamente con los objetivos planteados en la fase inicial. El \textbf{objetivo general} se ha alcanzado de manera satisfactoria, que consistía en desarrollar una plataforma web interactiva que permitiera a los usuarios de \textit{Spotify} acceder a visualizaciones y análisis de sus datos musicales personales.
+
+Además del objetivo general, cada uno de los \textbf{objetivos específicos} establecidos en la planificación también ha sido cumplido con éxito:
+
+\begin{itemize}
+    \item \textbf{Análisis de la API de Spotify}: Parte fundamental del proyecto, se identificaron las restricciones y posibilidades de la API.
+    \item \textbf{Procesamiento de datos}: Se implementó la lógica necesaria para filtrar, organizar y transformar los datos obtenidos en el backend de la aplicación mediante los \textit{Route Handlers}.
+    \item \textbf{Diseño de la interfaz de usuario}: Gracias a la facilidad de uso de los estilos de \textit{Tailwind CSS}, se desarrolló una interfaz intuitiva, interactiva y responsiva, asegurando una experiencia de usuario fluida en distintos dispositivos.
+    \item \textbf{Uso de tecnologías modernas}: Se utilizaron \textit{Next.js}, \textit{React} y \textit{TypeScript}, aprovechando sus ventajas en estructuración del código, tipado estático y rendimiento optimizado.
+    \item \textbf{Automatización del despliegue}: Se implementaron prácticas de \textit{CI/CD} con \textit{Vercel} y \textit{GitHub Actions}, permitiendo un flujo automatizado de pruebas antes de un despliegue, accionado por un push a la rama principal \texttt{main}.
+    \item \textbf{Seguridad y gestión de datos}: Se respetaron las políticas de \textit{Spotify} relevantes para este proyecto, como la no persistencia de datos, la gestión de la autorización mediante \textit{OAuth 2.0} y el manejo seguro de los datos del usuario.
+    \item \textbf{Documentación del desarrollo}: Se registró detalladamente el proceso completo, asegurando la trazabilidad de las decisiones y facilitando la revisión del trabajo realizado, plasmado en esta memoria.
+\end{itemize}
+
+En conclusión, el proyecto \textbf{ha cumplido con éxito todos sus objetivos}, tanto a nivel general como en cada uno de los aspectos específicos definidos en la planificación. A pesar de algunos ajustes en funcionalidades concretas debido a limitaciones técnicas, la plataforma desarrollada mantiene la esencia del planteamiento original y proporciona una experiencia completa y funcional para el usuario.
 
 \section{Conclusiones Personales}
 
+Desde una perspectiva personal, este proyecto ha representado un desafío significativo, que ha permitido consolidar conocimientos en desarrollo web, gestión de datos y metodologías de trabajo. Entre los principales aprendizajes adquiridos, se destacan:
+
+\begin{itemize}
+    \item La experiencia práctica en el manejo de \textit{Next.js}, \textit{React}, \textit{TypeScript} y la integración con APIs externas, entendiendo sus ventajas y limitaciones. \textbf{Tecnologías y habilidades muy solicitadas} a día de hoy en el entorno laboral.
+    \item La importancia de la \textbf{planificación preventiva}, especialmente cuando se trabaja con servicios de terceros que pueden sufrir modificaciones inesperadas.
+    \item La necesidad de un \textbf{enfoque iterativo en el desarrollo}, lo que permitió ajustar funcionalidades y optimizar el diseño de la plataforma sobre la marcha.
+    \item La mejora en \textbf{habilidades de depuración y resolución de problemas}. Son habilidades tranferibles y aplicables a una gran variedad de áreas diferentes.
+    \item El \textbf{aprendizaje sobre estrategias de seguridad} y autenticación de usuarios, asegurando el cumplimiento de políticas establecidas por proveedores externos.
+    \item La \textbf{capacidad de gestionar un proyecto de mediana escala} desde su concepción hasta su implementación, documentando cada fase y asegurando la trazabilidad del trabajo realizado.
+\end{itemize}
+
+En resumen, este proyecto ha sido una oportunidad valiosa para fortalecer habilidades técnicas y de gestión, enfrentando retos reales y desarrollando una solución que tiene aplicabilidad más allá de lo puramente académico.
+
 \section{Líneas Futuras}
 
+A pesar de haber alcanzado los objetivos planteados, existen múltiples oportunidades para extender y mejorar la plataforma en futuras versiones. Muchas de las exclusiones definidas en la planificación fueron necesarias para mantener el alcance dentro de los límites de un Trabajo de Fin de Grado, pero representan funcionalidades interesantes y factibles de implementar en un desarrollo posterior.
 
-Como cierre del seguimiento y control del proyecto, se han identificado algunas buenas prácticas a consolidar y aspectos a mejorar en futuros proyectos similares.
+En un plazo medio de tiempo, algunas de las mejoras que podrían incorporarse incluyen:
 
-\textbf{Buenas prácticas:}
+\newpage
+
 \begin{itemize}
-    \item Planificación flexible con margen para incidencias.
-    \item Registro detallado de decisiones y cambios en el proyecto.
-    \item Validaciones continuas con pruebas automatizadas para detectar errores tempranamente.
+    \item \textbf{Soporte para varios idiomas}: Actualmente, la interfaz solo está disponible en español, pero sería viable implementar una opción multilingüe que permita a los usuarios elegir su idioma preferido.
+    \item \textbf{Integración con otras plataformas de streaming}: Explorar la posibilidad de obtener datos de servicios adicionales, como \textit{Apple Music} o \textit{Deezer}, en caso de que sus APIs públicas lo permitan.
+    \item \textbf{Funcionalidades de interacción social}: Implementar opciones para compartir estadísticas de escucha en redes sociales o permitir la comparación con otros usuarios de la plataforma, fomentando una experiencia más interactiva.
 \end{itemize}
 
-\textbf{Aspectos a mejorar:}
-\begin{itemize}
-    \item Mejor estimación del tiempo necesario para ciertas tareas técnicas.
-    \item Mayor anticipación en la gestión de incidencias técnicas con tecnologías nuevas.
-\end{itemize}
+Además, el diseño modular aplicado a las estadísticas avanzadas facilita la exploración e integración de nuevas métricas. La posibilidad de añadir nuevas visualizaciones de datos sin afectar la estructura principal de la aplicación permitiría expandir la oferta de análisis. En términos de optimización, a medida que se incorporen más funcionalidades, será importante evaluar estrategias para mejorar el rendimiento y la carga de datos, como técnicas de caché y preprocesamiento para minimizar las llamadas a la API de \textit{Spotify} y reducir los tiempos de carga.
 
-En conclusión, a pesar de los ajustes y dificultades encontradas, el proyecto ha cumplido sus objetivos y ha permitido aplicar metodologías de gestión de proyectos de manera efectiva.
+Otro paso importante en la evolución de esta plataforma sería solicitar acceso al \textbf{Extended Quota Mode} de \textit{Spotify}. Esta autorización eliminaría las restricciones sobre el número de usuarios, permitiendo ampliar significativamente el alcance de la aplicación. Sin embargo, para llegar a este punto, sería necesario garantizar previamente que la plataforma sea estable, robusta y segura. Además, este proceso podría implicar costos adicionales en términos de \textit{hosting} y medidas de seguridad, por lo que su viabilidad dependería de una evaluación detallada de los recursos disponibles. No obstante, obtener esta autorización representaría un gran paso hacia la profesionalización del proyecto.
+
+En conclusión, este proyecto ha sentado una base sólida para el análisis de datos de \textit{Spotify} mediante una plataforma web interactiva. A partir de este punto, las mejoras futuras podrían convertirlo en una herramienta aún más completa y atractiva, dentro de un mercado de nicho con poca competencia pero un gran potencial de alcance, gracias a la gran popularidad que cada año genera la publicación de \textit{Spotify Wrapped}.
+
