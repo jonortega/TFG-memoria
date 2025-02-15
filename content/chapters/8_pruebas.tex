@@ -1,6 +1,6 @@
 \section{Implementación de Pruebas}
 
-Para garantizar el correcto funcionamiento de la aplicación, durante el desarrollo se ha realizado una fase de pruebas. Principalmente se han implementado pruebas unitarias, pero también algunas pruebas de integración para verificar el comportamiento de ciertos componentes y su interaccion con los componentes vecinos.
+Para garantizar el correcto funcionamiento de la aplicación, durante el desarrollo se ha realizado una fase de pruebas. Principalmente se han implementado pruebas unitarias, pero también algunas pruebas de integración para verificar el comportamiento de ciertos componentes y su interacción con los componentes vecinos.
 
 \subsection{Framework y Librerías}
 
@@ -52,7 +52,7 @@ En esta sección se presenta un resumen de las pruebas realizadas para los compo
     \label{tab:numero_test_endpoints}
 \end{table}
 
-Se puede destacar que el componente (y elemento) con más tests realizados ha sido \textbf{StatWrapper}. Esto se debe a que es el componente encargado de renderizar en su interior todas las estadísticas avanzadas, por lo que es una pieza importante de la página web. Tiene muchas interacciones posible, como formas de cerrar la ventana modal, y se realizan una variedad de pruebas para asegurarse de que el componente se muestra y se oculta de manera correcta, cuando esto deba ocurrir.
+Se puede destacar que el componente (y elemento) con más tests realizados ha sido \textbf{StatWrapper}. Esto se debe a que es el componente encargado de renderizar en su interior todas las estadísticas avanzadas, por lo que es una pieza importante de la página web. Tiene muchas interacciones posibles, como formas de cerrar la ventana modal, y se realizan una variedad de pruebas para asegurarse de que el componente se muestra y se oculta de manera correcta, cuando esto deba ocurrir.
 
 \newpage
 
@@ -74,7 +74,7 @@ La tasa de éxito del 100\% en las pruebas refleja que todas las verificaciones 
 
 Uno de los principales obstáculos ha sido la incompatibilidad de ciertas librerías con Jest. Por ejemplo, los módulos basados en \textit{CommonJS}, como \texttt{D3.js}, han presentado dificultades en su integración con el entorno de pruebas. Además, los componentes que dependen de \texttt{canvas} no cuentan con soporte nativo en Jest, lo que impidió la ejecución de tests sobre algunos gráficos. Se intentó mitigar estos problemas mediante \textit{mocking} de dependencias, pero sin obtener resultados satisfactorios para todos los casos.
 
-Aún así, la principal razón por la que se ha decidido suprimir los tests problemáticos ha sido por el flujo CI: Dado que está configurado en \textit{GitHub Actions} para ejecutar la suite de pruebas antes de cada despliegue en \textit{Vercel}, cualquier fallo en los tests bloquearía la actualización del código en producción. Para evitar interrupciones innecesarias en el despliegue debido a errores ajenos a la aplicación, se optó por retirar aquellas pruebas que no podían ofrecer resultados fiables sin comprometer la estabilidad del CI. A pesar de esta decisión, se ha garantizado que los tests implementados cubren los aspectos esenciales del sistema. Se han validado correctamente los endpoints del backend, la lógica de negocio y los principales componentes del frontend, asegurando que las funcionalidades críticas de la aplicación están correctamente verificadas. Para aquellos aspectos que no podían ser testeados automáticamente con Jest, como ciertos elementos gráficos o validaciones de autenticación, se han realizado pruebas manuales.
+Aun así, la principal razón por la que se ha decidido suprimir los tests problemáticos ha sido por el flujo CI: Dado que está configurado en \textit{GitHub Actions} para ejecutar la suite de pruebas antes de cada despliegue en \textit{Vercel}, cualquier fallo en los tests bloquearía la actualización del código en producción. Para evitar interrupciones innecesarias en el despliegue debido a errores ajenos a la aplicación, se optó por retirar aquellas pruebas que no podían ofrecer resultados fiables sin comprometer la estabilidad del CI. A pesar de esta decisión, se ha garantizado que los tests implementados cubren los aspectos esenciales del sistema. Se han validado correctamente los endpoints del backend, la lógica de negocio y los principales componentes del frontend, asegurando que las funcionalidades críticas de la aplicación están correctamente verificadas. Para aquellos aspectos que no podían ser testeados automáticamente con Jest, como ciertos elementos gráficos o validaciones de autenticación, se han realizado pruebas manuales.
 
 Finalmente, se ha trabajado en el tiempo de ejecución de las pruebas, logrando que la batería completa de 122 tests se ejecute en un promedio de 17.15 segundos. Este tiempo es aceptable, donde cada ejecución acumula tiempos entre la creación y configuración del entorno y la ejecución de los tests. Mantener este tiempo bajo control es un aspecto importarte en un flujo CI/CD.
 

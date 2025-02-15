@@ -7,7 +7,7 @@ Los requisitos funcionales describen las funcionalidades esenciales que debe cum
     \item El usuario debe poder iniciar sesión utilizando su cuenta de \textit{Spotify} mediante OAuth 2.0.
     \item El usuario debe poder cerrar sesión desde cualquier página.
     \item El cierre de sesión debe eliminar cualquier dato asociado al usuario.
-    \item La aplicación debe obtener y gestionar adecuadamente e token de acceso para interactuar con la API de \textit{Spotify}.
+    \item La aplicación debe obtener y gestionar adecuadamente el token de acceso para interactuar con la API de \textit{Spotify}.
     \item La sesión del usuario debe permanecer activa mientras este interactúe con la aplicación web. En caso de que el tiempo de validez del token expire, el sistema debe renovar el token de forma transparente para el usuario.
 \end{itemize}
 
@@ -21,7 +21,7 @@ Los requisitos funcionales describen las funcionalidades esenciales que debe cum
           \end{itemize}
 \end{itemize}
 
-\subsection{Estadísiticas Generales (Home)}
+\subsection{Estadísticas Generales (Home)}
 \begin{itemize}
     \item El usuario debe ver una página inicial con estadísticas generales relacionadas con su cuenta, siendo las siguientes:
           \begin{itemize}
@@ -94,7 +94,7 @@ Se presentará al usuario, de forma visual, dos métricas relacionadas con sus p
 \begin{itemize}
     \item Cada valor estará asociado a una onda sinusoidal animada, cuya frecuencia se ajustará proporcionalmente al valor numérico correspondiente.
     \item El usuario podrá pulsar un botón que generará una nueva onda. Esta nueva onda se calcula mediante la suma matemática de las frecuencias de las dos ondas originales, mostrando la interferencia entre las dos. Además, junto a esta nueva onda, se mostrará la diferencia numérica entre los dos valores originales.
-    \item El usuario podrá pasar el ratón sobre la tarjeta de cualquiera de los valores para resaltar visualmente la onda correspondiente, facilitando la identidicación.
+    \item El usuario podrá pasar el ratón sobre la tarjeta de cualquiera de los valores para resaltar visualmente la onda correspondiente, facilitando la identificación.
     \item Los cálculos y la generación de datos necesarios para esta estadística se realizarán principalmente en el servidor.
 \end{itemize}
 

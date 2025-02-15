@@ -1,10 +1,10 @@
 \section{Entorno de Desarrollo Local}
 
-Para garantizar la reproducibilidad del proyecto, en esta sección se descibirá el entrono de desarrollo en el que se ha realizado y el acceso al repositorio con el código fuente.
+Para garantizar la reproducibilidad del proyecto, en esta sección se describirá el entorno de desarrollo en el que se ha realizado y el acceso al repositorio con el código fuente.
 
 \subsection{Tecnologías y Versiones}
 
-El proyecto se ha desarrollado en un entorno \textbf{Windows 10}, aunque esto no influye en la compatibilidad, ya que todas las tecnologías utilizadas son multiplataforma, lo cual permite realizar el desarrollo en cualquier sistema operativo sin restricciones. En la tabla \ref{tab:dependencias_versiones} se presentan las tecnologías principales empleadas en el proyecto junto con sus versiones correspondientes.
+El proyecto se ha desarrollado en un entorno \textbf{Windows 10}, aunque esto no influye en la compatibilidad, ya que todas las tecnologías utilizadas son multiplataformas, lo cual permite realizar el desarrollo en cualquier sistema operativo sin restricciones. En la tabla \ref{tab:dependencias_versiones} se presentan las tecnologías principales empleadas en el proyecto junto con sus versiones correspondientes.
 
 \begin{table}[htbp]
     \centering
@@ -18,7 +18,7 @@ Cabe destacar que el gestor de paquetes utilizado en el proyecto ha sido \textbf
 
 \subsection{Instalación y Configuración del Proyecto}
 
-El proyecto se encuentra alojado en un repositorio de \textit{GitHub}\footnote{Repositorio del proyecto: \href{https://github.com/jonortega/tfg-app-spotify}{https://github.com/jonortega/tfg-app-spotify}} para evitar pérdidas y tener disponibilidad completa al código. Para ejecutarlo localmente, además de haber instalado \textit{Node.js}, hay que clonar el respositorio, acceder a la carpeta y ejecutar los comandos de instalación y ejecución. A continuación, se muestran los comandos necesarios para realizar estos pasos:
+El proyecto se encuentra alojado en un repositorio de \textit{GitHub}\footnote{Repositorio del proyecto: \href{https://github.com/jonortega/tfg-app-spotify}{https://github.com/jonortega/tfg-app-spotify}} para evitar pérdidas y tener disponibilidad completa al código. Para ejecutarlo localmente, además de haber instalado \textit{Node.js}, hay que clonar el repositorio, acceder a la carpeta y ejecutar los comandos de instalación y ejecución. A continuación, se muestran los comandos necesarios para realizar estos pasos:
 
 \begin{ifalgorithm}[H]
     \begin{lstlisting}[language=bash]
@@ -38,7 +38,7 @@ El proyecto se encuentra alojado en un repositorio de \textit{GitHub}\footnote{R
     \label{alg:instalacion_proyecto}
 \end{ifalgorithm}
 
-Tras estos pasos, la página web estará accesible en \texttt{localhost:3000}. Es encesario agregar un fichero de variables de entorno \texttt{.env.local}, ya que, por seguridad, no se registra en el sistema de control de versiones. El contenido de dicho fichero se muestra en el \hyperref[ch:anexoC]{Anexo C} (algoritmo \ref{alg:variables_entorno}).
+Tras estos pasos, la página web estará accesible en \texttt{localhost:3000}. Es necesario agregar un fichero de variables de entorno \texttt{.env.local}, ya que, por seguridad, no se registra en el sistema de control de versiones. El contenido de dicho fichero se muestra en el \hyperref[ch:anexoC]{Anexo C} (algoritmo \ref{alg:variables_entorno}).
 
 Dos de las variables de entorno necesarias para poder tratar con la API de \textit{Spotify}, son el \textbf{Client ID} y el \textbf{Client Secret}. Estos dos valores se obtienen al realizar el registro de la aplicación en la plataforma de desarrollo de \textit{Spotify}. En la siguiente sección, se explicará cómo realizar este registro y dónde obtener dichas variables.
 
@@ -46,7 +46,7 @@ Dos de las variables de entorno necesarias para poder tratar con la API de \text
 
 \section{Registro de la Aplicación en Spotify}
 
-Para poder obtener datos de la Web API de \textit{Spotify}, es necesario registra la aplicación en su plataforma de desarrollo\footnote{Spotify for Developers: \href{https://developer.spotify.com/}{https://developer.spotify.com/}}. Tras inciar con una cuenta, se nos presentará un panel donde podremos crear una nueva app. \textit{Spotify} pedirá algunos datos (figura \ref{fig:create_app}), que tendremos que rellenar. Los campos como \textit{Redirect URIs} pueden ser modificados posteriormente, ya que tendremos que actualizarlo con el dominio indicado tras el despliegue de la aplicación.
+Para poder obtener datos de la Web API de \textit{Spotify}, es necesario registra la aplicación en su plataforma de desarrollo\footnote{Spotify for Developers: \href{https://developer.spotify.com/}{https://developer.spotify.com/}}. Tras iniciar con una cuenta, se nos presentará un panel donde podremos crear una nueva app. \textit{Spotify} pedirá algunos datos (figura \ref{fig:create_app}), que tendremos que rellenar. Los campos como \textit{Redirect URIs} pueden ser modificados posteriormente, ya que tendremos que actualizarlo con el dominio indicado tras el despliegue de la aplicación.
 
 \begin{figure}[H]
     \centering
@@ -88,7 +88,7 @@ El ciclo de desarrollo del proyecto ha seguido un enfoque híbrido entre los mod
 
 \subsection*{Incremento I: Prototipado Rápido}
 
-Durante la fase inical de adquisición de competencias, se desarrolló un prototipo rápido para validar la viabilidad técnica del proyecto. No se buscaba crear la base desde donde seguir trabajando una vez inicase el desarrollo formal; si no que, utilizando herramientas más simples, se quería obtener una idea preliminar de cómo se podrían implementar las funcionalidades principales. No se utilizaron las tecnologías finales del desarrollo, por lo que gran parte del código implementado no fue reutilizado.
+Durante la fase inicial de adquisición de competencias, se desarrolló un prototipo rápido para validar la viabilidad técnica del proyecto. No se buscaba crear la base desde donde seguir trabajando una vez que se inicie el desarrollo formal; si no que, utilizando herramientas más simples, se quería obtener una idea preliminar de cómo se podrían implementar las funcionalidades principales. No se utilizaron las tecnologías finales del desarrollo, por lo que gran parte del código implementado no fue reutilizado.
 
 En este prototipo se implementaron las siguientes funcionalidades, en diferentes grados de completado:
 \setlength{\itemsep}{0pt}
@@ -169,7 +169,7 @@ No obstante, es importante utilizar los sistemas de seguridad que las propias co
     \item \textbf{maxAge}: Define el tiempo de \textbf{expiración de las cookies}. El \texttt{access\_token} tiene una validez de una hora, mientras que el \texttt{refresh\_token} se mantiene activo durante 24 horas, permitiendo la renovación del token de acceso sin necesidad de solicitar credenciales nuevamente.
 \end{itemize}
 
-Estableciendo de esta manera el \texttt{access\_token} y el \texttt{refresh\_token} en las cookies y enviándolas en la respuesta al cliente, se mantiene la posibilidad de que cada usuario envíe su propio token como identificador, pero manteniendo la seguridad frente a ataques comunes. También se debe mencionar que, por el hecho de haber habilitado el \textit{flag} \texttt{httpOnly}, \textbf{ningún componente de cliente puede realizar peticiones directamente desde el neavegador}. Todas las peticiones de datos a la API de \textit{Spotify} deben de ser realizadas a tráves del backend seguro.
+Estableciendo de esta manera el \texttt{access\_token} y el \texttt{refresh\_token} en las cookies y enviándolas en la respuesta al cliente, se mantiene la posibilidad de que cada usuario envíe su propio token como identificador, pero manteniendo la seguridad frente a ataques comunes. También se debe mencionar que, por el hecho de haber habilitado el \textit{flag} \texttt{httpOnly}, \textbf{ningún componente de cliente puede realizar peticiones directamente desde el navegador}. Todas las peticiones de datos a la API de \textit{Spotify} deben de ser realizadas a través del backend seguro.
 
 \subsection*{Implicaciones de la Decisión del uso de las Cookies}
 
@@ -225,7 +225,7 @@ Las estadísticas avanzadas se encuentran en la página \texttt{/stats}, la cual
 
 El componente \textbf{Stats} contiene la estructura principal de la página, incluyendo el \textbf{StatsGrid} (que muestra las tarjetas de estadísticas) y el \textbf{StatWrapper} (que gestiona la visualización de la estadística seleccionada). La gestión de los estados se centraliza en el componente padre \textbf{Stats}, mientras que, a través de \textit{props}, se pasa a los componentes hijos las funciones definidas que habilitan la actualización de esos estados (ver código en el anexo, algoritmo \ref{alg:stats_component}).
 
-Cuando un \textbf{StatCard} es clicada, ejecuta dicha función y actualiza el estado \texttt{activeStat} con el valor del \texttt{statId} que contiene cada tarjeta y el estado \texttt{isModalOpen}, indicando que que se abra la ventana modal. Al detectar un cambio en su estado, \textbf{Stats} se vuelve a renderizar, provocando, a su vez, el renderizado de sus componentes hijos. Ahora, \textbf{StatWrapper} obtiene el valor \texttt{activeStat} como un \textit{prop} y puede cargar la estadística apropiada.
+Cuando un \textbf{StatCard} es clicada, ejecuta dicha función y actualiza el estado \texttt{activeStat} con el valor del \texttt{statId} que contiene cada tarjeta y el estado \texttt{isModalOpen}, indicando que se abra la ventana modal. Al detectar un cambio en su estado, \textbf{Stats} se vuelve a renderizar, provocando, a su vez, el renderizado de sus componentes hijos. Ahora, \textbf{StatWrapper} obtiene el valor \texttt{activeStat} como un \textit{prop} y puede cargar la estadística apropiada.
 
 \begin{figure}[H]
     \centering
@@ -353,7 +353,7 @@ A continuación, se explican dos de las implementaciones más relevantes dentro 
 
 \subsubsection*{Estaciones Musicales}
 
-Como ya se ha mencionado en el \hyperref[sec:estudio_api_tracks]{Estudio de la API de Spotify}, la API no permite acceder al historial completo de reproducciones pasadas de un usuario, por lo que utilizar los elementos ``destacados'' de cada estación, se realizan en base a las canciones favoritas del el usuario.
+Como ya se ha mencionado en el \hyperref[sec:estudio_api_tracks]{Estudio de la API de Spotify}, la API no permite acceder al historial completo de reproducciones pasadas de un usuario, por lo que utilizar los elementos ``destacados'' de cada estación, se realizan en base a las canciones favoritas del usuario.
 
 Primero se obtiene la lista de todas las canciones guardadas en el último año. A cada una de estas canciones se le asigna una estación específica en función de su fecha de guardado. Posteriormente, se contabiliza cuántas veces aparece cada artista dentro de cada estación. \textbf{El artista con mayor frecuencia en una estación es considerado el artista destacado de ese período}.
 
@@ -388,7 +388,7 @@ El resto de los endpoints se encuentran en el \hyperref[ch:anexoD]{Anexo D}, don
 
 \section{Middleware}
 
-El \textit{middleware} en \textit{Next.js} permite interceptar y modificar las solicitudes HTTP antes de que lleguen a las rutas del \textit{App Router} o los endpoints de los \textit{Route Handers}. En esta aplicación, se usa como un sistema de separación entre las rutas para usuarios no autenticados (\texttt{/}, la raíz) y las rutas protegidas tras las autenticación y autorización (\texttt{/home} y \texttt{/stats}). Su código completo se encuentra disponible en el anexo, en el algoritmo \ref{alg:middleware}.
+El \textit{middleware} en \textit{Next.js} permite interceptar y modificar las solicitudes HTTP antes de que lleguen a las rutas del \textit{App Router} o los endpoints de los \textit{Route Handlers}. En esta aplicación, se usa como un sistema de separación entre las rutas para usuarios no autenticados (\texttt{/}, la raíz) y las rutas protegidas tras las autenticación y autorización (\texttt{/home} y \texttt{/stats}). Su código completo se encuentra disponible en el anexo, en el algoritmo \ref{alg:middleware}.
 
 \subsection{Funcionamiento del Middleware}
 

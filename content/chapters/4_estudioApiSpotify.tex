@@ -178,7 +178,7 @@ En el grupo \textbf{Users} se encuentran los endpoints relacionados con la infor
               \item \texttt{display\_name}: Nombre mostrado en el perfil del usuario.
               \item \texttt{email}: Dirección de correo del usuario, ingresada al crear la cuenta.
               \item \texttt{id}: ID del usuario en Spotify.
-              \item \texttt{images}: Array conteniendo las URLs de la imagen del perfil del usuarios en distintos tamaños.
+              \item \texttt{images}: Array conteniendo las URLs de la imagen del perfil del usuario en distintos tamaños.
               \item \texttt{followers}: Objeto con la información sobre los seguidores del usuario.
           \end{itemize}
 \end{itemize}
@@ -247,7 +247,7 @@ En el grupo \textbf{Users} se encuentran los endpoints relacionados con la infor
               \item \texttt{popularity}: Su popularidad (0-100).
               \item \texttt{followers}: Objeto con la información sobre los seguidores del artista.
               \item \texttt{genres}: Lista de géneros asociados al artista. Si el artista aún no está clasificado, el array estará vacío.
-              \item \texttt{images}: Array conteniendo las URLs de la imágene del artista en distintos tamaños.
+              \item \texttt{images}: Array conteniendo las URLs de la imagen del artista en distintos tamaños.
           \end{itemize}
 
 \end{itemize}
@@ -330,7 +330,7 @@ Este endpoint, además de permitir identificar las canciones favoritas del usuar
           \begin{itemize}
               \item \texttt{next}: URL a la página siguiente de elementos. \texttt{null} si no hay más elementos.
               \item \texttt{total}: Número total de elementos disponibles.
-              \item \texttt{items}: Array de objetos con la información del los tracks guardados.
+              \item \texttt{items}: Array de objetos con la información de los tracks guardados.
                     \begin{itemize}
                         \item \texttt{added\_at}: Fecha y hora en la que se guardó el track en formato ISO.
                         \item \texttt{track}: Objeto con la información sobre el track.
@@ -459,7 +459,7 @@ En \textbf{Playlists} se encuentran los endpoints que permiten trabajar con las 
                     \end{itemize}
               \item \textbf{Body}
                     \begin{itemize}
-                        \item Imagen en formato JPEG codificada en Base64 (máx 256 KB) .
+                        \item Imagen en formato JPEG codificada en Base64 (máx. 256 KB) .
                     \end{itemize}
           \end{itemize}
     \item \textbf{Campos del Response}
@@ -495,7 +495,7 @@ Cada uno de ellos añadirá una descripción asociada en la pantalla de autoriza
 
 \section{Limitaciones y Consideraciones}
 
-Además del límite de 50 canciones en el endpoint de \textbf{Get Recently Played Tracks} y otras limitaciones relacionadas con el acceso a datos concretos, la principal limitación impuesta por la API de \textit{Spotify} es la \textbf{tasa de peticiones} o  \textit{\textbf{rate limit}}. Esta limitación se establece para evitar la sobrecarga de los servidores y garantizar un funcionamiento estable del servicio. La tasa de peticiones de Spotify se calcula en una ventana de 30 segundos (figura \ref{fig:rate_limit}). Si la aplicación supera este límite en dicho periodo, recibirá una respuesta de error \texttt{429 Too Many Requests} y los recursos solicitados quedarán temporalmente inaccesibles.
+Además del límite de 50 canciones en el endpoint de \textbf{Get Recently Played Tracks} y otras limitaciones relacionadas con el acceso a datos concretos, la principal limitación impuesta por la API de \textit{Spotify} es la \textbf{tasa de peticiones} o \textit{\textbf{rate limit}}. Esta limitación se establece para evitar la sobrecarga de los servidores y garantizar un funcionamiento estable del servicio. La tasa de peticiones de Spotify se calcula en una ventana de 30 segundos (figura \ref{fig:rate_limit}). Si la aplicación supera este límite en dicho periodo, recibirá una respuesta de error \texttt{429 Too Many Requests} y los recursos solicitados quedarán temporalmente inaccesibles.
 
 \begin{figure}[H]
     \centering
@@ -521,7 +521,7 @@ El uso de la API de \textit{Spotify} está regulado por un marco legal detallado
 
 Se subrayan dos principios básicos en sus términos: \textbf{la protección de los derechos de los usuarios} y \textbf{la garantía de que el contenido ofrecido en su plataforma está debidamente licenciado}. Esto implica que cualquier aplicación desarrollada debe respetar la privacidad de los usuarios y manejar los datos conforme a las preferencias que ellos definan. Además, está prohibido utilizar los datos o contenidos de \textit{Spotify} para fines no autorizados, como entrenar modelos de inteligencia artificial o crear bases de datos derivadas.
 
-El uso de la API está sujeto a restricciones específicas, que se berán de cumplir en este proyecto. Entre las más relevantes se destacan:
+El uso de la API está sujeto a restricciones específicas, que se deberán de cumplir en este proyecto. Entre las más relevantes se destacan:
 
 \begin{itemize}
     \item \textbf{Acceso y uso de datos:} Solo se pueden solicitar los datos necesarios para operar la aplicación y deben eliminarse si un usuario decide desconectar su cuenta de \textit{Spotify}.
@@ -544,6 +544,6 @@ Los desarrolladores son responsables de implementar medidas de seguridad estánd
 
 \subsection{Implicaciones para el TFG}
 
-La implementación de la aplicación debe garantizar el cumplimiento de las políticas mencionadas, especialemente la correcta gestión de los datos personales de los usuarios y el uso correcto de los recursos. En este sentido, es importante solicitar únicamente los \textit{scopes} necesarios para las funcionalidades definidas, asegurando que cada autorización concedida por los usuarios esté justificada. También queda claro que el único uso válido del almacenamiento de los datos es el de la caché temporal en el servidor, con el propósito de optimizar el rendimiento. Además, en caso de que el usuario decida desconectar su cuenta de la aplicación, se debe implementar procesos claros y que aseguren la eliminación completa de sus datos.
+La implementación de la aplicación debe garantizar el cumplimiento de las políticas mencionadas, especialmente la correcta gestión de los datos personales de los usuarios y el uso correcto de los recursos. En este sentido, es importante solicitar únicamente los \textit{scopes} necesarios para las funcionalidades definidas, asegurando que cada autorización concedida por los usuarios esté justificada. También queda claro que el único uso válido del almacenamiento de los datos es el de la caché temporal en el servidor, con el propósito de optimizar el rendimiento. Además, en caso de que el usuario decida desconectar su cuenta de la aplicación, se debe implementar procesos claros y que aseguren la eliminación completa de sus datos.
 
 \textit{Spotify} se reserva el derecho de revisar las aplicaciones que acceden a su API para garantizar que cumplan con los términos establecidos. En caso de detectar alguna infracción, como el incumplimiento de la normativa descrita, pueden limitar el acceso, revocar permisos o incluso suspender completamente la funcionalidad de la aplicación. Por lo tanto, el diseño y desarrollo de la aplicación deben incorporar estas consideraciones desde el principio, para evitar cualquier tipo de conflicto con la política de \textit{Spotify}.

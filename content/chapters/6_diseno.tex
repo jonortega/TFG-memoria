@@ -2,7 +2,7 @@
 
 La arquitectura del sistema se basa por completo en el uso de \textit{Next.js}, un framework de \textit{React} que permite la creación de aplicaciones web, con la funcionalidad clave de un backend integrado. Desde la versión 13 de \textit{Next.js} se introdujo el concepto de \textbf{App Router}, que crea las rutas de la web en base a la organización de las carpetas dentro del proyecto. Junto a esto, se introdujeron los \textbf{Route Handlers}, que permiten la creación de endpoints API REST de la misma manera, creando un backend integrado que hace de intermediario entre el cliente y los servicios externos. De esta manera, se consigue una arquitectura notablemente más simplificada, además de segura, ya que se puede controlar la exposición de datos sensibles al cliente.
 
-Otra caracterísitica muy útil de \textit{Next.js}, son los \textbf{Server Components}, que permiten renderizar componentes en el servidor en lugar del cliente. Solo aquellos componentes que sean necesarios serán enviados y ejecutados en el cliente, mejorando el rendimiento y la seguridad. Estos componentes pueden realizar llamadas a los endpoints proporcionados por los \textit{Route Handlers}, recreando los roles de un sistema cliente-servidor tradicional. En el diagrama \ref{fig:arquitectura_sistema} se pueden ver representadas estas interacciones.
+Otra característica muy útil de \textit{Next.js}, son los \textbf{Server Components}, que permiten renderizar componentes en el servidor en lugar del cliente. Solo aquellos componentes que sean necesarios serán enviados y ejecutados en el cliente, mejorando el rendimiento y la seguridad. Estos componentes pueden realizar llamadas a los endpoints proporcionados por los \textit{Route Handlers}, recreando los roles de un sistema cliente-servidor tradicional. En el diagrama \ref{fig:arquitectura_sistema} se pueden ver representadas estas interacciones.
 
 \begin{figure}[H]
     \centering
@@ -65,7 +65,7 @@ La estructura de carpetas para los endpoints de este proyecto es la siguiente:
             └── tus-decadas/route.ts
 \end{verbatim}
 
-Los endpoints en \texttt{/api/auth/} gestionan el incio de sesión del usuario, mientras que los de \texttt{/api/home/} y \texttt{/api/stats/} se encargan de obtener y procesar los datos necesarios para las estadísiticas. El contenido del fichero \texttt{route.ts} sigue una convención concreta que \textit{Next.js} reconoce y utiliza para gestionar las peticiones, la cual se explicará con más detalle en el capítulo de \nameref{ch:implementacion}.
+Los endpoints en \texttt{/api/auth/} gestionan el inicio de sesión del usuario, mientras que los de \texttt{/api/home/} y \texttt{/api/stats/} se encargan de obtener y procesar los datos necesarios para las estadísticas. El contenido del fichero \texttt{route.ts} sigue una convención concreta que \textit{Next.js} reconoce y utiliza para gestionar las peticiones, la cual se explicará con más detalle en el capítulo de \nameref{ch:implementacion}.
 
 \section{Diagrama de Componentes de React} \label{sec:diagrama_componentes_react}
 
@@ -80,7 +80,7 @@ Las interfaces se suelen diseñar en forma de jerarquías de componentes, en las
     \label{fig:componentes_react}
 \end{figure}
 
-Como se muestra en el diagrama, se pueden diferenciar tres tipos diferentes de compontentes, según sus características. \textit{React} define dos principales clases: los \textbf{Client Components} y, los ya mecionados, \textbf{Server Componens}. \textit{Next.js} hace uso concreto de esta diferenciación para optimizar las páginas. Como su nombre indica, los \textit{client components} son componentes de \textit{React} que se ejecutan en el navagador del cliente. Para ello, es necesario enviar toda la lógica junto con el HTML y los estilos, haciendo que este tipo de componentes sean más pesados y requieran más computación por parte de la máquina del usuario. Como respuesta, se introdujeron los \textit{server components}, para que los componentes que no contuviesen funcionalidades de interacción complejas pudieran ser renderizados en el servidor, enviando solamente el HTML y los estilos necesarios al cliente. Con esto se reduce considerablemente la carga del navegador y mejora la rapidez de la web.
+Como se muestra en el diagrama, se pueden diferenciar tres tipos diferentes de componentes, según sus características. \textit{React} define dos principales clases: los \textbf{Client Components} y, los ya mencionados, \textbf{Server Componens}. \textit{Next.js} hace uso concreto de esta diferenciación para optimizar las páginas. Como su nombre indica, los \textit{client components} son componentes de \textit{React} que se ejecutan en el navegador del cliente. Para ello, es necesario enviar toda la lógica junto con el HTML y los estilos, haciendo que este tipo de componentes sean más pesados y requieran más computación por parte de la máquina del usuario. Como respuesta, se introdujeron los \textit{server components}, para que los componentes que no contuviesen funcionalidades de interacción complejas pudieran ser renderizados en el servidor, enviando solamente el HTML y los estilos necesarios al cliente. Con esto se reduce considerablemente la carga del navegador y mejora la rapidez de la web.
 
 El tercer tipo de componente, los \textbf{Loading Components}, no son una clasificación oficial, si no que se ha querido hacer una diferenciación con respecto a los componentes ``comunes''. No añaden funcionalidad ni información concreta a la página, solamente se usan como sustitutos temporales mientras se cargan los componentes finales. Son especialmente útiles para usarlos junto con los \textit{server components}, ya que estos pueden tardar en ser enviados al cliente por el proceso de renderizado (y carga de datos) en el servidor. Hasta entonces, \textit{Next.js} recurre a mostrar el \textit{loading component} para dar un feedback al usuario (figura \ref{alg:suspense_fallback}). Además, estos componentes pueden modelarse de tal forma que representen el ``esqueleto'' del estilo del componente final. Todo esto permite que el proceso de carga se sienta más rápido e informativo, mejorando la experiencia del usuario.
 
@@ -114,11 +114,11 @@ La interfaz de usuario es uno de los aspectos más flexibles dentro del desarrol
 
 \subsection{Principios de Diseño}
 
-Como \textit{Spotify} es una plataforma ampliamente conocida y tiene una identidad visual muy reconocible, se decidió inspirar la interfaz en su diseño. La plataforma propociona una guía para los desarrolladores que incluye recomendaciones muy útiles \cite{spotifyDesign2025}. De entre ellas, se han seleccionado aquellos elementos que resultan relevantes para el uso y alcance de esta aplicación, que se sintetizan en los siguientes puntos:
+Como \textit{Spotify} es una plataforma ampliamente conocida y tiene una identidad visual muy reconocible, se decidió inspirar la interfaz en su diseño. La plataforma proporciona una guía para los desarrolladores que incluye recomendaciones muy útiles \cite{spotifyDesign2025}. De entre ellas, se han seleccionado aquellos elementos que resultan relevantes para el uso y alcance de esta aplicación, que se sintetizan en los siguientes puntos:
 
 \subsubsection*{Colores}
 
-El principal identificador visual de \textit{Spotify} es su color verde, llamado \textbf{Spotify Green}. Este color es el que se ha utilizado como el color primario para la página web. Además, se han incorporado el blanco y negro oficiales y también algunos colores complementarios, como el zul y el rojo, para aportar variedad en las situaciones en las que se necesite.
+El principal identificador visual de \textit{Spotify} es su color verde, llamado \textbf{Spotify Green}. Este color es el que se ha utilizado como el color primario para la página web. Además, se han incorporado el blanco y negro oficiales y también algunos colores complementarios, como el azul y el rojo, para aportar variedad en las situaciones en las que se necesite.
 
 \begin{figure}[H]
     \centering
@@ -131,7 +131,7 @@ Estas combinaciones respetan las recomendaciones de la plataforma, que desaconse
 
 \subsubsection*{Tipografía}
 
-Aunque \textit{Spotify} no proporciona acceso público a su tipografía ofical, sugieren usar fuentes sans-serif como \textit{Helvetica} o \textit{Arial}. En el caso de este proyecto, se ha optado por hacer uso de la tipografía \textbf{Inter} (figura \ref{fig:inter_fuente}), ya que se asemeja más a la original que las recomendadas. Podemos encontrarla en \textit{Google Fonts}, pero \textit{Next.js} nos evita la necesidad de tener que descargarla, ya que está incluida de forma predeterminada en el framework.
+Aunque \textit{Spotify} no proporciona acceso público a su tipografía oficial, sugieren usar fuentes sans-serif como \textit{Helvética} o \textit{Arial}. En el caso de este proyecto, se ha optado por hacer uso de la tipografía \textbf{Inter} (figura \ref{fig:inter_fuente}), ya que se asemeja más a la original que las recomendadas. Podemos encontrarla en \textit{Google Fonts}, pero \textit{Next.js} nos evita la necesidad de tener que descargarla, ya que está incluida de forma predeterminada en el framework.
 
 \begin{figure}[H]
     \centering
@@ -142,7 +142,7 @@ Aunque \textit{Spotify} no proporciona acceso público a su tipografía ofical, 
 
 \subsection{Tailwind CSS}
 
-Para el estilizado de los elementos de la interfaz se ha utilizado \textit{Tailwind CSS}, una librería de utilidades que permite desarrollar estilos de manera rápida y eficiente. En vez de crear un estilo agrupado que se asocie a cada elemento, el enfoque de \textit{Tailwind} se basa en agregar pequeñas clases utilitarias predefinidas a cada elemento mediante el atributo \texttt{className} en JSX (figura \ref{alg:ejemplo_tailwind}), aplicandole así el resultado de la combinación de todos esos estilos.
+Para el estilizado de los elementos de la interfaz se ha utilizado \textit{Tailwind CSS}, una librería de utilidades que permite desarrollar estilos de manera rápida y eficiente. En vez de crear un estilo agrupado que se asocie a cada elemento, el enfoque de \textit{Tailwind} se basa en agregar pequeñas clases utilitarias predefinidas a cada elemento mediante el atributo \texttt{className} en JSX (figura \ref{alg:ejemplo_tailwind}), aplicándole así el resultado de la combinación de todos esos estilos.
 
 % Ajustar espacios antes de este entorno
 \setlength{\intextsep}{15pt} % Espacio superior
@@ -162,13 +162,13 @@ Para el estilizado de los elementos de la interfaz se ha utilizado \textit{Tailw
     \label{alg:ejemplo_tailwind}
 \end{ifalgorithm}
 
-De esta manera se evita la necesidad de definir manualmente grandes cantidades de estilos en archivos CSS. Además de los estilos estéticos, \textit{Tailwind} aporta muchas clases relacionadas con la adaptavilidad de los componentes a diferentes dispositivos, para generar interfaces \textit{responsive} con facilidad.
+De esta manera se evita la necesidad de definir manualmente grandes cantidades de estilos en archivos CSS. Además de los estilos estéticos, \textit{Tailwind} aporta muchas clases relacionadas con la adaptabilidad de los componentes a diferentes dispositivos, para generar interfaces \textit{responsive} con facilidad.
 
 Otra razón por la que se ha decidido utilizar este sistema, es su integración con \textit{React} y \textit{Next.js}. Es un stack de tecnologías frontend muy popular, por lo que existe mucha documentación al respecto y se garantiza una gran compatibilidad. Además, \textit{Tailwind} es muy flexible y permite personalizar los estilos de manera sencilla para ajustarlos a cualquier tipo de proyecto.
 
 \subsection{Páginas y Componentes Principales}
 
-Para finalizar con la cacterización de la interfaz de usuario, se presentarán los componentes de la web, la distribución de los elementos dentro de ella y las decisiones tomadas al respecto. Dado el enfoque más técnico de este documento, solo se han incluido las figuras de los componentes principales. Los detalles específicos de cada estadística y elementos secundarios de la interfaz se han trasladado al \hyperref[ch:anexoA]{Anexo A}.
+Para finalizar con la caracterización de la interfaz de usuario, se presentarán los componentes de la web, la distribución de los elementos dentro de ella y las decisiones tomadas al respecto. Dado el enfoque más técnico de este documento, solo se han incluido las figuras de los componentes principales. Los detalles específicos de cada estadística y elementos secundarios de la interfaz se han trasladado al \hyperref[ch:anexoA]{Anexo A}.
 
 La primera página presentada al usuario es la página de \textbf{inicio de sesión} (figura \ref{fig:login}), que se encuentra en la ruta raíz. Solo se presenta una interacción posible, que es con el botón de \textit{Log In}. Además de la parte puramente funcional, esta pantalla inicial permite una introducción visual al estilo de la web, centrado en los colores ya presentados y la decisión de usar un fondo negro, al igual que la aplicación nativa de \textit{Spotify}.
 
@@ -188,7 +188,7 @@ Una vez dentro, la navegación entre las diferentes secciones se realiza a trav�
     \label{fig:navbar}
 \end{figure}
 
-La primera sección tras el inicio de sesión es el \textbf{Home} (\ref{fig:home}), donde se presentan las estadísticas básicas del usuario. Para organizar la información, se ha optado por un diseño basado en módulos, que encapsulan cada una de las estadísticas. Demás del los datos del perfil del usuario, se muestran los tres tops (\textit{Top Tracks}, \textit{Top artists} y  \textit{Top Genres}). Justo debajo, manteniendo una separación, se encuentra la sección de \textit{Recently Played}, que se puede ver al desplazar la ventana.
+La primera sección tras el inicio de sesión es el \textbf{Home} (\ref{fig:home}), donde se presentan las estadísticas básicas del usuario. Para organizar la información, se ha optado por un diseño basado en módulos, que encapsulan cada una de las estadísticas. Además de los datos del perfil del usuario, se muestran los tres tops (\textit{Top Tracks}, \textit{Top artists} y \textit{Top Genres}). Justo debajo, manteniendo una separación, se encuentra la sección de \textit{Recently Played}, que se puede ver al desplazar la ventana.
 
 \begin{figure}[H]
     \centering
@@ -197,7 +197,7 @@ La primera sección tras el inicio de sesión es el \textbf{Home} (\ref{fig:home
     \label{fig:home}
 \end{figure}
 
-La segunda gran sección es la de \textbf{Stats} (figura \ref{fig:stats}), donde se han implementado las estadísticas avanzadas. Al igual que en el \textit{Home}, se mantiene el diseño modular basado en tarjetas, pero en este caso con una disposición más flexible para generar una presentación más interesante. Al hacer clic sobre cualquiera de ellas, se abre una \textbf{ventana modal} (figura \ref{fig:modal}) sobre la página, en la que se carga y renderiza la estadística seleccionada. Oscureciendo y difuminando el fondo, se da una sensación de profundidad y crea una separación para foco en la estadísitica. El usuario puede cerrar la ventana modal en cualquier momento haciendo clic fuera de ella o mediante el botón de cierre.
+La segunda gran sección es la de \textbf{Stats} (figura \ref{fig:stats}), donde se han implementado las estadísticas avanzadas. Al igual que en el \textit{Home}, se mantiene el diseño modular basado en tarjetas, pero en este caso con una disposición más flexible para generar una presentación más interesante. Al hacer clic sobre cualquiera de ellas, se abre una \textbf{ventana modal} (figura \ref{fig:modal}) sobre la página, en la que se carga y renderiza la estadística seleccionada. Oscureciendo y difuminando el fondo, se da una sensación de profundidad y crea una separación para foco en la estadística. El usuario puede cerrar la ventana modal en cualquier momento haciendo clic fuera de ella o mediante el botón de cierre.
 
 \begin{figure}[H]
     \centering
@@ -232,7 +232,7 @@ En esta sección se presentan los diagramas de secuencia más importantes. Se ha
 
 \subsection*{Iniciar Sesión}
 
-Aunque la acción para el usuario sea simple, este caso de uso requiere varios pasos y llamadas a la API de \textit{Spotify} por parte de la lógica de la aplicación. La complejidad viene principalmente viene de la gestión de los errores, ya que, durante este proceso, existen dos puntos en los que el usuario puede rechazar (o ser rechazado) el inicio de sesión. Esos dos casos son: si el usurio introduce las credenciales incorrectas en la autenticación o si el usuario decide no dar la autorización necesaria a la aplicación para trabajar con sus datos. En el diagrama \ref{fig:ds_iniciar_sesion} se caracterizan todas estas posibilidades con los marcos de interacción alternativas.
+Aunque la acción para el usuario sea simple, este caso de uso requiere varios pasos y llamadas a la API de \textit{Spotify} por parte de la lógica de la aplicación. La complejidad viene principalmente viene de la gestión de los errores, ya que, durante este proceso, existen dos puntos en los que el usuario puede rechazar (o ser rechazado) el inicio de sesión. Esos dos casos son: si el usuario introduce las credenciales incorrectas en la autenticación o si el usuario decide no dar la autorización necesaria a la aplicación para trabajar con sus datos. En el diagrama \ref{fig:ds_iniciar_sesion} se caracterizan todas estas posibilidades con los marcos de interacción alternativas.
 
 \begin{figure}[H]
     \centering
@@ -254,7 +254,7 @@ En este este caso de uso, la aplicación carga la página de \textit{Home} junto
 
 \subsection*{Acceder a Stats}
 
-Al acceder a la página de \textit{Stats}, se renderizan varias instancias del mismo componente \textsl{StatCard}, una para cada estadística. Luego, cuando el usuario selecciona una de ellas, el componente envía el \texttt{statId} de la estadística correspondiente al componente \texttt{StatWrapper}. Por último, el \texttt{StatWrapper} renderizará el componente asociado al indentificador de manera dinámica, cuyos diagramas de secuencia se han definido de manera independiente. El acceso a \textit{Stats} se ha caracterizado en el siguiente diagrama \ref{fig:ds_acceder_stats}:
+Al acceder a la página de \textit{Stats}, se renderizan varias instancias del mismo componente \textsl{StatCard}, una para cada estadística. Luego, cuando el usuario selecciona una de ellas, el componente envía el \texttt{statId} de la estadística correspondiente al componente \texttt{StatWrapper}. Por último, el \texttt{StatWrapper} renderizará el componente asociado al identificador de manera dinámica, cuyos diagramas de secuencia se han definido de manera independiente. El acceso a \textit{Stats} se ha caracterizado en el siguiente diagrama \ref{fig:ds_acceder_stats}:
 
 \begin{figure}[H]
     \centering
@@ -265,7 +265,7 @@ Al acceder a la página de \textit{Stats}, se renderizan varias instancias del m
 
 \subsection*{Ver Hall Of Fame}
 
-El renderizado y la carga de la estadística \textit{Hall Of Fame} se realiza de manera estándar, pero ofrece una funcionalidad añadida, identificado con el caso de uso extendido \textbf{Crear Playlist} (diagrama \ref{fig:ds_ver_hall_of_fame}). Al clicar sobre el botón, se realizan varias interacciónes en cadena con la API de \textit{Spotify} para crear la playlist, añadir canciones y establecer una nueva portada.
+El renderizado y la carga de la estadística \textit{Hall Of Fame} se realiza de manera estándar, pero ofrece una funcionalidad añadida, identificado con el caso de uso extendido \textbf{Crear Playlist} (diagrama \ref{fig:ds_ver_hall_of_fame}). Al clicar sobre el botón, se realizan varias interacciones en cadena con la API de \textit{Spotify} para crear la playlist, añadir canciones y establecer una nueva portada.
 
 \begin{figure}[H]
     \centering
@@ -287,7 +287,7 @@ En el caso de esta estadística, se permite al usuario navegar entre los distint
 
 \section{Diseño de la Seguridad} \label{sec:diseno_seguridad}
 
-Como esta aplicación maneja información privada de los usuarios, un aspecto crítico en el diseño y desarrollo de la misma es la seguridad. En esta sección se describen las medidas implementadas para proteger los datos de posibles ataques comunes y reducir las vulnerabilidades del sistema.
+Como esta aplicación maneja información privada de los usuarios, un aspecto crítico en el diseño y desarrollo de esta, es la seguridad. En esta sección se describen las medidas implementadas para proteger los datos de posibles ataques comunes y reducir las vulnerabilidades del sistema.
 
 \subsection{Gestión de Credenciales}
 
@@ -295,7 +295,7 @@ La mala gestión de credenciales es un punto de vulnerabilidad común en aplicac
 
 \subsubsection*{Client ID y Client Secret}
 
-En la creación de una aplicación que hace uso de la API de \textit{Spotify}, se obtiene un \textbf{client\_id} y un \textbf{client\_secret} que son necesarios para la autenticación con la API. Estas credenciales pertenecen al desarrollador y deben ser protegidas adecuadamente para evitar su exposición a terceros no autorizados. Se almacenan exclusivamente en el servidor, en un archivo de variables de entorno (\texttt{.env.local}), que no se incluye en el control de versiones. En el momento del despliegue, estas variables se cargan en el entorno de producción, que han de ser anteriormente indicadas de manera manual a través de un panel de configuración de \textit{Vercel}. Se puede acceder a estas variables en el lógica del servidor mediante el obtejo \texttt{process.env}.
+En la creación de una aplicación que hace uso de la API de \textit{Spotify}, se obtiene un \textbf{client\_id} y un \textbf{client\_secret} que son necesarios para la autenticación con la API. Estas credenciales pertenecen al desarrollador y deben ser protegidas adecuadamente para evitar su exposición a terceros no autorizados. Se almacenan exclusivamente en el servidor, en un archivo de variables de entorno (\texttt{.env.local}), que no se incluye en el control de versiones. En el momento del despliegue, estas variables se cargan en el entorno de producción, que han de ser anteriormente indicadas de manera manual a través de un panel de configuración de \textit{Vercel}. Se puede acceder a estas variables en la lógica del servidor mediante el obtejo \texttt{process.env}.
 
 \subsubsection*{Prevención de CSRF y Scopes}
 
@@ -315,9 +315,9 @@ Una vez que el usuario ha iniciado sesión y la aplicación ha obtenido un \text
 
 \subsection{Routing y Conexiones Seguras}
 
-Next.js proporciona un sistema de \textbf{middleware} que permite ejecutar procesos antes de que se manejen las solicitudes de las rutas. En este proyecto, se ha implementado un middleware que verifica la validez de las cookies de sesión antes de permitir el acceso a las rutas protegidas. Si no existe una cookie con un access token, el usuario es redirigido a la página de inicio de sesión, grantizando que solo los usuarios autenticados puedan acceder a las estadísticas y los datos personales.
+Next.js proporciona un sistema de \textbf{middleware} que permite ejecutar procesos antes de que se manejen las solicitudes de las rutas. En este proyecto, se ha implementado un middleware que verifica la validez de las cookies de sesión antes de permitir el acceso a las rutas protegidas. Si no existe una cookie con un access token, el usuario es redirigido a la página de inicio de sesión, garantizando que solo los usuarios autenticados puedan acceder a las estadísticas y los datos personales.
 
-Para la comunicación entre el cliente y la aplicación, al desplegatse en \textit{Vercel}, éste proporciona automáticamente \textbf{conexiones HTTPS} para todas las solicitudes. Esto garantiza la confidencialidad de los datos transmitidos entre el cliente y el servidor, protegiendo contra ataques de intercepción como el MITM.
+Para la comunicación entre el cliente y la aplicación, al desplegarse en \textit{Vercel}, éste proporciona automáticamente \textbf{conexiones HTTPS} para todas las solicitudes. Esto garantiza la confidencialidad de los datos transmitidos entre el cliente y el servidor, protegiendo contra ataques de intercepción como el MITM.
 
 \subsection{Otras Medidas}
 
