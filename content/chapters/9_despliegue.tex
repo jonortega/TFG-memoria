@@ -52,7 +52,7 @@ Es importante destacar que, para garantizar una transición fluida entre el ento
 
 \subsection{Análisis y Monitoreo}
 
-\textit{Vercel} ofrece un panel de control desde donde se pueden visualizar diversas métricas y modificar opciones de configuración. Para este proyecto, es importante monitorizar los indicadores de recursos consumidos (figura \ref{fig:usage_overview}), para asegurar que no llegan al límite del plan gratuito.
+\textit{Vercel} ofrece un panel de control desde donde se pueden visualizar diversas métricas y modificar opciones de configuración. Es importante monitorizar los indicadores de recursos consumidos (figura \ref{fig:usage_overview}), para asegurar que no llegan al límite del plan gratuito.
 
 \begin{figure}[H]
     \centering
@@ -69,9 +69,9 @@ Por esta razón, \textit{Vercel} y otras plataformas similares ofrecen mecanismo
 
 \section{Ejecución Automática de Tests} \label{sec:test_automaticos}
 
-Para poder realizar la ejecución de los tests de manera automática, se debe crear un fichero de workflow dentro de la ruta \texttt{.github/workflows/} en la raíz del proyecto. En este caso, se ha creado un fichero \textbf{\texttt{test-and-deploy.yml}} (fichero en \hyperref[ch:anexoF]{Anexo F}). Dentro de este fichero se configuran los pasos que \textit{GitHub Actions} debe realizar para la configuración del entorno, la ejecución de las pruebas y el despliegue, si se requiere.
+Para poder realizar la ejecución de los tests de manera automática, se debe crear un fichero de workflow dentro de la ruta \texttt{.github/workflows/} en la raíz del proyecto. En este caso, se ha creado un fichero \textbf{\texttt{test-and-deploy.yml}} (fichero en \hyperref[ch:anexoF]{Anexo F}). Dentro de éste, se establecen los pasos que \textit{GitHub Actions} debe realizar para la configuración del entorno, la ejecución de las pruebas y el despliegue.
 
-Este workflow consta de dos jobs principales: el job de \textbf{pruebas} y el job de \textbf{deploy}. Una de las particularidades más relevantes de esta configuración es que, debido a problemas con la dependencia \texttt{canvas}, se ha tenido que optar por un enfoque híbrido en la gestión de paquetes: se usa \textbf{npm para las pruebas} y \textbf{pnpm para el despliegue}. Esta decisión fue necesaria para evitar conflictos con las dependencias de \texttt{jest-environment-jsdom} y \texttt{canvas}, que generaban errores en la instalación cuando se intentaba usar \texttt{pnpm} en los tests. Adicionalmente, para garantizar que \texttt{pnpm} no genere problemas con la caché en el deploy, se ha \textbf{desactivado la caché de pnpm} en el workflow.
+Este workflow consta de dos jobs principales: el job de \textbf{pruebas} y el job de \textbf{despliegue}. Una de las particularidades más relevantes de esta configuración es que, debido a problemas con la dependencia \texttt{canvas}, se ha tenido que optar por un enfoque híbrido en la gestión de paquetes: se usa \textbf{npm para las pruebas} y \textbf{pnpm para el despliegue}. Esta decisión fue necesaria para evitar conflictos con las dependencias de \texttt{jest-environment-jsdom} y \texttt{canvas}, que generaban errores en la instalación cuando se intentaba usar \texttt{pnpm} en los tests. Adicionalmente, para garantizar que \texttt{pnpm} no genere problemas con la caché en el despliegue, se ha \textbf{desactivado la caché de pnpm} en el workflow.
 
 \subsection*{Job de Pruebas}
 
@@ -81,9 +81,9 @@ Tras la instalación de dependencias, se realiza un rebuild de \texttt{canvas} p
 
 \subsection*{Job de Despliegue}
 
-Si el job de pruebas finaliza correctamente, se ejecuta el job de \texttt{deploy}, el cual se encarga de desplegar la aplicación en \texttt{Vercel}. Para ello, primero se realiza un nuevo \texttt{checkout} del repositorio y se instala \texttt{Node.js} en la misma versión utilizada en los tests. Dado que el proyecto ha sido desarrollado con \texttt{pnpm}, en este punto se instala \texttt{pnpm} y se verifica su correcta instalación ejecutando \texttt{pnpm --version}.
+Si el job de pruebas finaliza correctamente, se ejecuta el job de \texttt{deploy}, el cual se encarga de desplegar la aplicación en \textit{Vercel}. Para ello, primero se realiza un nuevo \texttt{checkout} del repositorio y se instala \texttt{Node.js} en la misma versión utilizada en los tests. Dado que el proyecto ha sido desarrollado con \texttt{pnpm}, en este punto se instala \texttt{pnpm}.
 
-Posteriormente, se instalan las dependencias con \texttt{pnpm install --frozen-lockfile} para garantizar que la instalación sea consistente con el archivo \texttt{pnpm-lock.yaml}. A continuación, se instala la CLI de \texttt{Vercel} utilizando \texttt{pnpm dlx vercel@latest pull}, lo que permite obtener la configuración de despliegue de la aplicación. Finalmente, se ejecuta el despliegue en producción mediante \texttt{pnpm dlx vercel --prod}.
+Posteriormente, se instalan las dependencias con \texttt{pnpm install --frozen-lockfile} para garantizar que sea consistente con el archivo \texttt{pnpm-lock.yaml}. A continuación, se instala la CLI de \texttt{Vercel} utilizando \texttt{pnpm dlx vercel@latest pull}, lo que permite obtener la configuración de despliegue de la aplicación. Finalmente, \textbf{se ejecuta el despliegue en producción mediante \texttt{pnpm dlx vercel --prod}}.
 
 \subsection{Configuración de Variables de Entorno}
 
@@ -100,13 +100,13 @@ Para visualizar la correcta ejecución del proceso, se han capturado dos imágen
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.75\textwidth]{figures/despliegue/github_actions.png}
-    \caption{Workflow en \textit{GitHub Actions}: ejecución de tests y despliegue en Vercel tras un push a \texttt{main}.}
+    \caption{Workflow en \textit{GitHub Actions}: ejecución de tests y despliegue en \textit{Vercel} tras un push a \texttt{main}.}
     \label{fig:github_actions}
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.75\textwidth]{figures/despliegue/actions_deploy_vercel.png}
-    \caption{Despliegue exitoso en Vercel con el mismo commit de \textit{GitHub Actions}.}
+    \caption{Despliegue exitoso en \textit{Vercel} con el mismo commit de \textit{GitHub Actions}.}
     \label{fig:actions_deploy_vercel}
 \end{figure}

@@ -108,7 +108,7 @@ En este prototipo se implementaron las siguientes funcionalidades, en diferentes
 
 \subsection*{Incremento II: Producto Mínimo Viable (PMV)}
 
-Una vez terminada la planificación del proyecto, se dio comienzo a una primera implementación del sistema, desarrollando una base de código que formaría parte del producto final. En esta fase, se utilizaron todas las tecnologías finales seleccionadas para el desarrollo, incluyendo \textit{Next.js}, \textit{React}, TypeScript y \textit{Tailwind CSS}.
+Una vez terminada la planificación del proyecto, se dio comienzo a una primera implementación del sistema, desarrollando una base de código que formaría parte del producto final. En esta fase, se utilizaron todas las tecnologías finales seleccionadas para el desarrollo, incluyendo \textit{Next.js}, \textit{React}, \textit{TypeScript} y \textit{Tailwind CSS}.
 
 Durante este incremento, se completaron las siguientes partes fundamentales del sistema:
 
@@ -225,7 +225,7 @@ Las estadísticas avanzadas se encuentran en la página \texttt{/stats}, la cual
 
 El componente \textbf{Stats} contiene la estructura principal de la página, incluyendo el \textbf{StatsGrid} (que muestra las tarjetas de estadísticas) y el \textbf{StatWrapper} (que gestiona la visualización de la estadística seleccionada). La gestión de los estados se centraliza en el componente padre \textbf{Stats}, mientras que, a través de \textit{props}, se pasa a los componentes hijos las funciones definidas que habilitan la actualización de esos estados (ver código en el anexo, algoritmo \ref{alg:stats_component}).
 
-Cuando un \textbf{StatCard} es clicada, ejecuta dicha función y actualiza el estado \texttt{activeStat} con el valor del \texttt{statId} que contiene cada tarjeta y el estado \texttt{isModalOpen}, indicando que se abra la ventana modal. Al detectar un cambio en su estado, \textbf{Stats} se vuelve a renderizar, provocando, a su vez, el renderizado de sus componentes hijos. Ahora, \textbf{StatWrapper} obtiene el valor \texttt{activeStat} como un \textit{prop} y puede cargar la estadística apropiada.
+Cuando un \textbf{StatCard} es clicado, ejecuta dicha función y actualiza el estado \texttt{activeStat} con el valor del \texttt{statId} que contiene cada tarjeta y el estado \texttt{isModalOpen}, indicando que se abra la ventana modal. Al detectar un cambio en su estado, \textbf{Stats} se vuelve a renderizar, provocando, a su vez, el renderizado de sus componentes hijos. Ahora, \textbf{StatWrapper} obtiene el valor \texttt{activeStat} como un \textit{prop} y puede cargar la estadística apropiada.
 
 \begin{figure}[H]
     \centering
@@ -280,7 +280,7 @@ La estadística \textit{Hall Of Fame} permite al usuario visualizar una cuadríc
 
 \newpage
 
-Antes de enviar la imagen al backend, la imagen se somete a un proceso de optimización (función \texttt{optimizeImage()} en el algoritmo \ref{alg:optimize_image}) para reducir su tamaño y que ocupe el límite máximo de datos a enviar (256 KB) con la máxima calidad posible bajo dicha restricción.
+Antes de enviar la imagen al backend, se somete a un proceso de optimización (función \texttt{optimizeImage()} en el algoritmo \ref{alg:optimize_image}) para reducir su tamaño y que ocupe el límite máximo de datos a enviar (256 KB) con la máxima calidad posible bajo dicha restricción.
 
 \subsubsection*{ii. Estaciones Musicales}
 
@@ -353,11 +353,11 @@ A continuación, se explican dos de las implementaciones más relevantes dentro 
 
 \subsubsection*{Estaciones Musicales}
 
-Como ya se ha mencionado en el \hyperref[sec:estudio_api_tracks]{Estudio de la API de Spotify}, la API no permite acceder al historial completo de reproducciones pasadas de un usuario, por lo que utilizar los elementos ``destacados'' de cada estación, se realizan en base a las canciones favoritas del usuario.
+Como ya se ha mencionado en el \hyperref[sec:estudio_api_tracks]{Estudio de la API de Spotify}, la API no permite acceder al historial completo de reproducciones pasadas de un usuario, por lo que el cálculo de los elementos ``destacados'' de cada estación, se realizan en base a las canciones favoritas del usuario.
 
-Primero se obtiene la lista de todas las canciones guardadas en el último año. A cada una de estas canciones se le asigna una estación específica en función de su fecha de guardado. Posteriormente, se contabiliza cuántas veces aparece cada artista dentro de cada estación. \textbf{El artista con mayor frecuencia en una estación es considerado el artista destacado de ese período}.
+Primero se obtiene la lista de todas las canciones guardadas en el último año. A cada una de estas canciones se le asigna una estación específica en función de su fecha de guardado. Se contabiliza cuántas veces aparece cada artista dentro de cada estación. \textbf{El artista con mayor frecuencia en una estación es considerado el artista destacado de ese período}.
 
-El proceso de selección del género representativo de cada estación sigue una lógica similar, pero con una particularidad adicional: los géneros están asociados a los artistas y no a las canciones individualmente. Para obtener esta información, se recopilan los artistas correspondientes a cada estación y se consultan sus géneros mediante la API de \textit{Spotify}. Como un mismo artista puede pertenecer a varios géneros, se agrupan todos los géneros de todos los artistas de la estación y se contabilizan sus apariciones. Finalmente, \textbf{el género con más repeticiones se considera el género representativo de esa estación}. Es importante notar que el artista más destacado y el género más representativo de una estación no tienen por qué coincidir, ya que cada uno se obtiene mediante un proceso de conteo independiente.
+El proceso de selección del género representativo sigue una lógica similar, pero con una particularidad adicional: los géneros están asociados a los artistas y no a las canciones individualmente. Para obtener esta información, se recopilan los artistas correspondientes a cada estación y se consultan sus géneros mediante la API de \textit{Spotify}. Como un mismo artista puede pertenecer a varios géneros, se agrupan todos los géneros de todos los artistas de la estación y se contabilizan sus apariciones. Finalmente, \textbf{el género con más repeticiones se considera el género representativo}. Es importante notar que el artista más destacado y el género más representativo de una estación no tienen por qué coincidir, ya que cada uno se obtiene mediante un proceso de conteo independiente.
 
 Una vez determinado el artista y el género, se estructura la información en un objeto JSON con los datos completamente procesados. Este formato permite que el frontend reciba los datos de manera limpia y lista para su visualización, sin necesidad de realizar cálculos adicionales.
 
@@ -422,7 +422,7 @@ El acceso a la API de \textit{Spotify} es un aspecto crítico dentro del funcion
 
 Para aquellos casos en los que se requiere obtener una gran cantidad de información, como en \textit{La Bitácora}, \textit{Tus Décadas} o \textit{Índice De Interferencia}, se ha implementado un \textbf{sistema de paginación} que permite recuperar los datos en lotes, evitando bloqueos y reduciendo el tiempo de espera. Además, en el caso de \textit{La Bitácora}, se ha implementado un sistema de \textbf{caché en memoria} que almacena los datos agregados, lo que evita que se realicen cálculos repetitivos y mejora significativamente la velocidad de respuesta del servidor.
 
-Por otro lado, en \textit{Índice de Interferencia}, donde el objetivo es comparar la frecuencia de escucha habitual del usuario con su comportamiento actual, se decidió emplear un \textbf{muestreo de datos} en lugar de analizar toda la biblioteca musical al completo. Al detectar una cantidad mayor de 500 canciones guardadas, el sistema toma una muestra representativa del 20\% del total, que permite calcular una buena aproximación sin comprometer el rendimiento.
+Por otro lado, en \textit{Índice de Interferencia}, donde el objetivo es comparar la frecuencia de escucha habitual del usuario con su comportamiento actual, se decidió emplear el \textbf{muestreo de datos} que se ha descrito anteriormente. Al detectar una cantidad mayor de 500 canciones guardadas, el sistema toma una muestra representativa del 20\% del total, que permite calcular una buena aproximación sin comprometer el rendimiento.
 
 A nivel general de todas las estadísticas, también se ha optimizado el filtrado de datos antes de enviarlos al frontend, eliminando aquellos valores innecesarios y asegurando que las respuestas sean lo más ligeras posible.
 
@@ -454,9 +454,9 @@ En el caso de \textit{Índice de Interferencia}, se han aplicado varias mejoras 
 
 \subsubsection*{Tus Décadas}
 
-En \textit{Tus Décadas}, se ha mejorado la navegación y visualización de los álbumes organizados por año. Siendo la estadística que más recursos demanda del cliente, el cambio de una implementación manual al uso de la librería \textit{Konva} ha sido la pieza clave para que fuese funcional. \textit{Konva} permite dividir los elementos gráficos en capas (\textit{layers}), asegurando que solo se rendericen aquellos elementos que están en pantalla.
+En \textit{Tus Décadas}, se ha mejorado la navegación y visualización de los álbumes organizados por año. Siendo la estadística que más recursos demanda del cliente, el cambio de una implementación manual al uso de la \textbf{librería Konva} ha sido la pieza clave para que fuese funcional. \textit{Konva} permite dividir los elementos gráficos en capas (\textit{layers}), asegurando que solo se rendericen aquellos elementos que están en pantalla.
 
-También se ha mejorado la experiencia de exploración al añadir soporte para zoom dinámico y desplazamiento, permitiendo que el usuario pueda navegar libremente entre las diferentes décadas y explorar su colección de álbumes de manera intuitiva. En iteraciones anteriores, esta funcionalidad también se había implementado de manera manual, que daba resultado a una experiencia más limitante y muy lenta.
+También se ha mejorado la experiencia de exploración al añadir soporte para zoom dinámico y desplazamiento, permitiendo que el usuario pueda navegar libremente entre las diferentes décadas y explorar su colección de álbumes de manera intuitiva. En iteraciones anteriores, esta funcionalidad también se había implementado de manera manual, que daba resultado a una experiencia más limitante y lenta.
 
 \subsection{Impacto General de las Optimizaciones}
 

@@ -1,6 +1,6 @@
 \section{Descripción General}
 
-La API de Spotify es el núcleo del proyecto, ya que proporciona acceso a los datos necesarios para generar las estadísticas y visualizaciones que constituyen el objetivo principal de este trabajo. Es una interfaz que permite a las aplicaciones externas interactuar con la plataforma de manera programática. Su propósito principal es proporcionar acceso estructurado a los datos, permitiendo a los desarrolladores integrar funcionalidades avanzadas en sus propias aplicaciones. A través de esta API, es posible obtener información sobre las canciones, artistas, álbumes, listas de reproducción y \textbf{datos personalizados del usuario}, como sus preferencias musicales o sus hábitos de escucha. Gracias a estos últimos, es posible ofrecer una experiencia personalizada para cada usuario.
+La API de \textit{Spotify} es el núcleo del proyecto, ya que proporciona acceso a los datos necesarios para generar las estadísticas y visualizaciones que constituyen el objetivo principal de este trabajo. Es una interfaz que permite a las aplicaciones externas interactuar con la plataforma de manera programática. Su propósito principal es proporcionar acceso estructurado a los datos, permitiendo a los desarrolladores integrar funcionalidades avanzadas en sus propias aplicaciones. A través de esta API, es posible obtener información sobre las canciones, artistas, álbumes, listas de reproducción y \textbf{datos personalizados del usuario}, como sus preferencias musicales o sus hábitos de escucha. Gracias a estos últimos, es posible ofrecer una experiencia personalizada para cada usuario.
 
 Entre las características técnicas más destacadas se encuentran:
 
@@ -9,10 +9,10 @@ Entre las características técnicas más destacadas se encuentran:
     \item \textbf{Protocolo}: HTTPS.
     \item \textbf{Métodos soportados}: \texttt{GET}, \texttt{POST}, \texttt{PUT} y \texttt{DELETE}.
     \item \textbf{Formato de respuesta}: JSON
-    \item \textbf{Seguridad}: Acceso protegido mediante OAuth 2.0.
+    \item \textbf{Seguridad}: Acceso protegido mediante \textit{OAuth 2.0}.
 \end{itemize}
 
-Gracias a estas características, la API de Spotify facilita la manipulación de datos por las respuestas en formato JSON, al tiempo que garantiza la seguridad y privacidad del usuario mediante el uso del protocolo OAuth 2.0. Estas cualidades la convierten en una herramienta versátil y segura, capaz de adaptarse a una amplia variedad de proyectos.
+Gracias a estas características, la API de \textit{Spotify} facilita la manipulación de datos por las respuestas en formato JSON, al tiempo que garantiza la seguridad y privacidad del usuario mediante el uso del protocolo \textit{OAuth 2.0}. Estas cualidades la convierten en una herramienta versátil y segura, capaz de adaptarse a una amplia variedad de proyectos.
 
 \newpage
 
@@ -21,35 +21,35 @@ Gracias a estas características, la API de Spotify facilita la manipulación de
 Antes de avanzar, es importante entender que en este proceso hay dos conceptos clave: \textbf{autenticación} y \textbf{autorización}. Aunque están relacionados, existen ciertas diferencias importantes:
 
 \begin{itemize}
-    \item \textbf{Autenticación}: Es el paso en el que se \underline{verifica la identidad} del usuario. En este caso, ocurre cuando el usuario inicia sesión en Spotify para confirmar que es quien dice ser. Este proceso es transparente para el desarrollador ya que Spotify, mediante OAuth 2.0, se encarga de gestionarlo.
+    \item \textbf{Autenticación}: Es el paso en el que se \underline{verifica la identidad} del usuario. En este caso, ocurre cuando el usuario inicia sesión en \textit{Spotify} para confirmar que es quien dice ser. Este proceso es transparente para el desarrollador ya que \textit{Spotify}, mediante \textit{OAuth 2.0}, se encarga de gestionarlo.
     \item \textbf{Autorización}: Es el paso en el que el usuario \underline{concede permisos} para que la aplicación acceda a ciertos recursos de su cuenta. Este proceso es clave, ya que sin estos permisos, la aplicación no podría acceder a los datos necesarios para ofrecer sus funcionalidades.
 \end{itemize}
 
-Una vez que la aplicación obtiene la autorización, Spotify permite el acceso a los datos solicitados de forma controlada. Un concepto fundamental en esta etapa son los \textbf{scopes}, que determinan exactamente qué datos y funcionalidades están disponibles para la aplicación.
+Una vez que la aplicación obtiene la autorización, \textit{Spotify} permite el acceso a los datos solicitados de forma controlada. Un concepto fundamental en esta etapa son los \textbf{scopes}, que determinan exactamente qué datos y funcionalidades están disponibles para la aplicación.
 
 \subsection*{Scopes: Controlando el Acceso a los Recursos} \label{subsubsec:scopes}
 
-Los scopes (alcances) permiten a los usuarios tener la tranquilidad de que únicamente compartirán la información que han autorizado explícitamente. Cuando un programador configura el flujo de autorización, debe especificar los scopes necesarios (de un total de 24) para que la aplicación pueda acceder a los recursos protegidos. En función de los scopes solicitados, Spotify mostrará al usuario una pantalla indicando qué permisos específicos se están requiriendo (figura \ref{fig:auth_popup}). El usuario puede entonces aceptar o rechazar estos permisos.
+Los scopes (alcances) permiten a los usuarios tener la tranquilidad de que únicamente compartirán la información que han autorizado explícitamente. Cuando un programador configura el flujo de autorización, debe especificar los scopes necesarios (de un total de 24) para que la aplicación pueda acceder a los recursos protegidos. En función de los scopes solicitados, \textit{Spotify} mostrará al usuario una pantalla indicando qué permisos específicos se están requiriendo (figura \ref{fig:auth_popup}). El usuario puede entonces aceptar o rechazar estos permisos.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.3\textwidth]{./figures/auth_popup.png}
-    \caption{Pantalla de autorización de scopes en Spotify.}
+    \caption{Pantalla de autorización de scopes en \textit{Spotify}.}
     \label{fig:auth_popup}
 \end{figure}
 
-Una vez que la aplicación obtiene la autorización, el siguiente paso es conseguir el \texttt{access\_token}, necesario para acceder a los recursos autorizados. Un concepto clave para entender cómo se realiza este proceso es el \textbf{authorization flow}, que define las interacciones entre la aplicación, el usuario y Spotify.
+Una vez que la aplicación obtiene la autorización, el siguiente paso es conseguir el \texttt{access\_token}, necesario para acceder a los recursos autorizados. Un concepto clave para entender cómo se realiza este proceso es el \textbf{authorization flow}, que define las interacciones entre la aplicación, el usuario y \textit{Spotify}.
 
 \subsection*{OAuth Flows: Elegir el Camino Adecuado}
 
-En el marco de OAuth 2.0, el término \textbf{flow} (flujo) se refiere a los diferentes procesos diseñados para obtener un \texttt{access\_token}, dependiendo de las necesidades y características de la aplicación. Estos flujos existen para cubrir una variedad de escenarios, desde aplicaciones web con servidores backend hasta aplicaciones móviles o servicios que no requieren acceso a datos del usuario.
+En el marco de \textit{OAuth 2.0}, el término \textbf{flow} (flujo) se refiere a los diferentes procesos diseñados para obtener un \texttt{access\_token}, dependiendo de las necesidades y características de la aplicación. Estos flujos existen para cubrir una variedad de escenarios, desde aplicaciones web con servidores backend hasta aplicaciones móviles o servicios que no requieren acceso a datos del usuario.
 
-OAuth 2.0 define seis tipos principales de flows, sin embargo, Spotify implementa solo cuatro de ellos (tabla \ref{tab:oauth_spotify_flows}):
+\textit{OAuth 2.0} define seis tipos principales de flows, sin embargo, \textit{Spotify} implementa solo cuatro de ellos (tabla \ref{tab:oauth_spotify_flows}):
 
 \begin{table}[H]
     \centering
     \includegraphics[width=0.5\textwidth]{figures/oauth_vs_spotify_flows.png}
-    \caption{Authorization flows definidos por OAuth 2.0 y cuáles implementa Spotify.}
+    \caption{Authorization flows definidos por \textit{OAuth 2.0} y cuáles implementa \textit{Spotify}.}
     \label{tab:oauth_spotify_flows}
 \end{table}
 
@@ -60,18 +60,18 @@ Cada uno de estos flujos está diseñado para un escenario específico de uso, p
 
     \item \textbf{Authorization Code Flow con PKCE}: Es una extensión del anterior, diseñado para \underline{escenarios donde no es seguro almacenar el \texttt{client\_secret}}, como en aplicaciones móviles o \textit{Single Page Applications} (SPA). Añade una capa de seguridad utilizando un \texttt{code\_verifier} y un \texttt{code\_challenge} para evitar que el código de autorización sea interceptado y utilizado de manera malintencionada.
 
-    \item \textbf{Client Credentials Flow}: Adecuado para aplicaciones backend o \underline{servicios que no} \underline{requieren acceso a datos específicos del usuario}, sino que interactúan con recursos de Spotify de manera general. No incluye un proceso de autorización por parte del usuario y no proporciona datos personales.
+    \item \textbf{Client Credentials Flow}: Adecuado para aplicaciones backend o \underline{servicios que no} \underline{requieren acceso a datos específicos del usuario}, sino que interactúan con recursos de \textit{Spotify} de manera general. No incluye un proceso de autorización por parte del usuario y no proporciona datos personales.
 
     \item \textbf{Implicit Grant Flow}: \underline{En desuso debido a limitaciones de seguridad}. Fue diseñado para aplicaciones cliente que no tienen un backend, pero carece de soporte para \texttt{refresh\_tokens} y expone el \texttt{access\_token} en la URL, lo que lo hace menos seguro.
 \end{itemize}
 
-De los cuatro flujos de autorización implementados por Spotify, este proyecto utilizará el \textbf{Authorization Code Flow} (sin PKCE). Esta elección se debe a que la aplicación cuenta con un backend seguro implementado con \textit{Route Handlers} de Next.js, lo que permite almacenar de forma segura el \texttt{client\_secret}. Además, este flujo proporciona tanto un \texttt{access\_token} como un \texttt{refresh\_token}, lo que asegura un acceso continuo a los datos del usuario sin necesidad de repetir el proceso de autenticación. Dado que es el flujo recomendado por Spotify para aplicaciones web que necesitan acceder a datos específicos del usuario, garantiza un balance óptimo entre seguridad, funcionalidad y cumplimiento de estándares.
+De los cuatro flujos de autorización implementados por \textit{Spotify}, este proyecto utilizará el \textbf{Authorization Code Flow} (sin PKCE). Esta elección se debe a que la aplicación cuenta con un backend seguro implementado con \textit{Route Handlers} de Next.js, lo que permite almacenar de forma segura el \texttt{client\_secret}. Además, este flujo proporciona tanto un \texttt{access\_token} como un \texttt{refresh\_token}, lo que asegura un acceso continuo a los datos del usuario sin necesidad de repetir el proceso de autenticación. Dado que es el flujo recomendado por \textit{Spotify} para aplicaciones web que necesitan acceder a datos específicos del usuario, garantiza un balance óptimo entre seguridad, funcionalidad y cumplimiento de estándares.
 
 \section{Principales Endpoints Relevantes para el Proyecto}
 
 Para facilitar la comprensión de los endpoints utilizados en este proyecto, se ha diseñado un sistema visual que resume la información clave de cada uno, evitando la sobrecarga de texto y permitiendo al lector identificar rápidamente los elementos esenciales.
 
-Cada endpoint se presenta como una interacción entre la solicitud (\textit{request}) y la respuesta (\textit{response}). A la izquierda, la \textit{request} incluye el método HTTP (\texttt{GET}, \texttt{POST}, \texttt{PUT}, \texttt{DELETE}), la URL de la petición y los parámetros requeridos, que pueden estar en la URL (para métodos \texttt{GET}) o en el cuerpo de la solicitud (\textit{body}, para métodos como \texttt{POST} o \texttt{PUT}). Si existen parámetros en los \textit{headers}, se mostrarán sobre los parámetros del \textit{body}/URL. A la derecha se encuentra la \textit{response}, con los campos principales que estarán presentes en el JSON devuelto por la API de Spotify, si la solicitud se procesa correctamente.
+Cada endpoint se presenta como una interacción entre la solicitud (\textit{request}) y la respuesta (\textit{response}). A la izquierda, la \textit{request} incluye el método HTTP (\texttt{GET}, \texttt{POST}, \texttt{PUT}, \texttt{DELETE}), la URL de la petición y los parámetros requeridos, que pueden estar en la URL (para métodos \texttt{GET}) o en el cuerpo de la solicitud (\textit{body}, para métodos como \texttt{POST} o \texttt{PUT}). Si existen parámetros en los \textit{headers}, se mostrarán sobre los parámetros del \textit{body}/URL. A la derecha se encuentra la \textit{response}, con los campos principales que estarán presentes en el JSON devuelto por la API de \textit{Spotify}, si la solicitud se procesa correctamente.
 
 En la figura \ref{fig:plantilla_endpoints} se muestra una plantilla genérica que sirve como referencia para entender este sistema visual, que se rellenará con la información específica de cada endpoint en las siguientes secciones.
 
@@ -84,7 +84,7 @@ En la figura \ref{fig:plantilla_endpoints} se muestra una plantilla genérica qu
 
 \subsection{Endpoints de Autenticación}
 
-La interacción con Spotify comienza con un endpoint dedicado al proceso de autorización: \textbf{Request User Authorization} (figura \ref{fig:req_usr_auth}). Este endpoint genera la pantalla de autorización que se le muestra al usuario y, en el caso de que acepte, se le redirige a la \texttt{redirect\_uri} indicada en la \textit{request}. En esta URI siempre se suele implementar la llamada al segundo endpoint llamado \textbf{Request Access Token} (figura \ref{fig:req_access_token}), necesario para finalizar el proceso de autorización. Este permite intercambiar el \texttt{code} obtenido en el paso anterior por un \texttt{access\_token}, el cual es requerido para realizar cualquier otra solicitud posterior a la API.
+La interacción con \textit{Spotify} comienza con un endpoint dedicado al proceso de autorización: \textbf{Request User Authorization} (figura \ref{fig:req_usr_auth}). Este endpoint genera la pantalla de autorización que se le muestra al usuario y, en el caso de que acepte, se le redirige a la \texttt{redirect\_uri} indicada en la \textit{request}. En esta URI siempre se suele implementar la llamada al segundo endpoint llamado \textbf{Request Access Token} (figura \ref{fig:req_access_token}), necesario para finalizar el proceso de autorización. Este permite intercambiar el \texttt{code} obtenido en el paso anterior por un \texttt{access\_token}, el cual es requerido para realizar cualquier otra solicitud posterior a la API.
 
 \begin{figure}[H]
     \centering
@@ -144,7 +144,7 @@ La interacción con Spotify comienza con un endpoint dedicado al proceso de auto
 
 \subsection{Endpoints de Datos}
 
-Una vez completado el proceso de autorización y obtenido el \texttt{access\_token}, la aplicación puede interactuar con los endpoints de datos proporcionados por Spotify. Hay un total de 88 endpoints agrupados en 14 grupos. En la figura \ref{fig:selected_groups} se indican los grupos cuyos endpoints se van a utilizar en este proyecto.
+Una vez completado el proceso de autorización y obtenido el \texttt{access\_token}, la aplicación puede interactuar con los endpoints de datos proporcionados por \textit{Spotify}. Hay un total de 88 endpoints agrupados en 14 grupos. En la figura \ref{fig:selected_groups} se indican los grupos cuyos endpoints se van a utilizar en este proyecto.
 
 \begin{figure}[H]
     \centering
@@ -177,7 +177,7 @@ En el grupo \textbf{Users} se encuentran los endpoints relacionados con la infor
               \item \texttt{country}: El país del usuario, en formato ISO.
               \item \texttt{display\_name}: Nombre mostrado en el perfil del usuario.
               \item \texttt{email}: Dirección de correo del usuario, ingresada al crear la cuenta.
-              \item \texttt{id}: ID del usuario en Spotify.
+              \item \texttt{id}: ID del usuario en \textit{Spotify}.
               \item \texttt{images}: Array conteniendo las URLs de la imagen del perfil del usuario en distintos tamaños.
               \item \texttt{followers}: Objeto con la información sobre los seguidores del usuario.
           \end{itemize}
@@ -213,7 +213,7 @@ En el grupo \textbf{Users} se encuentran los endpoints relacionados con la infor
                         \item \texttt{explicit}: Valor booleano indicando si el track contiene letras explícitas.
                         \item \texttt{album}: Información sobre el álbum donde aparece.
                               \begin{itemize}
-                                  \item \texttt{id}: ID del álbum en Spotify.
+                                  \item \texttt{id}: ID del álbum en \textit{Spotify}.
                                   \item \texttt{images}: Array conteniendo las URLs de la imagen de la portada del álbum en distintos tamaños.
                                   \item \texttt{name}: Nombre del álbum.
                                   \item \texttt{release\_date}: Fecha de lanzamiento del álbum.
@@ -221,7 +221,7 @@ En el grupo \textbf{Users} se encuentran los endpoints relacionados con la infor
                         \item \texttt{artists}: Array con los objetos relacionados con los artistas que participaron en el track.
                               \begin{itemize}
                                   \item \texttt{name}: Nombre del artista.
-                                  \item \texttt{id}: ID del artista en Spotify.
+                                  \item \texttt{id}: ID del artista en \textit{Spotify}.
                               \end{itemize}
                     \end{itemize}
           \end{itemize}
@@ -242,7 +242,7 @@ En el grupo \textbf{Users} se encuentran los endpoints relacionados con la infor
 
     \item \textbf{Campos del Response}
           \begin{itemize}
-              \item \texttt{id}: ID del artista en Spotify.
+              \item \texttt{id}: ID del artista en \textit{Spotify}.
               \item \texttt{name}: Nombre del artista.
               \item \texttt{popularity}: Su popularidad (0-100).
               \item \texttt{followers}: Objeto con la información sobre los seguidores del artista.
@@ -295,7 +295,7 @@ Cabe destacar que este endpoint tiene una limitación muy considerable: \textbf{
                         \item \texttt{artists}: Información sobre los artistas que participaron.
                               \begin{itemize}
                                   \item \texttt{name}: Nombre del artista.
-                                  \item \texttt{id}: ID del artista en Spotify.
+                                  \item \texttt{id}: ID del artista en \textit{Spotify}.
                               \end{itemize}
                     \end{itemize}
           \end{itemize}
@@ -357,7 +357,7 @@ Al igual que el grupo anterior, en \textbf{Artists} se pueden consultar datos so
           \begin{itemize}
               \item \textbf{URL params}
                     \begin{itemize}
-                        \item \texttt{ids}: Lista separada por comas de los IDs de Spotify de los artistas.
+                        \item \texttt{ids}: Lista separada por comas de los IDs de \textit{Spotify} de los artistas.
                     \end{itemize}
           \end{itemize}
     \item \textbf{Campos del Response}
@@ -365,7 +365,7 @@ Al igual que el grupo anterior, en \textbf{Artists} se pueden consultar datos so
               \item \texttt{artists}: Lista de objetos con la información de los artistas.
                     \begin{itemize}
                         \item \texttt{name}: Nombre del artista.
-                        \item \texttt{id}: Su ID en Spotify.
+                        \item \texttt{id}: Su ID en \textit{Spotify}.
                         \item \texttt{popularity}: Su popularidad (0-100).
                         \item \texttt{followers}: Información sobre sus seguidores.
                         \item \texttt{genres}: Lista de géneros asociados al artista.
@@ -390,7 +390,7 @@ En \textbf{Playlists} se encuentran los endpoints que permiten trabajar con las 
           \begin{itemize}
               \item \textbf{URL params}
                     \begin{itemize}
-                        \item \texttt{user\_id}: ID del usuario de Spotify que creará la playlist.
+                        \item \texttt{user\_id}: ID del usuario de \textit{Spotify} que creará la playlist.
                     \end{itemize}
               \item \textbf{Body}
                     \begin{itemize}
@@ -404,7 +404,7 @@ En \textbf{Playlists} se encuentran los endpoints que permiten trabajar con las 
           \begin{itemize}
               \item \texttt{id}: ID de la playlist.
               \item \texttt{name}: Nombre de la playlist.
-              \item \texttt{href}: Enlace al endpoint de la playlist en la API de Spotify.
+              \item \texttt{href}: Enlace al endpoint de la playlist en la API de \textit{Spotify}.
               \item \texttt{owner}: Objeto con información del usuario propietario de la playlist.
                     \begin{itemize}
                         \item \texttt{id}: ID del usuario.
@@ -433,7 +433,7 @@ En \textbf{Playlists} se encuentran los endpoints que permiten trabajar con las 
                     \end{itemize}
               \item \textbf{Body}
                     \begin{itemize}
-                        \item \texttt{uris}: Array de URIs de Spotify de tracks o episodios a añadir.
+                        \item \texttt{uris}: Array de URIs de \textit{Spotify} de tracks o episodios a añadir.
                         \item \texttt{position}: Índice donde se insertarán los elementos.
                     \end{itemize}
           \end{itemize}
@@ -495,12 +495,12 @@ Cada uno de ellos añadirá una descripción asociada en la pantalla de autoriza
 
 \section{Limitaciones y Consideraciones}
 
-Además del límite de 50 canciones en el endpoint de \textbf{Get Recently Played Tracks} y otras limitaciones relacionadas con el acceso a datos concretos, la principal limitación impuesta por la API de \textit{Spotify} es la \textbf{tasa de peticiones} o \textit{\textbf{rate limit}}. Esta limitación se establece para evitar la sobrecarga de los servidores y garantizar un funcionamiento estable del servicio. La tasa de peticiones de Spotify se calcula en una ventana de 30 segundos (figura \ref{fig:rate_limit}). Si la aplicación supera este límite en dicho periodo, recibirá una respuesta de error \texttt{429 Too Many Requests} y los recursos solicitados quedarán temporalmente inaccesibles.
+Además del límite de 50 canciones en el endpoint de \textbf{Get Recently Played Tracks} y otras limitaciones relacionadas con el acceso a datos concretos, la principal limitación impuesta por la API de \textit{Spotify} es la \textbf{tasa de peticiones} o \textit{\textbf{rate limit}}. Esta limitación se establece para evitar la sobrecarga de los servidores y garantizar un funcionamiento estable del servicio. La tasa de peticiones de \textit{Spotify} se calcula en una ventana de 30 segundos (figura \ref{fig:rate_limit}). Si la aplicación supera este límite en dicho periodo, recibirá una respuesta de error \texttt{429 Too Many Requests} y los recursos solicitados quedarán temporalmente inaccesibles.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{figures/rate_limit.png}
-    \caption{Gráfica del funcionamiento de la tasa de peticiones, obtenida de la documentación oficial de Spotify.}
+    \caption{Gráfica del funcionamiento de la tasa de peticiones, obtenida de la documentación oficial de \textit{Spotify}.}
     \label{fig:rate_limit}
 \end{figure}
 

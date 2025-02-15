@@ -6,14 +6,14 @@ Para garantizar el correcto funcionamiento de la aplicación, durante el desarro
 
 Para la ejecución de los tests se ha utilizado \textbf{Jest} como framework principal, junto con \textbf{React Testing Library} para la prueba de componentes de \textit{React}. Jest permite ejecutar tests de forma rápida y aislar cada prueba en un entorno controlado, mientras que \textit{React Testing Library} facilita la interacción y consulta de elementos en el DOM, asegurando que los tests reflejen mejor el comportamiento real de los usuarios.
 
-En el caso de los endpoints del backend, \textit{Next.js} no proporciona un mecanismo directo para testear las API definidas con \textit{Route Handlers}, por lo que ha sido necesario el uso de la librería \textbf{\texttt{next-test-api-route-handler}}. Esta herramienta permite simular peticiones HTTP a los endpoints del backend y verificar las respuestas esperadas, facilitando la validación del comportamiento de la lógica del servidor.
+En el caso de los endpoints del backend, \textit{Next.js} no proporciona un mecanismo directo para testear las API definidas con \textit{Route Handlers}, por lo que ha sido necesario el uso de la librería \textbf{\texttt{next-test-api-route-handler}}. Esta herramienta permite simular peticiones HTTP a los endpoints del backend y verificar las respuestas esperadas, permitiendo la validación del comportamiento de la lógica del servidor.
 
 \subsection{Consideraciones a Tener en Cuenta}
 
 A la hora de escribir los tests, se han tenido en cuenta diferentes aspectos para asegurar su correcta ejecución:
 
 \begin{itemize}
-    \item \textbf{Entorno de ejecución}: Jest permite definir diferentes entornos de ejecución, siendo los más relevantes \textit{jsdom}, que simula un entorno de navegador, y \textit{node}, que representa el entorno de servidor. En este proyecto, \textbf{se han utilizado ambos entornos} según corresponda, ya que existen tanto componentes de cliente como de servidor. Es importante indicar explícitamente el entorno en la configuración de Jest para evitar errores en la ejecución de los tests.
+    \item \textbf{Entorno de ejecución}: Jest permite definir diferentes entornos de ejecución, siendo los más relevantes \textit{jsdom}, que simula un entorno de navegador, y \textit{node}, que representa el entorno de servidor. En este proyecto, \textbf{se han utilizado ambos entornos} según corresponda, ya que existen tanto componentes de cliente como de servidor. Es importante indicar explícitamente el entorno en cada fichero de pruebas para evitar errores en la ejecución de los tests.
 
     \item \textbf{Configuración de variables de entorno}: Algunas pruebas requieren acceso a variables. Para ello, se ha utilizado el archivo \textbf{\texttt{.env.test}}, donde se definen las variables necesarias en el contexto de pruebas.
 
@@ -24,7 +24,7 @@ Además de la ejecución local de las pruebas, se ha configurado un flujo de int
 
 \subsection{Lista de Pruebas}
 
-En esta sección se presenta un resumen de las pruebas realizadas para los componentes, utilidades y endpoints del backend de la aplicación. A continuación, se muestran los elementos evaluados junto con la cantidad de tests ejecutados sobre cada uno. Para una descripción detallada de cada prueba, se remitir al \hyperref[ch:anexoE]{Anexo E}, donde se incluye la lista completa con los tests específicos realizados para cada caso.
+En esta sección se presenta un resumen de las pruebas realizadas para los componentes, utilidades y endpoints del backend de la aplicación. Se muestran los elementos evaluados junto con la cantidad de tests ejecutados sobre cada uno. Para una descripción detallada de cada prueba, consúltese el \hyperref[ch:anexoE]{Anexo E}, donde se incluye la lista completa con los tests específicos realizados para cada caso.
 
 \begin{table}[H]
     \centering
@@ -74,7 +74,7 @@ La tasa de éxito del 100\% en las pruebas refleja que todas las verificaciones 
 
 Uno de los principales obstáculos ha sido la incompatibilidad de ciertas librerías con Jest. Por ejemplo, los módulos basados en \textit{CommonJS}, como \texttt{D3.js}, han presentado dificultades en su integración con el entorno de pruebas. Además, los componentes que dependen de \texttt{canvas} no cuentan con soporte nativo en Jest, lo que impidió la ejecución de tests sobre algunos gráficos. Se intentó mitigar estos problemas mediante \textit{mocking} de dependencias, pero sin obtener resultados satisfactorios para todos los casos.
 
-Aun así, la principal razón por la que se ha decidido suprimir los tests problemáticos ha sido por el flujo CI: Dado que está configurado en \textit{GitHub Actions} para ejecutar la suite de pruebas antes de cada despliegue en \textit{Vercel}, cualquier fallo en los tests bloquearía la actualización del código en producción. Para evitar interrupciones innecesarias en el despliegue debido a errores ajenos a la aplicación, se optó por retirar aquellas pruebas que no podían ofrecer resultados fiables sin comprometer la estabilidad del CI. A pesar de esta decisión, se ha garantizado que los tests implementados cubren los aspectos esenciales del sistema. Se han validado correctamente los endpoints del backend, la lógica de negocio y los principales componentes del frontend, asegurando que las funcionalidades críticas de la aplicación están correctamente verificadas. Para aquellos aspectos que no podían ser testeados automáticamente con Jest, como ciertos elementos gráficos o validaciones de autenticación, se han realizado pruebas manuales.
+Aun así, la principal razón por la que se ha decidido suprimir los tests problemáticos ha sido por el flujo CI. Dado que está configurado en \textit{GitHub Actions} para ejecutar la suite de pruebas antes de cada despliegue en \textit{Vercel}, cualquier fallo en los tests bloquearía la actualización del código en producción. Para evitar interrupciones innecesarias en el despliegue debido a errores ajenos a la aplicación, se optó por retirar aquellas pruebas que no podían ofrecer resultados fiables sin comprometer la estabilidad del CI. A pesar de esta decisión, se ha garantizado que los tests implementados cubren los aspectos esenciales del sistema. Se han validado correctamente los endpoints del backend, la lógica de negocio y los principales componentes del frontend, asegurando que las funcionalidades críticas de la aplicación están correctamente verificadas. Para aquellos aspectos que no podían ser testeados automáticamente con Jest, como ciertos elementos gráficos o validaciones de autenticación, se han realizado pruebas manuales.
 
 Finalmente, se ha trabajado en el tiempo de ejecución de las pruebas, logrando que la batería completa de 122 tests se ejecute en un promedio de 17.15 segundos. Este tiempo es aceptable, donde cada ejecución acumula tiempos entre la creación y configuración del entorno y la ejecución de los tests. Mantener este tiempo bajo control es un aspecto importarte en un flujo CI/CD.
 
@@ -93,7 +93,7 @@ Los resultados en la tabla \ref{tab:coverage_tests} muestran que la mayoría de 
 
 \begin{itemize}
     \item \textbf{\texttt{app/api/auth/callback.ts}}: El archivo tiene una cobertura del 35.06\%. Esto se debe por el valor \texttt{state} que se utiliza para la protección ante ataques CSRF (\textit{Cross-Site Request Forgery}). Como no es el flujo de autenticación estándar, se genera un error \texttt{state\_mismatch} en todos los casos.
-    \item \textbf{\texttt{components/stats/IndiceDeInterferencia.tsx}}:  Tiene una cobertura del 44.27\%, lo que indica que ciertas partes de la lógica de este componente aún no han sido probadas. En esta estadística es donde se hace uso de la librería D3.js, que genera problemas al no manejar módulos ESModules.
+    \item \textbf{\texttt{components/stats/IndiceDeInterferencia.tsx}}:  Tiene una cobertura del 44.27\%, lo que indica que ciertas partes de la lógica de este componente aún no han sido probadas. En esta estadística es donde se hace uso de la librería D3.js, que genera problemas al no manejar módulos \textit{ESModules}.
 \end{itemize}
 
 A pesar de estas limitaciones, la cobertura global es elevada y ha permitido validar el correcto funcionamiento de los principales módulos de la aplicación.

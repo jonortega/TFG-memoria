@@ -65,18 +65,18 @@ La estructura de carpetas para los endpoints de este proyecto es la siguiente:
             └── tus-decadas/route.ts
 \end{verbatim}
 
-Los endpoints en \texttt{/api/auth/} gestionan el inicio de sesión del usuario, mientras que los de \texttt{/api/home/} y \texttt{/api/stats/} se encargan de obtener y procesar los datos necesarios para las estadísticas. El contenido del fichero \texttt{route.ts} sigue una convención concreta que \textit{Next.js} reconoce y utiliza para gestionar las peticiones, la cual se explicará con más detalle en el capítulo de \nameref{ch:implementacion}.
+Los endpoints en \texttt{/api/auth/} gestionan el inicio de sesión del usuario, mientras que los de \texttt{/api/home/} y \texttt{/api/stats/} se encargan de obtener y procesar los datos necesarios para las estadísticas. El contenido del fichero \texttt{route.ts} sigue una convención concreta que \textit{Next.js} reconoce y utiliza para gestionar las peticiones.
 
 \section{Diagrama de Componentes de React} \label{sec:diagrama_componentes_react}
 
-Los componentes en \textit{React} son las piezas fundamentales para construir interfaces de usuario. Cada componente puede ser reutilizable, contener su propio estado y lógica, y ser combinado con otros para formar estructuras más complejas. Para describir estas interfaces de manera declarativa, \textit{React} utiliza \textbf{JSX} (JavaScript XML), una extensión de sintaxis de JavaScript, que permite escribir el código de los componentes con una sintaxis similar a \textit{HTML}. Aunque no sea obligatorio, su uso es ampliamente adoptado en proyectos \textit{React}.
+Los componentes en \textit{React} son las piezas fundamentales para construir interfaces de usuario. Cada componente puede ser reutilizable, contener su propio estado y lógica, y ser combinado con otros para formar estructuras más complejas. Para describir estas interfaces de manera declarativa, \textit{React} utiliza \textbf{JSX} (JavaScript XML), una extensión de sintaxis de JavaScript, que permite escribir el código de los componentes con una sintaxis similar a HTML. Aunque no sea obligatorio, su uso es ampliamente adoptado en proyectos \textit{React}.
 
 Las interfaces se suelen diseñar en forma de jerarquías de componentes, en las que los componentes ``padre'' organizan y controlan el comportamiento y la presentación de los componentes ``hijo''. Esta organización jerárquica facilita el mantenimiento y la escalabilidad del código, ya que cada componente tiene una responsabilidad definida. En este proyecto, se ha creado una jerarquía de componentes (diagrama \ref{fig:componentes_react}) que refleja las diferentes funcionalidades de la aplicación. A la hora de construir la web, \textit{Next.js} y \textit{React} se encargan de anidar los componentes necesarios y renderizarlos, o enviarlos al cliente, según sea necesario.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{figures/componentes_react.png}
-    \caption{Diagrama de la jerarquía de componentes de React creados en el proyecto.}
+    \caption{Diagrama de la jerarquía de componentes de \textit{React} creados en el proyecto.}
     \label{fig:componentes_react}
 \end{figure}
 
@@ -324,7 +324,7 @@ Para la comunicación entre el cliente y la aplicación, al desplegarse en \text
 Del mismo modo que se han implementado mecanismos explícitos para prevenir ataques comunes, la seguridad de una aplicación no solo depende de configuraciones específicas, sino también del entorno de desarrollo y de las prácticas adoptadas a lo largo del ciclo de vida del software. La seguridad implícita, aquella que surge como resultado de buenas prácticas y herramientas adecuadas, desempeña un gran papel.
 
 \begin{itemize}
-    \item \textbf{Análisis estático del código con ESLint:} Un linter como \textit{ESLint} permite detectar errores, malas prácticas y patrones potencialmente inseguros en el código TypeScript antes de que lleguen a producción. Integrarlo en el flujo de desarrollo facilita la identificación temprana de vulnerabilidades y la posibilidad de corregirlos antes de que se conviertan en problemas de seguridad.
+    \item \textbf{Análisis estático del código con ESLint:} Un linter como \textit{ESLint} permite detectar errores, malas prácticas y patrones potencialmente inseguros en el código \textit{TypeScript} antes de que lleguen a producción. Integrarlo en el flujo de desarrollo facilita la identificación temprana de vulnerabilidades y la posibilidad de corregirlos antes de que se conviertan en problemas de seguridad.
 
     \item \textbf{Dependencias actualizadas:} La aplicación se construye sobre versiones recientes y estables de \textit{Next.js}, \textit{React} y \textit{Node.js LTS}, lo que permite beneficiarse de mejoras en seguridad y reducir la exposición a vulnerabilidades conocidas; un riesgo muy común derivado del uso de software obsoleto.
 
