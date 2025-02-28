@@ -223,7 +223,7 @@ Las estadísticas avanzadas se encuentran en la página \texttt{/stats}, la cual
 
 \subsection*{Paso de Información entre Componentes del Cliente}
 
-El componente \textbf{Stats} contiene la estructura principal de la página, incluyendo el \textbf{StatsGrid} (que muestra las tarjetas de estadísticas) y el \textbf{StatWrapper} (que gestiona la visualización de la estadística seleccionada). La gestión de los estados se centraliza en el componente padre \textbf{Stats}, mientras que, a través de \textit{props}, se pasa a los componentes hijos las funciones definidas que habilitan la actualización de esos estados (ver código en el anexo, algoritmo \ref{alg:stats_component}).
+El componente \textbf{Stats} contiene la estructura principal de la página, incluyendo el \textbf{StatsGrid} (que muestra las tarjetas de estadísticas) y el \textbf{StatWrapper} (que gestiona la visualización de la estadística seleccionada). La gestión de los estados se centraliza en el componente padre \textbf{Stats}, mientras que, a través de \textit{props}, se pasa a los componentes hijos las funciones definidas que habilitan la actualización de esos estados (ver código en el anexo, algoritmo \ref{alg:stats_component_1}).
 
 Cuando un \textbf{StatCard} es clicado, ejecuta dicha función y actualiza el estado \texttt{activeStat} con el valor del \texttt{statId} que contiene cada tarjeta y el estado \texttt{isModalOpen}, indicando que se abra la ventana modal. Al detectar un cambio en su estado, \textbf{Stats} se vuelve a renderizar, provocando, a su vez, el renderizado de sus componentes hijos. Ahora, \textbf{StatWrapper} obtiene el valor \texttt{activeStat} como un \textit{prop} y puede cargar la estadística apropiada.
 
@@ -243,7 +243,7 @@ Además del \texttt{statId}, \textbf{StatWrapper} recibe, mediante \textbf{props
 
 Dentro del componente \textbf{StatWrapper} existe un objeto que asocia cada \texttt{statId} con su respectivo componente (algoritmo \ref{alg:stat_components}). Mediante la función \textbf{dynamic()} de \textit{Next.js}, se realiza una carga dinámica en el momento en el que sea necesario renderizar el componente indicado. Cada vez que se selecciona una nueva estadística, se desmonta el componente anterior y se renderiza el nuevo en su lugar. También se elimina el componente cuando ya no sea necesario renderizarlo (al cerrar la ventana modal), por lo que el código relacionado con las estadísticas solo existe en el navegador el tiempo necesario, liberándolo de todo procesamiento innecesario.
 
-Para más detalle del proceso de carga dinámico, se puede encontrar el código completo del componente \textbf{StatWrapper} en el anexo, algoritmo \ref{alg:stat_wrapper}.
+Para más detalle del proceso de carga dinámico, se puede encontrar el código completo del componente \textbf{StatWrapper} en el anexo, algoritmo \ref{alg:stat_wrapper_1}.
 
 \begin{ifalgorithm}[H]
     \begin{lstlisting}

@@ -410,7 +410,13 @@ Además de los elementos presentados, también se han implementado algunos compo
         setActiveStat(null);
         setIsModalOpen(false);
       };
+    \end{lstlisting}
+  \caption{Definición del componente \texttt{Stats}, encargado de gestionar y renderizar la interfaz de las estadísticas avanzadas (Parte 1/2).}
+  \label{alg:stats_component_1}
+\end{ifalgorithm}
 
+\begin{ifalgorithm}[H]
+  \begin{lstlisting}
       return (
         <main className='bg-spotify-black min-h-screen'>
           <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12'>
@@ -424,8 +430,8 @@ Además de los elementos presentados, también se han implementado algunos compo
       );
     }
     \end{lstlisting}
-  \caption{Definición del componente \texttt{Stats}, encargado de gestionar y renderizar la interfaz de las estadísticas avanzadas.}
-  \label{alg:stats_component}
+  \caption{Definición del componente \texttt{Stats}, encargado de gestionar y renderizar la interfaz de las estadísticas avanzadas (Parte 2/2).}
+  \label{alg:stats_component_2}
 \end{ifalgorithm}
 
 \section*{Código del Componente StatWrapper}
@@ -465,6 +471,13 @@ Además de los elementos presentados, también se han implementado algunos compo
         return <DynamicComponent />;
       };
 
+    \end{lstlisting}
+  \caption{Definición del componente \texttt{StatWrapper}, encargado de gestionar la visualización dinámica de estadísticas en un modal (Parte 1/2).}
+  \label{alg:stat_wrapper_1}
+\end{ifalgorithm}
+
+\begin{ifalgorithm}[H]
+  \begin{lstlisting}
       return (
         <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
           <DialogContent
@@ -500,8 +513,8 @@ Además de los elementos presentados, también se han implementado algunos compo
       );
     }
     \end{lstlisting}
-  \caption{Definición del componente \texttt{StatWrapper}, encargado de gestionar la visualización dinámica de estadísticas en un modal.}
-  \label{alg:stat_wrapper}
+  \caption{Definición del componente \texttt{StatWrapper}, encargado de gestionar la visualización dinámica de estadísticas en un modal (Parte 2/2).}
+  \label{alg:stat_wrapper_2}
 \end{ifalgorithm}
 
 \section*{Código Completo del Middleware}
@@ -1377,6 +1390,13 @@ jobs:
       - name: Run tests
         run: npm test
 
+      \end{lstlisting}
+  \caption{Workflow de GitHub Actions para testing y despliegue en Vercel (Parte 1/2).}
+  \label{alg:github_actions_1}
+\end{ifalgorithm}
+
+\begin{ifalgorithm}[H]
+  \begin{lstlisting}
   deploy:
     name: Deploy to Vercel
     needs: test
@@ -1408,6 +1428,6 @@ jobs:
       - name: Deploy to Vercel (Production)
         run: pnpm dlx vercel --prod --token=${{ secrets.VERCEL_TOKEN }}
   \end{lstlisting}
-  \caption{Workflow de GitHub Actions para testing y despliegue en Vercel.}
-  \label{alg:github_actions}
+  \caption{Workflow de GitHub Actions para testing y despliegue en Vercel (Parte 2/2).}
+  \label{alg:github_actions_2}
 \end{ifalgorithm}
